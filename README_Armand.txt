@@ -22,4 +22,5 @@ après si tu as fait une suppression sans faire exprès:
 va sur github recup les 4 premiers caractères du code du commit et fait
 git revert 4premierscaractères
 
-si t'as un pb dis le moi.
+si t'as un pb dis le moi. 
+.
