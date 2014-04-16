@@ -1,4 +1,4 @@
-readme armand:
+readme armand git:
 supprime ton dossier agence immo de ton pc et de github
 
 va faire un tour sur trygit depuis google : cest vachement cool!
