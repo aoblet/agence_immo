@@ -17,9 +17,11 @@ git pull origin master: recup le projet (mes modifs et tout)
 
 en fait le processus est le suivant : 
 - tu fais tes modifs en local
-- quand t'es satisfait: git add fichiers ou rep
+- quand t'es satisfait: git add fichiers ou rep que tu shouaitent envoyer sur le serveur
 - git commit -m "message"
 - git push origin master  (premiere fois git push -u origin master)
+
+Dis toi qu'apres chaque push
 
 après si tu as fait une suppression sans faire exprès:
 va sur github recup les 4 premiers caractères du code du commit et fait
