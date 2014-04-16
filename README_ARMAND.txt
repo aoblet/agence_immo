@@ -19,7 +19,7 @@ en fait le processus est le suivant :
 - tu fais tes modifs en local
 - quand t'es satisfait: git add fichiers ou rep
 - git commit -m "message"
-- git push origin master (premiere fois git push -u origin master)
+- git push origin master  (premiere fois git push -u origin master)
 
 après si tu as fait une suppression sans faire exprès:
 va sur github recup les 4 premiers caractères du code du commit et fait
