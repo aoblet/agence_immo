@@ -5,12 +5,8 @@ va faire un tour sur trygit depuis google : cest vachement cool!
 
 
 /** INIT AGENCE_IMMO **/
-git clone git://github.com/aoblet/agence_immo.git
+git clone https://github.com/aoblet/agence_immo.git
 -> ton serveur distant est config sous le nom de origin (.git/config)
-il faut que tu changes : git en https:
-cd agence_immo
-nano .git/config -> tu change au remote
-
 
 /** COMMANDES **/
 git status : voir l'état de ton dépot git
