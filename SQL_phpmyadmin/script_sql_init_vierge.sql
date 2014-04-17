@@ -108,7 +108,7 @@ CREATE TABLE Maison(
 
 CREATE TABLE Departement(
         id_departement   int (11) Auto_increment  NOT NULL ,
-        code_departement Int ,
+        code_departement Varchar (255) ,
         nom_departement  Varchar (255) ,
         id_region        Int ,
         PRIMARY KEY (id_departement )
