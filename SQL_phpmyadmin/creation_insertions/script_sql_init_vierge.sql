@@ -8,7 +8,7 @@ CREATE TABLE Personne(
         id_personne     int (11) Auto_increment  NOT NULL ,
         nom_personne    Varchar (255) NOT NULL ,
         prenom_personne Varchar (255) NOT NULL ,
-        login       Varchar (255) ,
+        login           Varchar (255) ,
         password        Varchar (255) ,
         id_photo        Int ,
         PRIMARY KEY (id_personne )
@@ -209,11 +209,10 @@ CREATE TABLE illustrer(
         id_photo           Int NOT NULL ,
         PRIMARY KEY (id_bien_immobilier ,id_photo )
 )ENGINE=InnoDB;
-
 ALTER TABLE Personne ADD CONSTRAINT FK_Personne_id_photo FOREIGN KEY (id_photo) REFERENCES Photo(id_photo);
-ALTER TABLE Proprietaire ADD CONSTRAINT FK_Proprietaire_id_personne FOREIGN KEY (id_personne) REFERENCES Personne(id_personne);
-ALTER TABLE Locataire ADD CONSTRAINT FK_Locataire_id_personne FOREIGN KEY (id_personne) REFERENCES Personne(id_personne);
-ALTER TABLE Employe ADD CONSTRAINT FK_Employe_id_personne FOREIGN KEY (id_personne) REFERENCES Personne(id_personne);
+ALTER TABLE Proprietaire ADD CONSTRAINT FK_Proprietaire_id_personne FOREIGN KEY (id_personne) REFERENCES Personne(id_personne) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE Locataire ADD CONSTRAINT FK_Locataire_id_personne FOREIGN KEY (id_personne) REFERENCES Personne(id_personne) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE Employe ADD CONSTRAINT FK_Employe_id_personne FOREIGN KEY (id_personne) REFERENCES Personne(id_personne) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 ALTER TABLE Bien_immobilier ADD CONSTRAINT FK_Bien_immobilier_id_personne_loueur FOREIGN KEY (id_personne_loueur) REFERENCES Personne(id_personne);
 ALTER TABLE Bien_immobilier ADD CONSTRAINT FK_Bien_immobilier_id_personne_proprio FOREIGN KEY (id_personne_proprio) REFERENCES Personne(id_personne);
