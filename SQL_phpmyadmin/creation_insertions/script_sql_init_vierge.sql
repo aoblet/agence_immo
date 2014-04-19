@@ -8,7 +8,7 @@ CREATE TABLE Personne(
         id_personne     int (11) Auto_increment  NOT NULL ,
         nom_personne    Varchar (255) NOT NULL ,
         prenom_personne Varchar (255) NOT NULL ,
-        user_name       Varchar (255) ,
+        login       Varchar (255) ,
         password        Varchar (255) ,
         id_photo        Int ,
         PRIMARY KEY (id_personne )

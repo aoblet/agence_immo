@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Jeu 17 Avril 2014 à 22:50
+-- Généré le: Sam 19 Avril 2014 à 10:59
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.16
 
@@ -444,7 +444,7 @@ CREATE TABLE IF NOT EXISTS `personne` (
   `id_personne` int(11) NOT NULL AUTO_INCREMENT,
   `nom_personne` varchar(255) NOT NULL,
   `prenom_personne` varchar(255) NOT NULL,
-  `user_name` varchar(255) DEFAULT NULL,
+  `login` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `id_photo` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_personne`),
@@ -541,8 +541,8 @@ ALTER TABLE `adresse`
 -- Contraintes pour la table `agence_immobiliere`
 --
 ALTER TABLE `agence_immobiliere`
-  ADD CONSTRAINT `FK_Agence_immobiliere_id_photo` FOREIGN KEY (`id_photo`) REFERENCES `photo` (`id_photo`),
-  ADD CONSTRAINT `FK_Agence_immobiliere_id_adresse` FOREIGN KEY (`id_adresse`) REFERENCES `adresse` (`id_adresse`);
+  ADD CONSTRAINT `FK_Agence_immobiliere_id_adresse` FOREIGN KEY (`id_adresse`) REFERENCES `adresse` (`id_adresse`),
+  ADD CONSTRAINT `FK_Agence_immobiliere_id_photo` FOREIGN KEY (`id_photo`) REFERENCES `photo` (`id_photo`);
 
 --
 -- Contraintes pour la table `appartement`
@@ -554,9 +554,9 @@ ALTER TABLE `appartement`
 -- Contraintes pour la table `bien_immobilier`
 --
 ALTER TABLE `bien_immobilier`
-  ADD CONSTRAINT `FK_Bien_immobilier_id_consommation_energetique` FOREIGN KEY (`id_consommation_energetique`) REFERENCES `consommation_energetique_classe` (`id_consommation_energetique`),
   ADD CONSTRAINT `FK_Bien_immobilier_id_adresse` FOREIGN KEY (`id_adresse`) REFERENCES `adresse` (`id_adresse`),
   ADD CONSTRAINT `FK_Bien_immobilier_id_agence_vendeur` FOREIGN KEY (`id_agence_vendeur`) REFERENCES `agence_immobiliere` (`id_agence_immobiliere`),
+  ADD CONSTRAINT `FK_Bien_immobilier_id_consommation_energetique` FOREIGN KEY (`id_consommation_energetique`) REFERENCES `consommation_energetique_classe` (`id_consommation_energetique`),
   ADD CONSTRAINT `FK_Bien_immobilier_id_gaz` FOREIGN KEY (`id_gaz`) REFERENCES `gaz_a_effet_de_serre_classe` (`id_gaz`),
   ADD CONSTRAINT `FK_Bien_immobilier_id_personne_gest` FOREIGN KEY (`id_personne_gest`) REFERENCES `personne` (`id_personne`),
   ADD CONSTRAINT `FK_Bien_immobilier_id_personne_loueur` FOREIGN KEY (`id_personne_loueur`) REFERENCES `personne` (`id_personne`),
@@ -598,22 +598,22 @@ ALTER TABLE `historique`
 -- Contraintes pour la table `historique_depense`
 --
 ALTER TABLE `historique_depense`
-  ADD CONSTRAINT `FK_Historique_depense_id_personne` FOREIGN KEY (`id_personne`) REFERENCES `personne` (`id_personne`),
-  ADD CONSTRAINT `FK_Historique_depense_id_historique` FOREIGN KEY (`id_historique`) REFERENCES `historique` (`id_historique`);
+  ADD CONSTRAINT `FK_Historique_depense_id_historique` FOREIGN KEY (`id_historique`) REFERENCES `historique` (`id_historique`),
+  ADD CONSTRAINT `FK_Historique_depense_id_personne` FOREIGN KEY (`id_personne`) REFERENCES `personne` (`id_personne`);
 
 --
 -- Contraintes pour la table `historique_entree`
 --
 ALTER TABLE `historique_entree`
-  ADD CONSTRAINT `FK_Historique_entree_id_paiement` FOREIGN KEY (`id_paiement`) REFERENCES `paiement` (`id_paiement`),
-  ADD CONSTRAINT `FK_Historique_entree_id_historique` FOREIGN KEY (`id_historique`) REFERENCES `historique` (`id_historique`);
+  ADD CONSTRAINT `FK_Historique_entree_id_historique` FOREIGN KEY (`id_historique`) REFERENCES `historique` (`id_historique`),
+  ADD CONSTRAINT `FK_Historique_entree_id_paiement` FOREIGN KEY (`id_paiement`) REFERENCES `paiement` (`id_paiement`);
 
 --
 -- Contraintes pour la table `illustrer`
 --
 ALTER TABLE `illustrer`
-  ADD CONSTRAINT `FK_illustrer_id_photo` FOREIGN KEY (`id_photo`) REFERENCES `photo` (`id_photo`),
-  ADD CONSTRAINT `FK_illustrer_id_bien_immobilier` FOREIGN KEY (`id_bien_immobilier`) REFERENCES `bien_immobilier` (`id_bien_immobilier`);
+  ADD CONSTRAINT `FK_illustrer_id_bien_immobilier` FOREIGN KEY (`id_bien_immobilier`) REFERENCES `bien_immobilier` (`id_bien_immobilier`),
+  ADD CONSTRAINT `FK_illustrer_id_photo` FOREIGN KEY (`id_photo`) REFERENCES `photo` (`id_photo`);
 
 --
 -- Contraintes pour la table `immeuble`
@@ -637,8 +637,8 @@ ALTER TABLE `maison`
 -- Contraintes pour la table `message`
 --
 ALTER TABLE `message`
-  ADD CONSTRAINT `FK_Message_id_destinataire` FOREIGN KEY (`id_destinataire`) REFERENCES `personne` (`id_personne`),
-  ADD CONSTRAINT `FK_Message_id_auteur` FOREIGN KEY (`id_auteur`) REFERENCES `personne` (`id_personne`);
+  ADD CONSTRAINT `FK_Message_id_auteur` FOREIGN KEY (`id_auteur`) REFERENCES `personne` (`id_personne`),
+  ADD CONSTRAINT `FK_Message_id_destinataire` FOREIGN KEY (`id_destinataire`) REFERENCES `personne` (`id_personne`);
 
 --
 -- Contraintes pour la table `paiement`

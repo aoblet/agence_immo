@@ -5,11 +5,19 @@
 		try{
 			$stmt = $bdd->prepare("SELECT * FROM {$type}");
 			$stm->excute();
+			$res = array();
+
+			while($ligne = $stmt->fetch()){
+				$res[]=$ligne;
+			}
+			
 			$stmt->closeCursor();
-			return $stmt;
+			return $res;
 		}
 		catch(Exception $e){
 			return false;
 		}	
 	}
+
+
 

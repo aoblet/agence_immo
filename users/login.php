@@ -1,9 +1,9 @@
 <?php
 	session_start();
-	require_once('../../functions_php/settings/connexion.php');
+	require_once('../functions_php/settings/connexion.php');
 
 	function userIsType($type,$id_personne){
-		$stmt = $bdd->prepare("SELECT id_personne FROM :type WHERE id_personne=:id_personne")
+		$stmt = $bdd->prepare("SELECT id_personne FROM :type WHERE id_personne=:id_personne");
 		$stmt->execute(array("type"=>$type, "id_personne"=>$id_personne));
 		$type = $stmt->fetch();
 		$stmt->closeCursor();
@@ -15,8 +15,8 @@
 
 
 	if(isset($_POST['login']) && isset($_POST['password']) && !empty($_POST['login']) && !empty($_POST['password'])){
-		$login = mysql_escape_string(htmlspecialchars($_POST['login']));
-		$password = mysql_escape_string(htmlspecialchars($_POST['password']));
+		$login = mysql_escape_string(htmlentities($_POST['login']));
+		$password = mysql_escape_string(htmlentities($_POST['password']));
 
 		$stmt = $bdd->prepare("SELECT * FROM personne WHERE login=:login AND password=:password");
 		$stmt->execute(array("login"=>$login, "password"=>sha1($password)));
@@ -43,9 +43,9 @@
 			
 		}
 		else{
-			header('Location: ../../index.php?err_compte=wrong_login_password')
+			header('Location: ../index.php?err_compte=wrong_login_password');
 		}
 	}
 	else{
-		header('Location: ../../index.php?err_compte=wrong_use')
+		header('Location: ../index.php?err_compte=wrong_use');
 	}
