@@ -45,6 +45,7 @@ CREATE TABLE Bien_immobilier(
         id_personne_proprio    Int ,
         id_personne_gest       Int ,
         id_agence_vendeur      Int ,
+        id_agence_loueur       Int ,
         id_type_chauffage      Int ,
         id_adresse             Int ,
         id_gaz                 Int ,
@@ -218,6 +219,7 @@ ALTER TABLE Bien_immobilier ADD CONSTRAINT FK_Bien_immobilier_id_personne_loueur
 ALTER TABLE Bien_immobilier ADD CONSTRAINT FK_Bien_immobilier_id_personne_proprio FOREIGN KEY (id_personne_proprio) REFERENCES Personne(id_personne);
 ALTER TABLE Bien_immobilier ADD CONSTRAINT FK_Bien_immobilier_id_personne_gest FOREIGN KEY (id_personne_gest) REFERENCES Personne(id_personne);
 ALTER TABLE Bien_immobilier ADD CONSTRAINT FK_Bien_immobilier_id_agence_vendeur FOREIGN KEY (id_agence_vendeur) REFERENCES Agence_immobiliere(id_agence_immobiliere);
+ALTER TABLE Bien_immobilier ADD CONSTRAINT FK_Bien_immobilier_id_agence_loueur FOREIGN KEY (id_agence_loueur) REFERENCES Agence_immobiliere(id_agence_immobiliere);
 ALTER TABLE Bien_immobilier ADD CONSTRAINT FK_Bien_immobilier_id_type_chauffage FOREIGN KEY (id_type_chauffage) REFERENCES Type_chauffage(id_type_chauffage);
 ALTER TABLE Bien_immobilier ADD CONSTRAINT FK_Bien_immobilier_id_adresse FOREIGN KEY (id_adresse) REFERENCES Adresse(id_adresse);
 ALTER TABLE Bien_immobilier ADD CONSTRAINT FK_Bien_immobilier_id_gaz FOREIGN KEY (id_gaz) REFERENCES Gaz_a_effet_de_serre_classe(id_gaz);
