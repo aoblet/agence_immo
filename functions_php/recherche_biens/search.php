@@ -3,7 +3,7 @@
 
 	function getAllBiensFromType($type){
 		try{
-			$stmt = $bdd->prepare("SELECT * FROM {$type}");
+			$stmt = myPDO::getSingletonPDO()->prepare("SELECT * FROM {$type}");
 			$stm->excute();
 			$res = array();
 
@@ -18,6 +18,5 @@
 			return false;
 		}	
 	}
-
 
 
