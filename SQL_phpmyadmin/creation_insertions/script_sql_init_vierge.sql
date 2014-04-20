@@ -10,6 +10,7 @@ CREATE TABLE Personne(
         prenom_personne Varchar (255) NOT NULL ,
         login           Varchar (255) ,
         password        Varchar (255) ,
+        mail            Varchar (25) ,
         id_photo        Int ,
         PRIMARY KEY (id_personne )
 )ENGINE=InnoDB;
