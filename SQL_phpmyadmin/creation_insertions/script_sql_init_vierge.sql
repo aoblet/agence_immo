@@ -42,7 +42,7 @@ CREATE TABLE Bien_immobilier(
         descriptif             Varchar (255) ,
         parking                Bool ,
         nb_etages              Int ,
-        id_personne_loueur     Int ,
+        id_personne_locataire  Int ,
         id_personne_proprio    Int ,
         id_personne_gest       Int ,
         id_agence_vendeur      Int ,
@@ -59,6 +59,7 @@ CREATE TABLE Agence_immobiliere(
         id_agence_immobiliere      int (11) Auto_increment  NOT NULL ,
         nom_agence_immobiliere     Varchar (255) ,
         capital_agence_immobiliere Double ,
+        mail_agence_immobiliere    Varchar (255),
         id_adresse                 Int ,
         id_photo                   Int ,
         PRIMARY KEY (id_agence_immobiliere )
@@ -216,7 +217,7 @@ ALTER TABLE Proprietaire ADD CONSTRAINT FK_Proprietaire_id_personne FOREIGN KEY 
 ALTER TABLE Locataire ADD CONSTRAINT FK_Locataire_id_personne FOREIGN KEY (id_personne) REFERENCES Personne(id_personne) ON DELETE CASCADE ON UPDATE RESTRICT;
 ALTER TABLE Employe ADD CONSTRAINT FK_Employe_id_personne FOREIGN KEY (id_personne) REFERENCES Personne(id_personne) ON DELETE CASCADE ON UPDATE RESTRICT;
 
-ALTER TABLE Bien_immobilier ADD CONSTRAINT FK_Bien_immobilier_id_personne_loueur FOREIGN KEY (id_personne_loueur) REFERENCES Personne(id_personne);
+ALTER TABLE Bien_immobilier ADD CONSTRAINT FK_Bien_immobilier_id_personne_locataire FOREIGN KEY (id_personne_locataire) REFERENCES Personne(id_personne);
 ALTER TABLE Bien_immobilier ADD CONSTRAINT FK_Bien_immobilier_id_personne_proprio FOREIGN KEY (id_personne_proprio) REFERENCES Personne(id_personne);
 ALTER TABLE Bien_immobilier ADD CONSTRAINT FK_Bien_immobilier_id_personne_gest FOREIGN KEY (id_personne_gest) REFERENCES Personne(id_personne);
 ALTER TABLE Bien_immobilier ADD CONSTRAINT FK_Bien_immobilier_id_agence_vendeur FOREIGN KEY (id_agence_vendeur) REFERENCES Agence_immobiliere(id_agence_immobiliere);
