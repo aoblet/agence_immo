@@ -76,6 +76,7 @@ a:focus {
 section{
     width: 100%;
     min-height: 250px;
+    overflow: visible;
 }
 section h1{
     line-height: 250px;
@@ -85,7 +86,7 @@ section h1{
 
 
 section:first-of-type{
-    height: 300px;
+    min-height: 300px;
 }
 
 .margin30{
