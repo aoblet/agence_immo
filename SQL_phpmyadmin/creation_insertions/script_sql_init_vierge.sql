@@ -33,7 +33,7 @@ CREATE TABLE Employe(
         PRIMARY KEY (id_personne )
 )ENGINE=InnoDB;
 
-
+ 
 CREATE TABLE Bien_immobilier(
         id_bien_immobilier     int (11) Auto_increment  NOT NULL ,
         prix                   Double ,
