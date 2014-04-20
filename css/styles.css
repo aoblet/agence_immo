@@ -890,19 +890,47 @@ width: 100px;
 
 #form-new-count-title{
 	margin: 50px auto;
+	border-radius: 3px;
 }
+
 #form-new-count-title h3{
 	padding: 15px;
 	color: #fff;
 }
 
-
-#form-new-count-infos{
+.form-new-count-infos{
 	margin: 50px auto;
+	min-height: 100px;
+	text-align: justify;
+}
+.form-new-count-infos p{
+	padding: 15px;
 }
 
-
-
+.return-back{
+	float: left;
+	position: relative;
+	padding:5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 16px;
+    margin: 0;
+    background: #FFF;
+    color:#888;
+    border:none;
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    cursor:pointer;
+    border-radius: 4px;
+    margin-left: 15px;
+}
+.return-back:hover{
+	text-decoration: none;
+	opacity: .8;
+}
 
 #form-new-count-inner{
 	padding: 15px;
