@@ -42,6 +42,7 @@ CREATE TABLE Bien_immobilier(
         descriptif             Varchar (255) ,
         parking                Bool ,
         nb_etages              Int ,
+        date_parution          Date ,
         id_personne_locataire  Int ,
         id_personne_proprio    Int ,
         id_personne_gest       Int ,
