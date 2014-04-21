@@ -87,6 +87,7 @@ section h1{
 
 section:first-of-type{
     min-height: 300px;
+    padding-top: 140px;
 }
 
 .margin30{

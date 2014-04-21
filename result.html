@@ -137,7 +137,7 @@
 		<div class="container" >
 			<div class="row">
 
-					<div class="col-md-3  margin60">
+					<div class="col-md-3  margin30">
 						<div id="avanced-search-infos" class="bg-white">
 							<h1>FAKE AGENCY</h1>
 							<h4>Nous contacter</h4>
@@ -198,7 +198,7 @@
 						</div>
 					</div>
 
-					<div class="col-md-9 bg-grey margin60">
+					<div class="col-md-9 bg-grey margin30">
 						
 						<div class="bg-white home-form-search">
 							<h4>Votre recherche par critères</h4>
@@ -260,7 +260,7 @@
 								</div>
 							</div>
 						</div>
-					</form>
+					
 						
 						
 						<div class="margin30 results-title">
@@ -288,7 +288,7 @@
 								</div>
 						</div>
 
-
+</form>
 
 						
 						<article class="article-bien margin30">
@@ -459,29 +459,6 @@ var open_menu = 0;
 		});
 
 
-animheader = function(){
-
-	$(window).scroll(function(){
-		var $this = $(this),
-		pos   = $this.scrollTop();
-
-
-		if (pos > 0){
-			$('header').addClass('menu-small');
-			$('.first-section').addClass('pad-top2');
-
-		} else {
-			$('header').removeClass('menu-small');
-			$('.first-section').removeClass('pad-top2');
-		}
-	});
-};
-
-
-
-$(document).ready(function() {
-	animheader();
-});
 
 
 		$(document).ready(function(){
