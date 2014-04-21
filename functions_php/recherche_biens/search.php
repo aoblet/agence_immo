@@ -1,6 +1,6 @@
 <?php
 	require_once(dirname(__FILE__).'/../settings/connexion.php');
-	require_once(dirname(__FILE__).'/enum_type_biens.php');
+	require_once(dirname(__FILE__).'/../../enum/enum_type_biens.php');
 	require_once(dirname(__FILE__).'/getUtils.php');
 	require_once(dirname(__FILE__).'/getInfos.php');
 	require_once(dirname(__FILE__).'/isValid.php');
@@ -31,7 +31,7 @@
 
 	/*
 	 return table correpsondant aux critères ou si id_bien_immo ok => infos uniquement de celui ci
-	 $orderby: prix_croissant, prix_decroissant, superficie, nb_pieces
+	 $orderby: prix_croissant, prix_decroissant, superficie, nb_pieces, date
 	 param : region,dep,gaz,chaffage,conso elec : id
 	 		 gaz, conso elect, type chauffage : tableau
 	 CF LES DEP REGIONS: CODE OU NOM??
@@ -42,7 +42,7 @@
 	function searchBase($opt=NULL){
 
 		if(empty($opt)){
-			$query=" SELECT * FROM bien_immobilier";
+			$query=" SELECT * FROM bien_immobilier WHERE id_personne_locataire IS NULL ";
 		}
 		elseif(!empty($opt['id_bien_immobilier']) && is_numeric($opt['id_bien_immobilier'])){
 			$query=" SELECT * FROM bien_immobilier WHERE id_bien_immobilier = {$opt['id_bien_immobilier']} ";
@@ -166,13 +166,19 @@
 				$clause_nb_etages = "AND nb_etages = {$opt['nb_etages']} ";
 
 			//ascenseur
+			$clause_ascenseur='';
+			if(!empty($opt['ascenseur']) && is_numeric($opt['ascenseur']) && $opt['ascenseur'] == 1)
+				$clause_ascenseur = "AND immeuble.id_bien_immobilier = bien_immobilier.id_bien_immobilier AND immeuble.ascenseur = 1";
 
 			//jardin
+			$clause_jardin='';
+			if(!empty($opt['jardin']) && is_numeric($opt['jardin']) && $opt['jardin'] == 1)
+				$clause_jardin = "AND maison.id_bien_immobilier = bien_immobilier.id_bien_immobilier AND maison.superficie_jardin > 0";
 
 			//orderby
 			$clause_order_by='';
 			if(!empty($opt['order_by'])){
-				if($opt['order_by'] == 'prix_croissant' || $opt['order_by'] == 'prix_decroissant' || $opt['order_by'] == 'superficie' || $opt['order_by'] =='nb_pieces')
+				if($opt['order_by'] == 'prix_croissant' || $opt['order_by'] == 'prix_decroissant' || $opt['order_by'] == 'superficie' || $opt['order_by'] =='nb_pieces' || $opt['order_by'] =='date_parution')
 					if($opt['order_by'] == 'prix_croissant')
 						$clause_order_by = " ORDER BY prix";
 					elseif($opt['order_by'] == 'prix_croissant')
@@ -187,7 +193,7 @@
 			$query.= $clause_gaz.$clause_conso_electrique.$clause_type_chauffage.$clause_order_by;
 		}
 		
-		echo $query;
+		//echo $query;
 		$stmt = myPDO::getSingletonPDO()->query($query); 
 
 		$resultas = array();
@@ -209,4 +215,12 @@
 	}
 
 	// rajoute d'autres informations
-	function searchForAdmin(){}
+	function searchForLocataire($id_bien_immobilier = NULL){
+
+	}
+	function searchForEmployeGestionnaire($id_bien_immobilier = NULL){
+
+	}
+	function searchForProprio($id_bien_immobilier = NULL){
+
+	}

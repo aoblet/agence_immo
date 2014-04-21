@@ -3,8 +3,9 @@
 	require_once('functions_php/recherche_biens/search.php');
 	require_once('functions_php/user_utils/getUtils_html.php');
 	require_once('functions_php/recherche_biens/affichage_result.php');
-
+	var_dump($_GET);
 	$div_connect='';
+	
 	if(!empty($_SESSION['id_personne'])){
 		$div_connect=getBlocConnect($_SESSION);
 	}
@@ -12,10 +13,10 @@
 	// messages connect etc ...
 
 	$opts = formToArrayOpt($_GET);
-	var_dump($opts);
+	//var_dump($opts);
 	$res = searchBase($opts);
-	var_dump($res);
-	
+	//var_dump($res);
+
 	$nb_res_search = count($res);
 
 	$resultat_html = affichage_base_liste_html($res);
@@ -52,9 +53,20 @@
 	</head>
 
 	<body>
-	<?php echo $div_connect ?>
 
-<header>
+<!-- <div id="fixed-connect">
+	<div id="fixed-connect-pic">
+		<img src="img/avatar.png" width="90" height="90">
+	</div>
+
+	<div id="fixed-connect-menu" class="bg-grey">
+		<a href="index.html"><i class="fa fa-user"></i></a>
+		<a href="index.html"><i class="fa fa-envelope"></i></a>
+		<a href="index.html"><i class="fa fa-gears"></i></a>
+	</div>
+</div> -->
+	
+<!-- <header>
 			<div class="container" >
 
 
@@ -143,7 +155,7 @@
 				</div>
 			</div>
 
-		</header>
+		</header> -->
 
 <section class="bg-grey first-section" >
 		<div class="container" >
@@ -151,12 +163,30 @@
 
 					<div class="col-md-3  margin60">
 						<div id="avanced-search-infos" class="bg-white">
-
-							
+							<h1>FAKE AGENCY</h1>
+							<h4>Nous contacter</h4>
+							<p><a><i class="fa fa-phone"></i>01 45 38 49 02</a></p>
+							<p><a><i class="fa fa-envelope"></i>contact@agence.com</a></p>
+							<p><a><i class="fa fa-keyboard-o"></i>Joindre un conseiller</a></p>
 						</div>
 
 						<div id="avanced-search" class="bg-white margin30">
-							<form>
+							
+
+
+
+
+
+
+
+						<form>
+							
+
+
+
+
+
+
 							<h4>Affiner votre recherche</h4>
 
 							<p>
@@ -166,28 +196,29 @@
 
 							<p>
 								<label></label>
-								<input type="checkbox" name="jardin_check" value="jardin"><span>Jardin</span><br>
-								<input type="checkbox" name="garage_check" value="garage"><span>Garage</span><br>
-								<input type="checkbox" name="ascenseur_check" value="ascenseur"><span>Ascenseur</span><br>
-								<input type="checkbox" name="parking_check" value="Parking"><span>Parking</span><br>
+								<input type="checkbox" name="vehicle" value="jardin"><span>Jardin</span><br>
+								<input type="checkbox" name="vehicle" value="terasse"><span>Terasse</span><br>
+								<input type="checkbox" name="vehicle" value="garage"><span>Garage</span><br>
+								<input type="checkbox" name="vehicle" value="ascenseur"><span>Ascenseur</span><br>
+								<input type="checkbox" name="vehicle" value="Parking"><span>Parking</span><br>
 							</p>
 
 							<p>
 								<label>Nombre d'étages</label>
-								<input type="number" name="nb_etages" value="3"/>
+								<input type="number" name="etages" value="3"/>
 							</p>
 							<p>
 								<label>Nombre de pièces</label>
-								<input type="number" name="nb_pieces" value="2"/>
+								<input type="number" name="chambres" value="2"/>
 							</p>
-							<!-- <p>
-								<label>Nombre de chambres? y'a pas dans la bd</label>
-								<input type="number" name="chambres" value="1"/>
-							</p> -->
 							<p>
-								<input class="affiner" type="submit" name="submit" value="Affiner la recherche"/>
+								<label>Nombre de chambres</label>
+								<input type="number" name="chambres" value="1"/>
 							</p>
-						</form>
+							<p>
+								<input class="affiner" type="submit" name="submit_affine" value="Affiner la recherche"/>
+							</p>
+						
 						</div>
 					</div>
 
@@ -196,7 +227,7 @@
 						<div class="bg-white home-form-search">
 							<h4>Votre recherche par critères</h4>
 
-							<form id="search-form">
+							<div id="search-form">
 								<div id="form-col2" class="col-md-4 form-col2">
 									<p>
 										<input type="radio" name="choice" value="acheter" id="acheter" /> 
@@ -244,39 +275,152 @@
 								
 								<div id="form-col1" class="col-md-4 form-col1">
 									<p>
-										Un affinement de recherche comprenant surface, garage, jardin vous sera proposé selon les différents résultats de votre recherche.
+										Pour une précision de recherche plus importante, l'agence vous conseille l'utilisation de la recherche avancée, située à gauche de la page.
 									</p>
 									
-									<input type="submit" name="submit" id="search" value="Rechercher">
+									<input type="submit" name="submit_base" id="search" value="Rechercher">
 
 									
 								</div>
-							</form>
+							</div>
 						</div>
+					</form>
 						
 						
 						<div class="margin30 results-title">
 
 								<div class="col-md-6 bg-blue">
-									<h4><span><?php echo $nb_res_search ?></span> résultats correspondants</h4>
+									<h4><span>102</span> résultats correspondants</h4>
 								</div>
 
 								<div class="col-md-6 bg-white" style="border:none">
 									
-									<form>
-										<p>Trier par
+									<p>
+
+										Trier par
+
 										<select>
 										<option>Date</option>
 										<option>Prix croissant</option>
 										<option>Prix décroissant</option>
 										<option>Localité</option>
 										</select>
-									
-								</p>
-								</form>	
+
+										<input type="submit" name="submit_trier" id="search" value="Trier">
+
+									</p>
 								</div>
 						</div>
-						<?php echo $resultat_html ?>
+
+
+
+						
+						<article class="article-bien margin30">
+							<a href="">
+							<div class="col-md-4 article-bien-pic" style="background:url(img/plans/1.jpg) top center no-repeat;">
+								<div class="article-bien-pic-loc-achat">Vente</div>
+							</div>
+							<div class="col-md-8 bg-white article-bien-desc">
+
+								<div class="bien-title">
+									<h4>
+									Maison 59 m&sup2;
+									</h4>
+									<h5>340 000 €</h5>
+								</div>
+
+								<div class="bien-desc">
+									<div class="col-md-6">
+									<p><i class="fa fa-globe"></i> 75017 Paris</p>
+									<p><i class="fa fa-home"></i> Maison</p>
+									<p><i class="fa fa-tachometer"></i> Indice éco : <span>B</span></p>
+									</div>
+									<div class="col-md-6">
+									<p>Grands espaces : appréciable, à visiter rapidement.</p>	
+									</div>
+								</div>
+
+								
+								<div class="article-bien-contact-agency"><a href=""><i class="fa fa-envelope"></i></a></div>
+								<div class="article-bien-contact-agency2"><a href=""><i class="fa fa-bell"></i></a></div>
+							</div>
+						</a>
+						</article>
+
+
+						<article class="article-bien margin30">
+							<a href="">
+							<div class="col-md-4 article-bien-pic" style="background:url(img/plans/2.jpg) top center no-repeat;">
+								<div class="article-bien-pic-loc-achat">Location</div>
+							</div>
+							<div class="col-md-8 bg-white article-bien-desc">
+
+								<div class="bien-title">
+									<h4>
+									Appartement 24 m&sup2;
+									</h4>
+									<h5>1018 €</h5>
+								</div>
+
+								<div class="bien-desc">
+									<div class="col-md-6">
+									<p><i class="fa fa-globe"></i> 75009 Paris</p>
+									<p><i class="fa fa-home"></i> Appartement</p>
+									<p><i class="fa fa-tachometer"></i> Indice éco : <span>A</span></p>
+									</div>
+									<div class="col-md-6">
+									<p>Superbe préstation, appartement de grande qualité.</p>	
+									</div>
+								</div>
+
+								
+								<div class="article-bien-contact-agency"><a href=""><i class="fa fa-envelope"></i></a></div>
+								<div class="article-bien-contact-agency2"><a href=""><i class="fa fa-bell"></i></a></div>
+							</div>
+						</a>
+						</article>
+
+
+						<article class="article-bien margin30">
+							<a href="">
+							<div class="col-md-4 article-bien-pic" style="background:url(img/plans/3.jpg) top center no-repeat;">
+								<div class="article-bien-pic-loc-achat">Vente</div>
+							</div>
+							<div class="col-md-8 bg-white article-bien-desc">
+
+								<div class="bien-title">
+									<h4>
+									Appartement 38 m&sup2;
+									</h4>
+									<h5>780 000 €</h5>
+								</div>
+
+								<div class="bien-desc">
+									<div class="col-md-6">
+									<p><i class="fa fa-globe"></i> 75001 Paris</p>
+									<p><i class="fa fa-home"></i> Appartement</p>
+									<p><i class="fa fa-tachometer"></i> Indice éco : <span>C</span></p>
+									</div>
+									<div class="col-md-6">
+									<p>Dans grand immeuble de standing, fabuleux.</p>	
+									</div>
+								</div>
+
+								
+								<div class="article-bien-contact-agency"><a href=""><i class="fa fa-envelope"></i></a></div>
+								<div class="article-bien-contact-agency2"><a href=""><i class="fa fa-bell"></i></a></div>
+							</div>
+						</a>
+						</article>
+
+						
+
+
+
+
+
+
+
 					</div>
 			</div>
 		</div>

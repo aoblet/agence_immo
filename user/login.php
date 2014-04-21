@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	require_once('../functions_php/settings/connexion.php');
-	require_once('../functions_php/user_utils/enum_type_user.php');
+	require_once('../enum/enum_type_user.php');
 	require_once('../functions_php/user_utils/getUtils.php');
 
 	if(!empty($_SESSION['id_personne'])){
@@ -34,8 +34,10 @@
 		}
 		else{
 			header('Location: ../index.php?err_compte=wrong_mail_password');
+			die();
 		}
 	}
 	else{
 		header('Location: ../index.php?err_compte=wrong_use');
+		die();
 	}

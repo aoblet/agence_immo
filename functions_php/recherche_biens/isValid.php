@@ -1,6 +1,6 @@
 <?php
 	require_once(dirname(__FILE__).'/../settings/connexion.php');
-	require_once(dirname(__FILE__).'/enum_type_biens.php');
+	require_once(dirname(__FILE__).'/../../enum/enum_type_biens.php');
 
 	/* IS VALID */
 	function isValidGaz($id_gaz){

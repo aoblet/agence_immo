@@ -1,6 +1,6 @@
 <?php
 	require_once(dirname(__FILE__).'/../settings/connexion.php');
-	require_once(dirname(__FILE__).'/enum_type_biens.php');
+	require_once(dirname(__FILE__).'/../../enum/enum_type_biens.php');
 
 	/* GET INFOS */
 	function getInfosChauffage($id_bien_immobilier){
@@ -211,16 +211,47 @@
 
 	function getInfosAchatLocation($id_bien_immobilier){
 		$type_bien_vente_location = NULL;
-		$stmt = myPDO::getSingletonPDO()->query("SELECT id_personne_proprio, id_agence_vendeur, id_agence_loueur FROM bien_immobilier WHERE id_bien_immobilier = $id_bien_immobilier");
-		$infos = $stmt->fetch();
-		$stmt->closeCursor();
+		if($id_bien_immobilier != NULL){
+			$stmt = myPDO::getSingletonPDO()->query("SELECT id_personne_proprio, id_agence_vendeur, id_agence_loueur FROM bien_immobilier WHERE id_bien_immobilier = $id_bien_immobilier");
+			$infos = $stmt->fetch();
+			$stmt->closeCursor();
 
-		if(!$infos)
-			return $type_bien_vente_location;
-		if($infos['id_personne_proprio'] != NULL ||$infos['id_agence_loueur']!= NULL)
-			return "Location";
-		if($infos["id_agence_vendeur"] != NULL)
-			return "Vente";
+			if(!$infos)
+				return $type_bien_vente_location;
+			if($infos['id_personne_proprio'] != NULL ||$infos['id_agence_loueur']!= NULL)
+				return "Location";
+			if($infos["id_agence_vendeur"] != NULL)
+				return "Vente";
+		}
 		return NULL;
 
 	}
+
+	function getInfosHistoriqueDepense($id_bien_immobilier){
+		$infos = array();
+		if($id_bien_immobilier != NULL){
+			$query = "SELECT * FROM historique hi, historique_depense hi_dep WHERE hi.id_historique = hi_dep.id_historique AND hi.id_bien_immobilier = $id_bien_immobilier";
+			$stmt = myPDO::getSingletonPDO()->query($query);
+
+			while($ligne = $stmt->fetch()){
+				$infos[] = $ligne;
+			}
+			$stmt->closeCursor();
+		}
+		return $infos;
+	}
+
+	function getInfosHistoriqueRentree($id_bien_immobilier){
+		$infos = array();
+		if($id_bien_immobilier != NULL){
+			$query = "SELECT * FROM historique hi, historique_rentree hi_re WHERE hi.id_historique = hi_re.id_historique AND hi.id_bien_immobilier = $id_bien_immobilier";
+			$stmt = myPDO::getSingletonPDO()->query($query);
+
+			while($ligne = $stmt->fetch()){
+				$infos[] = $ligne;
+			}
+			$stmt->closeCursor();
+		}
+		return $infos;
+	}
+
