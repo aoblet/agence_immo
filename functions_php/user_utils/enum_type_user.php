@@ -1,5 +1,5 @@
 <?php
-//cf bd table
+	//cf bd table
 	define("PROPRIETAIRE","proprietaire");
 	define("LOCATAIRE","locataire");
 	define("EMPLOYE","employe");

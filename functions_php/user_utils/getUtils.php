@@ -1,6 +1,4 @@
 <?php
-	//echo __FILE__;
-	//echo '<br>'.dirname(__FILE__).'../settings/connexion.php';
 	require_once(dirname(__FILE__).'/enum_type_user.php');
 	require_once(dirname(__FILE__).'/../settings/connexion.php');
 

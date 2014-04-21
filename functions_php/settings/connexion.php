@@ -1,5 +1,4 @@
 <?php
-
 	// a faire eventuellement : tracker debogage avec singleton
 	// Singleton: gere les connexions plus proprement.
 	final class myPDO{
