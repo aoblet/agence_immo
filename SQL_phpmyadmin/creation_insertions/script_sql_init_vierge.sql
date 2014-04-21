@@ -83,7 +83,7 @@ CREATE TABLE Type_chauffage(
 
 CREATE TABLE Adresse(
         id_adresse     int (11) Auto_increment  NOT NULL ,
-        code_postal    Int ,
+        code_postal    Varchar (25) ,
         ville          Varchar (255) ,
         rue            Varchar (255) ,
         numero_rue     Int ,
