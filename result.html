@@ -30,7 +30,7 @@
 
 	<body>
 
-<div id="fixed-connect">
+<!-- <div id="fixed-connect">
 	<div id="fixed-connect-pic">
 		<img src="img/avatar.png" width="90" height="90">
 	</div>
@@ -40,7 +40,7 @@
 		<a href="index.html"><i class="fa fa-envelope"></i></a>
 		<a href="index.html"><i class="fa fa-gears"></i></a>
 	</div>
-</div>
+</div> -->
 	
 <header>
 			<div class="container" >
@@ -147,7 +147,22 @@
 						</div>
 
 						<div id="avanced-search" class="bg-white margin30">
-							<form>
+							
+
+
+
+
+
+
+
+						<form>
+							
+
+
+
+
+
+
 							<h4>Affiner votre recherche</h4>
 
 							<p>
@@ -177,9 +192,9 @@
 								<input type="number" name="chambres" value="1"/>
 							</p>
 							<p>
-								<input class="affiner" type="submit" name="submit" value="Affiner la recherche"/>
+								<input class="affiner" type="submit" name="submit_affine" value="Affiner la recherche"/>
 							</p>
-						</form>
+						
 						</div>
 					</div>
 
@@ -188,7 +203,7 @@
 						<div class="bg-white home-form-search">
 							<h4>Votre recherche par critères</h4>
 
-							<form id="search-form">
+							<div id="search-form">
 								<div id="form-col2" class="col-md-4 form-col2">
 									<p>
 										<input type="radio" name="choice" value="acheter" id="acheter" /> 
@@ -236,15 +251,16 @@
 								
 								<div id="form-col1" class="col-md-4 form-col1">
 									<p>
-										Un affinement de recherche comprenant surface, garage, jardin vous sera proposé selon les différents résultats de votre recherche.
+										Pour une précision de recherche plus importante, l'agence vous conseille l'utilisation de la recherche avancée, située à gauche de la page.
 									</p>
 									
-									<input type="submit" name="submit" id="search" value="Rechercher">
+									<input type="submit" name="submit_base" id="search" value="Rechercher">
 
 									
 								</div>
-							</form>
+							</div>
 						</div>
+					</form>
 						
 						
 						<div class="margin30 results-title">
@@ -255,17 +271,20 @@
 
 								<div class="col-md-6 bg-white" style="border:none">
 									
-									<form>
-										<p>Trier par
+									<p>
+
+										Trier par
+
 										<select>
 										<option>Date</option>
 										<option>Prix croissant</option>
 										<option>Prix décroissant</option>
 										<option>Localité</option>
 										</select>
-									
-								</p>
-								</form>	
+
+										<input type="submit" name="submit_trier" id="search" value="Trier">
+
+									</p>
 								</div>
 						</div>
 

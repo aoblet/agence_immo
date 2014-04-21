@@ -1137,6 +1137,24 @@ width: 100px;
     cursor:pointer;
 }
 
+.results-title input[type="submit"] {
+	line-height: 40px;
+    padding:0px;
+    float: none;
+    padding-left: 10px;
+    padding-right: 15px;
+    margin: 0;
+    margin-left: 10px;
+    background: #ECF0F1;
+    color:#888;
+    border:none;
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    cursor:pointer;
+}
 
 .article-bien{
 	min-height: 200px;
