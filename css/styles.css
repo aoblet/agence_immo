@@ -1007,6 +1007,42 @@ width: 100px;
 	min-height: 300px;
 }
 
+#avanced-search-infos h1{
+	margin-top: 20px;
+	line-height: 90px;
+	text-align: center;
+	padding: 15px;
+	margin-left: 5px;
+	font-size: 20px;
+}
+
+
+#avanced-search-infos h4{
+	text-align: left;
+	padding: 15px;
+	margin-left: 5px;
+}
+
+#avanced-search-infos p{
+	text-align: left;
+	margin-left: 0px;
+	padding: 0px;
+}
+
+#avanced-search-infos a{
+	text-align: left;
+	display: block;
+	font-size: 14px;
+	margin-left: 20px;
+	padding: 0px;
+}
+
+#avanced-search-infos .fa{
+	padding-right: 10px;
+}
+
+
+
 #avanced-search{
 	padding: 15px;
 	min-height: 670px;
@@ -1107,14 +1143,44 @@ width: 100px;
 	height: 200px;
 }
 
+.article-bien a:hover{
+	opacity: 0.8;
+}
 .article-bien-pic{
 	background: rgba(0,0,0,0.2);
 	min-height: 198px;
 	border-right: 10px solid #ECF0F1; 
 }
 
+.article-bien-pic-loc-achat{
+	letter-spacing: 1px;
+	margin: 0px;
+	width: 198px;
+	height: 40px;
+	position: absolute;
+	text-transform: uppercase;
+	bottom: calc(50% - 20px);
+	left: calc(50% + 20px);
+	color: #fff;
+	background: rgba(44,62,80,0.9);
+	line-height: 40px;
+	transform:rotate(90deg);
+	-ms-transform:rotate(90deg);
+	-webkit-transform:rotate(90deg);
+}
+
+
 .article-bien-desc{
 	min-height: 200px;
+}
+
+.article-bien-desc span{
+	font-weight: 500;
+	color: green;
+}
+
+.article-bien-desc .col-md-6:last-of-type{
+	padding-top: 20px;
 }
 
 .article-bien-contact-agency{
