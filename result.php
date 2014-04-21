@@ -2,6 +2,7 @@
 	session_start();
 	require_once('functions_php/recherche_biens/search.php');
 	require_once('functions_php/user_utils/getUtils_html.php');
+	require_once('functions_php/recherche_biens/affichage_result.php');
 
 	$div_connect='';
 	if(!empty($_SESSION['id_personne'])){
@@ -13,10 +14,14 @@
 	$opts = formToArrayOpt($_GET);
 	var_dump($opts);
 	$res = searchBase($opts);
-	// to continue
+	var_dump($res);
+	
+	$nb_res_search = count($res);
+
+	$resultat_html = affichage_base_liste_html($res);
 
 ?>
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -253,7 +258,7 @@
 						<div class="margin30 results-title">
 
 								<div class="col-md-6 bg-blue">
-									<h4><span>102</span> résultats correspondants</h4>
+									<h4><span><?php echo $nb_res_search ?></span> résultats correspondants</h4>
 								</div>
 
 								<div class="col-md-6 bg-white" style="border:none">
@@ -271,38 +276,7 @@
 								</form>	
 								</div>
 						</div>
-
-
-
-						<article class="article-bien margin30">
-							<div class="col-md-4 article-bien-pic" style="background:url(img/plans/1.jpg) top center no-repeat;">
-								
-							</div>
-							<div class="col-md-8 bg-white article-bien-desc">
-								<div class="bien-title">
-									<h4>
-									Appartement 49 m&sup2;
-									</h4>
-									<h5>340 000 €</h5>
-								</div>
-								<div class="bien-desc">
-									<p><i class="fa fa-globe"></i> 75017 Paris</p>
-									<p><i class="fa fa-arrows-h"></i> 39 m&sup2;</p>
-									<p><i class="fa fa-tachometer"></i> Indice A</p>
-								</div>
-								<div class="article-bien-contact-agency"><a href=""><i class="fa fa-envelope"></i></a></div>
-								<div class="article-bien-contact-agency2"><a href=""><i class="fa fa-bell"></i></a></div>
-							</div>
-						</article>
-
-						
-
-
-
-
-
-
-
+						<?php echo $resultat_html ?>
 					</div>
 			</div>
 		</div>

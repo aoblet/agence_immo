@@ -188,3 +188,37 @@
 		}
 		return $infos_vides;
 	}
+
+	function getInfosPhotos($id_bien_immobilier){
+		//$infos_vides = array("chemins_photo"=>NULL);
+		$array_info = array();
+
+		if($id_bien_immobilier != NULL){
+			$query="SELECT chemin_photo 
+					FROM photo
+					WHERE id_photo = (SELECT DISTINCT id_photo FROM illustrer WHERE id_bien_immobilier = $id_bien_immobilier)";
+			$stmt = myPDO::getSingletonPDO()->query($query);
+
+			while($infos = $stmt->fetch()){
+				$array_info[]=$infos['chemin_photo'];
+			}
+			$stmt->closeCursor();
+		}
+		return $array_info;
+	}
+
+	function getInfosAchatLocation($id_bien_immobilier){
+		$type_bien_vente_location = NULL;
+		$stmt = myPDO::getSingletonPDO()->query("SELECT id_personne_loueur, id_agence_vendeur, id_agence_loueur");
+		$infos = $stmt->fetch();
+		$stmt->closeCursor();
+
+		if(!$infos)
+			return $type_bien_vente_location;
+		if($infos['id_personne_loueur'] != NULL ||$infos['id_agence_loueur']!= NULL)
+			return "Location";
+		if($infos["id_agence_vendeur"] != NULL)
+			return "Vente";
+		return NULL;
+
+	}

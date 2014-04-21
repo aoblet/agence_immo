@@ -19,9 +19,19 @@
 		return $array_opt;
 	}
 
+	function secureArray($array){
+		if(!empty($array)){
+			foreach ($array as $key => $value) {
+				if(is_string($array[$key]))
+					$array[$key] = mysql_real_escape_string($value);
+			}
+			return $array;
+		}
+	}
+
 	/*
 	 return table correpsondant aux critères ou si id_bien_immo ok => infos uniquement de celui ci
-	 $orderby: prix, superficie, nb_pieces
+	 $orderby: prix_croissant, prix_decroissant, superficie, nb_pieces
 	 param : region,dep,gaz,chaffage,conso elec : id
 	 		 gaz, conso elect, type chauffage : tableau
 	 CF LES DEP REGIONS: CODE OU NOM??
@@ -34,10 +44,11 @@
 		if(empty($opt)){
 			$query=" SELECT * FROM bien_immobilier";
 		}
-		elseif(!empty($opt['id_bien_immobilier'])){
+		elseif(!empty($opt['id_bien_immobilier']) && is_numeric($opt['id_bien_immobilier'])){
 			$query=" SELECT * FROM bien_immobilier WHERE id_bien_immobilier = {$opt['id_bien_immobilier']} ";
 		}
 		else{
+			$opt = secureArray($opt);
 			//recupere tous les id des types de biens		
 			$clause_types_bien='';
 			if(!empty($opt['types_bien'])){
@@ -75,7 +86,6 @@
 			//ville
 			$clause_ville='';
 			if(!empty($opt['ville'])){
-				$ville = mysql_real_escape_string($opt['ville']);
 				$clause_ville = " AND bien_immobilier.id_adresse = (SELECT DISTINCT id_adresse FROM adresse WHERE UPPER(VILLE) LIKE UPPER('%{$opt['ville']}%'))";
 			}
 
@@ -97,9 +107,9 @@
 
 
 			//nb pieces
-			$clause_nb_piece ='';
+			$clause_nb_pieces ='';
 			if(!empty($opt['nb_pieces']) && is_numeric($opt['nb_pieces']))
-				$clause_nb_piece = " AND nb_pieces = {$opt['nb_pieces']} ";
+				$clause_nb_pieces = " AND nb_pieces = {$opt['nb_pieces']} ";
 
 
 			//superficie
@@ -144,25 +154,36 @@
 					$clause_gaz = " AND ( ".$clause_type_chauffage." '')";
 			}
 
+
+			//parking
+			$clause_parking='';
+			if(!empty($opt['parking']) && ($opt['parking'] == 0 || $opt['parking'] == 1))
+				$clause_parking = "AND parking = {$opt['parking']} ";
+
+			//nb etages
+			$clause_nb_etages='';
+			if(!empty($opt['nb_etages']) && is_numeric($opt['nb_etages']))
+				$clause_nb_etages = "AND nb_etages = {$opt['nb_etages']} ";
+
 			//ascenseur
 
 			//jardin
 
-			//parking
-
-			//nb etages
-
-
 			//orderby
 			$clause_order_by='';
 			if(!empty($opt['order_by'])){
-				if($opt['order_by'] == 'prix' || $opt['order_by'] == 'superficie' || $opt['order_by'] =='nb_pieces')
-				$clause_order_by = " ORDER BY {$opt['order_by']}";
+				if($opt['order_by'] == 'prix_croissant' || $opt['order_by'] == 'prix_decroissant' || $opt['order_by'] == 'superficie' || $opt['order_by'] =='nb_pieces')
+					if($opt['order_by'] == 'prix_croissant')
+						$clause_order_by = " ORDER BY prix";
+					elseif($opt['order_by'] == 'prix_croissant')
+						$clause_order_by = " ORDER BY prix DESC";
+					else
+						$clause_order_by = " ORDER BY {$opt['order_by']}";
 			}
 			
 
 			$query = "SELECT * FROM bien_immobilier WHERE 1=1 ".$clause_types_bien.$clause_type_achat_location.$clause_budget.$clause_superficie;
-			$query.= $clause_departement.$clause_region.$clause_ville.$clause_nb_piece;
+			$query.= $clause_departement.$clause_region.$clause_ville.$clause_nb_pieces;
 			$query.= $clause_gaz.$clause_conso_electrique.$clause_type_chauffage.$clause_order_by;
 		}
 		
@@ -171,10 +192,14 @@
 
 		$resultas = array();
 		while($ligne = $stmt->fetch()){
-			$ligne['infos_conso_energetique'] = getInfosConsoEnergetique($ligne['id_bien_immobilier']);
-			$ligne['infos_gaz'] = getInfosGaz($ligne['id_bien_immobilier']);
-			$ligne['infos_chauffage'] = getInfosChauffage($ligne['id_bien_immobilier']);
-			$ligne['infos_adresse'] = getInfosAdresse($ligne['id_bien_immobilier']);	
+			$ligne['infos_conso_energetique'] 	= getInfosConsoEnergetique($ligne['id_bien_immobilier']);
+			$ligne['infos_gaz'] 				= getInfosGaz($ligne['id_bien_immobilier']);
+			$ligne['infos_chauffage'] 			= getInfosChauffage($ligne['id_bien_immobilier']);
+			$ligne['infos_adresse'] 			= getInfosAdresse($ligne['id_bien_immobilier']);
+			$ligne['infos_chemins_photos']		= getInfosPhotos($ligne['id_bien_immobilier']);
+			$ligne['info_type_achat_location']	= getInfosAchatLocation($ligne['id_bien_immobilier']);
+			$ligne['info_type_bien']			= getTypeBien($ligne['id_bien_immobilier']);
+			$ligne['infos_personne_gest']		= getInfosGestionnaire($ligne['id_bien_immobilier']);
 
 			$resultas[]=$ligne;
 		}
