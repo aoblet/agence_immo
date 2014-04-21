@@ -20,7 +20,8 @@
 
 	function getInfosAdresse($id_bien_immobilier){
 		// recup: code postal, ville, nom rue, numero rue?, nomdepartement, code departement,nom region, ville chef region
-		$infos_vides=array(	"ville"=>NULL,
+		$infos_vides=array(	"id_adresse"=>NULL,
+							"ville"=>NULL,
 							"code_postal"=>NULL,
 							"rue"=>NULL,
 							"numero_rue"=>NULL,
@@ -30,7 +31,8 @@
 							"ville_chef"=>NULL);
 
 		if($id_bien_immobilier != NULL){
-			$query="SELECT 	adr.ville AS ville, 
+			$query="SELECT adr.id_adresse AS id_adresse, 	
+					adr.ville AS ville, 
 					adr.code_postal AS code_postal,
 					adr.rue AS rue,
 					adr.numero_rue AS numero_rue,
@@ -209,13 +211,13 @@
 
 	function getInfosAchatLocation($id_bien_immobilier){
 		$type_bien_vente_location = NULL;
-		$stmt = myPDO::getSingletonPDO()->query("SELECT id_personne_loueur, id_agence_vendeur, id_agence_loueur");
+		$stmt = myPDO::getSingletonPDO()->query("SELECT id_personne_proprio, id_agence_vendeur, id_agence_loueur FROM bien_immobilier WHERE id_bien_immobilier = $id_bien_immobilier");
 		$infos = $stmt->fetch();
 		$stmt->closeCursor();
 
 		if(!$infos)
 			return $type_bien_vente_location;
-		if($infos['id_personne_loueur'] != NULL ||$infos['id_agence_loueur']!= NULL)
+		if($infos['id_personne_proprio'] != NULL ||$infos['id_agence_loueur']!= NULL)
 			return "Location";
 		if($infos["id_agence_vendeur"] != NULL)
 			return "Vente";
