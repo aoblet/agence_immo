@@ -20,16 +20,16 @@
 	}
 
 	//password clair, return true si insertion ok sinon false
-	function addPersonne($nom,$prenom,$login,$password,$type){
+	function addPersonne($nom,$prenom,$login,$password,$type,$photo="img/avatar.png"){
 		$login = mysql_real_escape_string(htmlentities($login));
 		if(userIsExistFromLogin($login))
 			return false;
 
 		// pas de doublon on insere
 		try{
-			$stmt_photo = myPDO::getSingletonPDO()->query("SELECT * FROM photo WHERE UPPER(chemin_photo) LIKE UPPER('%img/defaut%')");
+			$stmt_photo = myPDO::getSingletonPDO()->query("SELECT * FROM photo WHERE UPPER(chemin_photo) LIKE UPPER('%img/avatar%')");
 			if($ligne=$stmt_photo->fetch())
-				$id_photo = $ligne['chemin_photo'];
+				$id_photo = $ligne['id_photo'];
 			else
 				$id_photo = null;
 			$stmt_photo->closeCursor();
@@ -59,4 +59,7 @@
 		
 	}
 
-	
+	/*if(addPersonne("alexis","admin","admin2","password","employe") != false)
+		echo "insertion ok";
+	else 
+		echo 'insertion faux';*/

@@ -1,9 +1,23 @@
 <?php
-	require_once('../settings/connexion.php');
-	require_once('./enum_type_biens.php');
-	require_once('./getUtils.php');
-	require_once('./getInfos.php');
-	require_once('./isValid.php');
+	require_once(dirname(__FILE__).'/../settings/connexion.php');
+	require_once(dirname(__FILE__).'/enum_type_biens.php');
+	require_once(dirname(__FILE__).'/getUtils.php');
+	require_once(dirname(__FILE__).'/getInfos.php');
+	require_once(dirname(__FILE__).'/isValid.php');
+
+	// transforme les donnees du formulaire en option
+	function formToArrayOpt($GET_form){
+		$array_data_indices=array(	'id_bien_immobilier', 'types_bien','type_achat_location', 'budget_mini','budget_maxi','ville','region','departement','nb_pieces','superficie_mini',
+									'superficie_maxi', 'gaz_effet_serre','type_chauffage','conso_electrique', 'jardin', 'parking', 'nb_etages', 'ascenseur','order_by');
+
+		$array_opt = array();
+		foreach ($array_data_indices as $value) {
+			if(isset($GET_form[$value]) && !empty($GET_form[$value]))
+				$array_opt[$value] = $GET_form[$value];
+		}
+
+		return $array_opt;
+	}
 
 	/*
 	 return table correpsondant aux critères ou si id_bien_immo ok => infos uniquement de celui ci
@@ -12,10 +26,10 @@
 	 		 gaz, conso elect, type chauffage : tableau
 	 CF LES DEP REGIONS: CODE OU NOM??
 	 
-	 opt array indices : id_bien_immobilier, types_bien, type_achat_location, budget_mini, budget_maxi, ville, region, departement, nb_pieces,
-	 					 superficie_mini, superficie_maxi, gaz_effet_serre, type_chauffage, conso_electrique, order_by
+	 opt array indices : 'id_bien_immobilier', 'types_bien','type_achat_location', 'budget_mini','budget_maxi','ville','region','departement','nb_pieces','superficie_mini',
+						  'superficie_maxi', 'gaz_effet_serre','type_chauffage','conso_electrique', 'jardin', 'parking', 'nb_etages', 'ascenseur','order_by'
 	 */
-	function search($opt=NULL){
+	function searchBase($opt=NULL){
 
 		if(empty($opt)){
 			$query=" SELECT * FROM bien_immobilier";
@@ -62,21 +76,21 @@
 			$clause_ville='';
 			if(!empty($opt['ville'])){
 				$ville = mysql_real_escape_string($opt['ville']);
-				$clause_ville = " AND bien_immobiler.id_adresse = (SELECT DISTINCT id_adresse FROM adresse WHERE UPPER(VILLE) LIKE UPPER('%{$opt['ville']}%'))";
+				$clause_ville = " AND bien_immobilier.id_adresse = (SELECT DISTINCT id_adresse FROM adresse WHERE UPPER(VILLE) LIKE UPPER('%{$opt['ville']}%'))";
 			}
 
 
 			//departement
 			$clause_departement='';
 			if(!empty($opt['departement'])){
-				$clause_departement = " AND bien_immobiler.id_adresse = (SELECT DISTINCT id_adresse FROM adresse WHERE id_departement = {$opt['departement']})";
+				$clause_departement = " AND bien_immobilier.id_adresse = (SELECT DISTINCT id_adresse FROM adresse WHERE id_departement = {$opt['departement']})";
 			}
 
 
 			//region
 			$clause_region='';
 			if(!empty($opt['region'])){
-				$clause_region = " AND bien_immobiler.id_adresse = (SELECT DISTINCT id_adresse FROM adresse WHERE id_departement = 
+				$clause_region = " AND bien_immobilier.id_adresse = (SELECT DISTINCT id_adresse FROM adresse WHERE id_departement = 
 																		(SELECT DISTINCT id_departement FROM departement WHERE id_region = {$opt['region']}))";
 																			
 			}
@@ -130,6 +144,14 @@
 					$clause_gaz = " AND ( ".$clause_type_chauffage." '')";
 			}
 
+			//ascenseur
+
+			//jardin
+
+			//parking
+
+			//nb etages
+
 
 			//orderby
 			$clause_order_by='';
@@ -140,7 +162,7 @@
 			
 
 			$query = "SELECT * FROM bien_immobilier WHERE 1=1 ".$clause_types_bien.$clause_type_achat_location.$clause_budget.$clause_superficie;
-			$query.= $clause_departement.$clause_region.$clause_nb_piece;
+			$query.= $clause_departement.$clause_region.$clause_ville.$clause_nb_piece;
 			$query.= $clause_gaz.$clause_conso_electrique.$clause_type_chauffage.$clause_order_by;
 		}
 		
@@ -162,4 +184,4 @@
 	}
 
 	// rajoute d'autres informations
-	function search_for_admin(){}
+	function searchForAdmin(){}

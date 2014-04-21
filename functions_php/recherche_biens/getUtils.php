@@ -1,6 +1,6 @@
 <?php
-	require_once('../settings/connexion.php');
-	require_once('./enum_type_biens.php');
+	require_once(dirname(__FILE__).'/../settings/connexion.php');
+	require_once(dirname(__FILE__).'/enum_type_biens.php');
 	
 	function getTypeBien($id_bien_immobilier){
 		$type = array(APPARTEMENT,MAISON,IMMEUBLE,GARAGE);
