@@ -9,22 +9,22 @@
 		die();
 	}
 		
-	if(isset($_POST['login']) && isset($_POST['password']) && !empty($_POST['login']) && !empty($_POST['password'])){
-		$login = mysql_real_escape_string(htmlentities($_POST['login']));
+	if(isset($_POST['mail']) && isset($_POST['password']) && !empty($_POST['mail']) && !empty($_POST['password'])){
+		$mail = mysql_real_escape_string(htmlentities($_POST['mail']));
 		$password = mysql_real_escape_string(htmlentities($_POST['password']));
 
 		$query="SELECT *,chemin_photo 
 				FROM personne pe, photo ph 
-				WHERE login=:login AND password=:password
+				WHERE mail=:mail AND password=:password
 				AND pe.id_photo = ph.id_photo";
 
 		$stmt = myPDO::getSingletonPDO()->prepare($query);
-		$stmt->execute(array("login"=>$login, "password"=>sha1($password)));
+		$stmt->execute(array("mail"=>$mail, "password"=>sha1($password)));
 
 		if( $ligne=$stmt->fetch() ){
 			$_SESSION['id_personne']=$ligne['id_personne'];
 			$_SESSION['nom_personne']=$ligne['nom_personne'];
-			$_SESSION['login']=$ligne['login'];
+			$_SESSION['mail']=$ligne['mail'];
 			$_SESSION['prenom_personne']=$ligne['prenom_personne'];
 			$_SESSION['photo_personne']=$ligne['chemin_photo'];
 			$stmt->closeCursor();
@@ -33,7 +33,7 @@
 			header('Location: ../index.php');			
 		}
 		else{
-			header('Location: ../index.php?err_compte=wrong_login_password');
+			header('Location: ../index.php?err_compte=wrong_mail_password');
 		}
 	}
 	else{

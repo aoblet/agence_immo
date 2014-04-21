@@ -13,7 +13,7 @@
 
 		$div_connect_info_deco = <<<HTML
 				<div class='form-champ2'>
-					<h4>Bienvenue {$_SESSION['login']}</h4>
+					<h4>Bienvenue {$_SESSION['mail']}</h4>
 					<p>{$_SESSION['type_personne']}</p>
 					<a href='user/deconnexion.php'><i class="fa fa-unlock"></i></a>
 				</div>	
@@ -23,16 +23,16 @@ HTML;
 	// de base
 	else{
 		$div_connect='';
-		$login='Login'; $password = 'Mot de passe';
+		$mail='Mail'; $password = 'Mot de passe';
 		$div_connect_message = getConnectMessage(false);
 
-		if(isset($_GET['err_compte']) && $_GET['err_compte'] == 'wrong_login_password'){
-			$login = 'Mauvais login';
+		if(isset($_GET['err_compte']) && $_GET['err_compte'] == 'wrong_mail_password'){
+			$mail = 'Mauvais mail';
 			$password='Mauvais mot de passe';
 		}
 		elseif (isset($_GET['err_compte']) && $_GET['err_compte'] == 'wrong_use') {
-			$login = "Mauvaise utilisation du script";
-			$password = $login;			
+			$mail = "Mauvaise utilisation du script";
+			$password = $mail;			
 		}
 
 		$div_connect_info_deco = <<<HTML
@@ -40,7 +40,7 @@ HTML;
 			<form name='login_user' action="user/login.php" method='POST'>
 				<div class="form-champ1">
 					<i class="fa fa-user"></i>
-					<input type="text" name="login" value="" required="required" placeholder="$login"/>
+					<input type="text" name="mail" value="" required="required" placeholder="$mail"/>
 				</div>
 				<div class="form-champ2">
 					<i class="fa fa-key"></i>
@@ -523,7 +523,7 @@ $(document).ready(function() {
 
 
 		<?php 
-			if(isset($_GET['err_compte']) && !empty($_GET['err_compte']) && ($_GET['err_compte'] == 'wrong_login_password' || $_GET['err_compte'] == 'wrong_use'))
+			if(isset($_GET['err_compte']) && !empty($_GET['err_compte']) && ($_GET['err_compte'] == 'wrong_mail_password' || $_GET['err_compte'] == 'wrong_use'))
 				echo "$('#connect-form').slideToggle('fast');";
 		?>
 		var open_menu = 0;

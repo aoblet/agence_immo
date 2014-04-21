@@ -1,4 +1,4 @@
 <?php
 
-$hash = sha1('alexislol');
+$hash = sha1('password');
 echo $hash;
