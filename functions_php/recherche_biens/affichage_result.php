@@ -1,5 +1,8 @@
 <?php
-	function affichage_base_liste_html($res){
+	require_once(dirname(__FILE__).'/../../enum/enum_type_user.php');
+
+	//type personne : pour le lien
+	function affichage_base_liste_html($res, $type_user=''){
 		$result_html='';
 		foreach ($res as $value) {
 			//si photo absente : hardcoded ici
@@ -35,10 +38,44 @@
 				$descriptif=substr($value['descriptif'], 0, 30);
 			}
 
-	
+			$lien_bien_immobilier='';
+			if(isset($value['id_bien_immobilier']) && !empty($value['id_bien_immobilier'])){
+
+				$dir_current_script_using = str_replace("\\", "/", (dirname($_SERVER['PHP_SELF'])) );
+				$dir_current_path = explode("/", $dir_current_script_using);
+				$lien_bien_immobilier = $dir_current_path[count($dir_current_path)-1];
+
+				if($lien_bien_immobilier == "agence_immo")
+					$lien_bien_immobilier= dirname($_SERVER['PHP_SELF'])."/visualisation_bien/";
+				elseif (1) {
+					// to complete for dash
+					$lien_bien_immobilier="";
+				}
+
+
+				switch ($type_user) {
+					case EMPLOYE:
+						$lien_bien_immobilier=."employe/";
+						break;
+
+					case PROPRIETAIRE:
+						$lien_bien_immobilier="proprietaire/";
+						break;
+
+					case LOCATAIRE:
+						$lien_bien_immobilier="locataire/";
+						break;
+					default:
+						break;
+				}
+
+				$lien_bien_immobilier = $lien_bien_immobilier."bien.php?id_bien_immobilier=".trim($value['id_bien_immobilier']);
+			}
+
+
 			$result_html.=<<<HTML
 			<article class="article-bien margin30">
-				<a href="">
+				<a href="$lien_bien_immobilier">
 					<div class="col-md-4 article-bien-pic" style="background:url($photo_apercu) top center no-repeat;">
 						<div class="article-bien-pic-loc-achat">$type_achat_location</div>
 					</div>
