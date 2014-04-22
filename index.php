@@ -211,7 +211,7 @@
 									</p>
 									<p class="margin30">
 										<label>Nombre de pièces</label><br>
-										<input type="number" name="nb_pieces" id="room" value="">
+										<input type="number" name="nb_pieces" id="room" placeHolder='Indifférent' value="">
 									</p>
 								</div>
 								
