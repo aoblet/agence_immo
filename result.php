@@ -6,7 +6,7 @@
 	require_once('functions_php/user_utils/getUtils.php');
 	require_once('functions_php/recherche_biens/affichage_result.php');
 
-	var_dump($_GET);
+	// var_dump($_GET);
 
 	$banniere_connexion='';
 	$display_mon_compte='';		
@@ -106,31 +106,8 @@
 
 	<body>
 
-<!-- <div id="fixed-connect">
-	<div id="fixed-connect-pic">
-		<img src="img/avatar.png" width="90" height="90">
-	</div>
 
-	<div id="fixed-connect-menu" class="bg-grey">
-		<a href="index.html"><i class="fa fa-user"></i></a>
-		<a href="index.html"><i class="fa fa-envelope"></i></a>
-		<a href="index.html"><i class="fa fa-gears"></i></a>
-	</div>
-</div> -->
-
-
-		<nav class="pushy pushy-left">
-            <ul>
-                <li><a href="index.php" class="button-home"><i class="fa fa-home"></i></a></li>
-				<li><a href="#">Acheter</a></li>
-				<li><a href="#">Vendre</a></li>
-				<li><a href="#">Louer</a></li>
-				<li><a href="#">Faire gerer</a></li>
-            </ul>
-        </nav>
-        <div class="site-overlay"></div>
-
-<div class="all-wrap">
+		
 
 
 
@@ -235,7 +212,7 @@
 		<div class="container" >
 			<div class="row">
 
-					<div class="col-md-3  margin60">
+					<div class="col-md-3  margin30">
 						<div id="avanced-search-infos" class="bg-white">
 							<h1>FAKE AGENCY</h1>
 							<h4>Nous contacter</h4>
@@ -287,7 +264,7 @@
 						</div>	
 					</div>
 
-					<div class="col-md-9 bg-grey margin60">
+					<div class="col-md-9 bg-grey margin30">
 						
 						<div class="bg-white home-form-search">
 							<h4>Votre recherche par critères</h4>
@@ -311,7 +288,7 @@
 											<option value="garage">Garage</option>
 										</select>
 									</p>
-									<hr>
+									
 									<p>
 											<?php 
 												echo getSelectDepartementsHTML("departement",$departement_selected_form);
@@ -324,9 +301,9 @@
 								<div id="form-col3" class="col-md-4 form-col3">
 									<p>
 										<label>Budget</label><br>
-										<input type="number" name="budget_mini" id="budget_mini" value="<?php echo $budget_mini_form ?>">
+										<input class="bud" type="number" name="budget_mini" id="budget_mini" value="<?php echo $budget_mini_form ?>">
 										<label> à </label>
-										<input type="number" name="budget_maxi" id="budget_maxi" value="<?php echo $budget_maxi_form ?>">
+										<input class="bud" type="number" name="budget_maxi" id="budget_maxi" value="<?php echo $budget_maxi_form ?>">
 										<label> € </label>
 									</p>
 									<p class="margin30">
@@ -429,6 +406,7 @@
 
 
 
+
 <script type="text/javascript">
 
 var open_menu = 0;
@@ -441,29 +419,6 @@ var open_menu = 0;
 		});
 
 
-animheader = function(){
-
-	$(window).scroll(function(){
-		var $this = $(this),
-		pos   = $this.scrollTop();
-
-
-		if (pos > 0){
-			$('header').addClass('menu-small');
-			$('.first-section').addClass('pad-top2');
-
-		} else {
-			$('header').removeClass('menu-small');
-			$('.first-section').removeClass('pad-top2');
-		}
-	});
-};
-
-
-
-$(document).ready(function() {
-	animheader();
-});
 
 
 		$(document).ready(function(){
