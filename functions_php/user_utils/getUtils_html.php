@@ -36,11 +36,9 @@ HTML;
 
 						<form action='user/login.php' method='POST'>
 							<div class="form-champ1">
-								<i class="fa fa-user"></i>
 								<input type="text" name="mail" value="" required="required" placeholder="$mail_message"/>
 							</div>
 							<div class="form-champ2">
-								<i class="fa fa-key"></i>
 								<input type="password" name="password" value="" required="required" placeholder="$password_message"/>
 							</div>
 							<input type='hidden' name='come_from' value='$file_come_from'>
