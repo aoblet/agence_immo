@@ -5,7 +5,7 @@
 	require_once('functions_php/user_utils/getUtils_html.php');
 	require_once('functions_php/user_utils/getUtils.php');
 	require_once('functions_php/recherche_biens/affichage_result.php');
-
+	
 	// var_dump($_GET);
 	$banniere_connexion='';
 	$display_mon_compte='';		
