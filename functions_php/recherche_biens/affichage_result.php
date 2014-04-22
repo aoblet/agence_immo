@@ -55,15 +55,15 @@
 
 				switch ($type_user) {
 					case EMPLOYE:
-						$lien_bien_immobilier=."employe/";
+						$lien_bien_immobilier.="employe/";
 						break;
 
 					case PROPRIETAIRE:
-						$lien_bien_immobilier="proprietaire/";
+						$lien_bien_immobilier.="proprietaire/";
 						break;
 
 					case LOCATAIRE:
-						$lien_bien_immobilier="locataire/";
+						$lien_bien_immobilier.="locataire/";
 						break;
 					default:
 						break;
