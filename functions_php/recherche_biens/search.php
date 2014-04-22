@@ -56,7 +56,6 @@
 					if($value == IMMEUBLE || $value == APPARTEMENT || $value == MAISON ||$value == GARAGE){
 							$type = trim($value);
 							$clause_types_bien.=" $type.id_bien_immobilier = bien_immobilier.id_bien_immobilier OR ";
-						
 					}	
 				}
 				if(!empty($clause_types_bien))
