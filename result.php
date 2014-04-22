@@ -212,7 +212,7 @@
 
 							<p>
 								<label>Nombre d'étages</label>
-								<input type="number" name="nb_etages" value="<?php echo $nb_etages_form ?>"/>
+								<input type="number" name="nb_etages" placeHolder='Indifférent' value="<?php echo $nb_etages_form ?>"/>
 							</p>
 
 							<p>
@@ -272,7 +272,7 @@
 									</p>
 									<p class="margin30">
 										<label>Nombre de pièces</label><br>
-										<input type="number" name="nb_pieces" id="room" value="<?php echo $nb_pieces_form ?>">
+										<input type="number" name="nb_pieces" id="room" placeHolder='Indifférent' value="<?php echo $nb_pieces_form ?>">
 									</p>
 								</div>
 								
