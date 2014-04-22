@@ -54,11 +54,9 @@
 			if(!empty($opt['types_bien'])){
 				foreach ($opt['types_bien'] as $value){
 					if($value == IMMEUBLE || $value == APPARTEMENT || $value == MAISON ||$value == GARAGE){
-						if($isNotNull=getAllBiensFromType($value)){
-							foreach ($isNotNull as $value_id) {
-								$clause_types_bien.=" id_bien_immobilier={$value_id['id_bien_immobilier']} OR ";
-							}
-						}
+							$type = trim($value);
+							$clause_types_bien.=" $type.id_bien_immobilier = bien_immobilier.id_bien_immobilier OR ";
+						
 					}	
 				}
 				if(!empty($clause_types_bien))
@@ -210,6 +208,8 @@
 				FROM    bien_immobilier 
 						LEFT OUTER JOIN appartement  ON appartement.id_bien_immobilier = bien_immobilier.id_bien_immobilier
 						LEFT OUTER JOIN maison    	 ON maison.id_bien_immobilier = bien_immobilier.id_bien_immobilier
+						LEFT OUTER JOIN immeuble     ON immeuble.id_bien_immobilier = bien_immobilier.id_bien_immobilier
+						LEFT OUTER JOIN garage    	 ON garage.id_bien_immobilier = bien_immobilier.id_bien_immobilier
 				WHERE   1=1 
 SQL;
 			$query .= $clause_types_bien.$clause_type_achat_location.$clause_budget.$clause_superficie;

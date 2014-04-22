@@ -24,7 +24,7 @@
 			if(!empty($value['infos_adresse']) && !empty($value['infos_adresse']['id_adresse'])){
 				$adresse_infos = '';
 				if(!empty($value['infos_adresse']['code_postal']))
-					$adresse_infos.=$value['infos_adresse']['code_postal'];
+					$adresse_infos.=trim($value['infos_adresse']['code_postal']);
 
 				if(!empty($value['infos_adresse']['ville']))
 					$adresse_infos.=" ".$value['infos_adresse']['ville'];
