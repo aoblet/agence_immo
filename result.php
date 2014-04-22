@@ -7,7 +7,6 @@
 	require_once('functions_php/recherche_biens/affichage_result.php');
 
 	// var_dump($_GET);
-
 	$banniere_connexion='';
 	$display_mon_compte='';		
 	if(isset($_SESSION['id_personne']) && !empty($_SESSION['id_personne'])){
