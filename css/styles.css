@@ -504,7 +504,10 @@ footer{
 
 #search-form .form-col2{
 	padding-left: 30px;
-	
+}
+
+#search-form .form-col2 select{
+	margin-top: 15px;
 }
 
 #search-form .form-col1{
@@ -517,7 +520,7 @@ footer{
 	line-height: 2;
 }
 
-#search-form .form-col3 #bud{
+#search-form .form-col3 .bud{
 	width: 74px;
 }
 
