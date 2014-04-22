@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mar 22 Avril 2014 à 19:10
+-- Généré le: Mar 22 Avril 2014 à 21:15
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.16
 
@@ -98,8 +98,8 @@ CREATE TABLE IF NOT EXISTS `appartement` (
 --
 
 INSERT INTO `appartement` (`etage`, `ascenseur`, `numero_appartement`, `id_bien_immobilier`) VALUES
-(NULL, NULL, NULL, 2),
-(NULL, NULL, NULL, 6);
+(3, 1, 2, 2),
+(1, 0, 6, 6);
 
 -- --------------------------------------------------------
 
@@ -485,9 +485,9 @@ CREATE TABLE IF NOT EXISTS `maison` (
 --
 
 INSERT INTO `maison` (`superficie_jardin`, `id_bien_immobilier`) VALUES
-(NULL, 1),
-(NULL, 3),
-(NULL, 7);
+(25, 1),
+(60, 3),
+(40, 7);
 
 -- --------------------------------------------------------
 
