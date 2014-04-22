@@ -38,7 +38,7 @@
 	if(!$type_vente_checked_form)
 		$type_location_checked_form= isset($_GET['type_achat_location']) && !empty($_GET['type_achat_location']) && $_GET['type_achat_location'] == 'location' ? "checked":'';
 
-	//completion type biens
+	//completion type biens fonction à faire
 	/*$types_bien_maison_form			= isset($_GET['types_bien']) && !empty($_GET['types_bien']) ? 'checked':'';
 	$types_bien_appartement_form	=
 	$types_bien_immeuble_form		=
