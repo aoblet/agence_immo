@@ -1340,8 +1340,30 @@ width: 100px;
 
 .bien-spe-desc{
 	min-height: 350px;
+	padding-bottom: 30px;
+	padding-top: 5px;
 }
 
+.bien-spe-desc-mel{
+	float: left;
+	background: rgba(44,62,80,1);
+	line-height: 50px;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: #FFF;
+}
+
+.bien-spe-contact{
+	overflow: hidden;
+	min-height: 52px;
+	line-height: 48px;
+	background: #FFF;
+}
+
+.bien-spe-contact a{
+	
+	
+}
 
 .bien-spe-desc h4{
 	text-align: left;
@@ -1364,6 +1386,7 @@ width: 100px;
 
 .bien-spe-desc p span{
 	font-weight: 500;
+	padding-right: 7px;
 }
 
 .bien-spe-desc .desc-p-bien{
