@@ -47,7 +47,7 @@
 	//completion formulaire base:
 	$departement_selected_form  	= isset($_GET['departement']) && !empty($_GET['departement']) ? $_GET['departement'] :'';
 	$budget_mini_form		  		= isset($_GET['budget_mini']) && is_numeric($_GET['budget_mini']) ? $_GET['budget_mini'] : '0';
-	$budget_maxi_form		  		= isset($_GET['budget_maxi']) && is_numeric($_GET['budget_maxi']) ? $_GET['budget_maxi']:'1000';
+	$budget_maxi_form		  		= isset($_GET['budget_maxi']) && is_numeric($_GET['budget_maxi']) ? $_GET['budget_maxi']:'10000000000';
 	$nb_pieces_form					= isset($_GET['nb_pieces']) && is_numeric($_GET['nb_pieces']) ? $_GET['nb_pieces']:'';
 	$type_vente_checked_form		= isset($_GET['type_achat_location']) && !empty($_GET['type_achat_location']) && $_GET['type_achat_location'] == 'vente' ? "checked":'';
 	$type_location_checked_form 	='';	//bouton radio
