@@ -5,14 +5,32 @@
 	require_once('functions_php/user_utils/getUtils_html.php');
 	require_once('functions_php/user_utils/getUtils.php');
 	require_once('functions_php/recherche_biens/affichage_result.php');
-	
+
 	// var_dump($_GET);
+	$display_mon_compte='';
 	$banniere_connexion='';
-	$display_mon_compte='';		
+	$mail_message = 'Email';
+	$password_message='Mot de passe';
+
 	if(isset($_SESSION['id_personne']) && !empty($_SESSION['id_personne'])){
-		$banniere_connexion=getBanniereConnexion($_SESSION);
+		$banniere_connexion=getBanniereConnexion($_SESSION,basename(__FILE__));
 		$display_mon_compte="display:none";		
 	}
+	else{
+		if(isset($_GET['err_compte'])){
+			if($_GET['err_compte'] == "wrong_mail_password"){
+				$mail_message='Email ou mot de passe inconnu';
+				$password_message='';
+			}
+			else{
+				$mail_message = 'Mauvaise utilisation';
+				$password_message=$mail_message;
+			}
+		}
+	}
+
+	//dernier parmam:come_from
+	$formulaire_connexion = getFormulaireConnexion($mail_message,$password_message,basename(__FILE__));
 
 
 	// penser aux consos energetiques : fonction
@@ -156,54 +174,7 @@
 				</div>
 			</div>
 
-			<div id="connect-form" style="display:none;">
-				<div class="container" >
-					<div class="row">
-
-						
-						
-
-						<div class="col-md-3">
-						<h4>Identification</h4>
-						<form action='user/login.php' method='POST'>
-						<div class="form-champ1">
-							<i class="fa fa-user"></i>
-							<input type="text" name="mail" value="" required="required" placeholder="Email"/>
-						</div>
-						<div class="form-champ2">
-							<i class="fa fa-key"></i>
-							<input type="password" name="password" value="" required="required" placeholder="Mot de passe"/>
-						</div>
-						<input type="submit" name="connexion" value="Connexion" />
-						
-						</form>
-						</div>
-
-						<div class="col-md-3">
-							<div class="no-count">
-							<h4>Pas encore de compte ?</h4>
-							<p>Pour proposer ou gerer des biens, vous devez disposer d'un compte. Il vous permettra nottament d'acceder aux statistiques mensuelles, et d'obtenir un contact privilégié avec l'agence.</p>
-							<a href="inscription.html"><i class="fa fa-unlock"></i>Demander la création d'un compte</a>
-							
-							<div id="connect-mobile" class="close-form only-mobile">
-							<a href=""><i class="fa fa-close"></i>FERMER LA FENETRE</a>
-							</div>
-						</div>
-						</div>
-
-						<div class="col-md-3 hide980 only-desktop">
-						</div>
-
-						<div class="col-md-3 hide980 only-desktop">
-						</div>
-
-						
-
-						
-
-					</div>
-				</div>
-			</div>
+			<?php echo $formulaire_connexion ?>
 
 		</header>
 
@@ -222,12 +193,6 @@
 
 						<div id="avanced-search" class="bg-white margin30">
 							
-
-
-
-
-
-
 
 						<form action='' method='GET'>
 

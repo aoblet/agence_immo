@@ -30,12 +30,28 @@
 			$stmt->closeCursor();
 
 			$_SESSION['type_personne']=getTypePersonne($ligne['id_personne']);
-			header('Location: ../index.php');			
+
+			$param_url='';
 		}
 		else{
-			header('Location: ../index.php?err_compte=wrong_mail_password');
-			die();
+			$param_url='?err_compte=wrong_mail_password';
 		}
+
+		if(isset($_POST['come_from'])){
+				if($_POST['come_from'] == 'bien.php'){
+					// traitement url a voir
+					header('Location: ../bien.php'.$param_url);
+					die();
+				}
+				elseif($_POST['come_from'] == 'result.php'){
+					header('Location: ../result.php'.$param_url);
+					die();
+				}
+			}
+
+		header('Location: ../index.php'.$param_url);
+		die();
+
 	}
 	else{
 		header('Location: ../index.php?err_compte=wrong_use');
