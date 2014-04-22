@@ -508,11 +508,6 @@ footer{
 	
 }
 
-#search-form .form-col2 select{
-	margin-top: 20px;
-	
-}
-
 #search-form .form-col1{
 	border-left: 1px solid #e5e6e9;
 	padding-left: 15px;
@@ -523,7 +518,7 @@ footer{
 	line-height: 2;
 }
 
-#search-form .form-col3 .bud{
+#search-form .form-col3 #bud{
 	width: 74px;
 }
 
@@ -1052,7 +1047,7 @@ width: 100px;
 
 #avanced-search{
 	padding: 15px;
-	min-height: 670px;
+	min-height: 600px;
 }
 
 #avanced-search h4{
@@ -1336,7 +1331,9 @@ width: 100px;
 }
 
 .bien-spe-pic{
-	min-height: 350px;
+	
+	
+	height: auto;
 }
 
 .bien-spe-desc{
