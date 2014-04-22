@@ -10,7 +10,7 @@
 
 			$prix  = (empty($value['prix']) || $value['prix'] == 0) ? "Prix inconnu" : $value['prix'].' €';
 			$superficie = empty($value['superficie']) ? "Superficie inconnue" : $value['superficie'].' m&sup2;';
-			$type_bien = empty($value['info_type_bien']) ? "Bien immobilier": ucfirst($value['inf_type_bien']);
+			$type_bien = empty($value['info_type_bien']) ? "Bien immobilier": ucfirst($value['info_type_bien']);
 			$type_achat_location = empty($value['info_type_achat_location']) ? "AGENCE" : $value['info_type_achat_location'];
 			$conso_energetique ='';
 			$adresse = '';
@@ -24,7 +24,7 @@
 			if(!empty($value['infos_adresse']) && !empty($value['infos_adresse']['id_adresse'])){
 				$adresse_infos = '';
 				if(!empty($value['infos_adresse']['code_postal']))
-					$adresse_infos.=trim($value['infos_adresse']['code_postal']);
+					$adresse_infos.=' '.trim($value['infos_adresse']['code_postal']);
 
 				if(!empty($value['infos_adresse']['ville']))
 					$adresse_infos.=" ".$value['infos_adresse']['ville'];
@@ -35,7 +35,7 @@
 
 			$descriptif='';
 			if(!empty($value['descriptif'])){
-				$descriptif=substr($value['descriptif'], 0, 30);
+				$descriptif=substr($value['descriptif'], 0, 50)."...";
 			}
 
 			$lien_bien_immobilier='';
