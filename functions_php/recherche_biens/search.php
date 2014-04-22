@@ -66,8 +66,9 @@
 			}
 
 
+			/****************************CHANGER APRES TEST §!!**************************/
 			// type achat ou loc
-			$clause_type_achat_location = 'AND id_personne_locataire IS NULL '; // on prends les biens non loues 
+			$clause_type_achat_location = 'AND id_personne_locataire IS NOT NULL '; // on prends les biens non loues 
 
 			if(!empty($opt['type_achat_location'])){
 				if($opt['type_achat_location'] == 'location')
@@ -193,8 +194,25 @@
 						$clause_order_by = " ORDER BY {$opt['order_by']}";
 			}
 			
-
-			$query = "SELECT * FROM bien_immobilier, appartement, maison WHERE 1=1 ".$clause_types_bien.$clause_type_achat_location.$clause_budget.$clause_superficie;
+			$query = <<<SQL
+				SELECT  bien_immobilier.id_bien_immobilier,
+						bien_immobilier.prix,
+						bien_immobilier.superficie,
+						bien_immobilier.nb_pieces,
+						bien_immobilier.descriptif,
+						bien_immobilier.parking,
+						bien_immobilier.nb_etages,
+						bien_immobilier.date_parution,
+						appartement.etage,
+						appartement.ascenseur,
+						appartement.numero_appartement,
+						maison.superficie_jardin
+				FROM    bien_immobilier 
+						LEFT OUTER JOIN appartement  ON appartement.id_bien_immobilier = bien_immobilier.id_bien_immobilier
+						LEFT OUTER JOIN maison    	 ON maison.id_bien_immobilier = bien_immobilier.id_bien_immobilier
+				WHERE   1=1 
+SQL;
+			$query .= $clause_types_bien.$clause_type_achat_location.$clause_budget.$clause_superficie;
 			$query.= $clause_departement.$clause_region.$clause_ville.$clause_nb_pieces;
 			$query.= $clause_gaz.$clause_conso_energetique.$clause_type_chauffage.$clause_parking.$clause_nb_etages.$clause_ascenseur.$clause_jardin.$clause_order_by;
 		}
