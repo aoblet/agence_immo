@@ -1,57 +1,31 @@
 <?php
 	session_start();
 	require_once('functions_php/user_utils/getUtils_html.php');
+	require_once('functions_php/recherche_biens/getUtils_html.php');
 
-	//bloc connexion haut && nom prenom affichés;
-	// remplacer les liens en temps voulu
-	// armand, pourrais tu voir quand le gars est co, ce qu'on pourrai mettre ? merci.
-	// j'ai essayé quelque trucs mais bof
+	$display_mon_compte='';
+	$banniere_connexion='';
+
 	if(isset($_SESSION['id_personne']) && !empty($_SESSION['id_personne'])){
-
-		$div_connect = getBlocConnect($_SESSION);
-		$div_connect_message = getConnectMessage(true);
-
-		$div_connect_info_deco = <<<HTML
-				<div class='form-champ2'>
-					<h4>Bienvenue {$_SESSION['mail']}</h4>
-					<p>{$_SESSION['type_personne']}</p>
-					<a href='user/deconnexion.php'><i class="fa fa-unlock"></i></a>
-				</div>	
-HTML;
-
+		$banniere_connexion=getBanniereConnexion($_SESSION);
+		$display_mon_compte="display:none";		
 	}
-	// de base
 	else{
-		$div_connect='';
-		$mail='Mail'; $password = 'Mot de passe';
-		$div_connect_message = getConnectMessage(false);
+		$mail_message = 'Email';
+		$password_message='Mot de passe';
 
-		if(isset($_GET['err_compte']) && $_GET['err_compte'] == 'wrong_mail_password'){
-			$mail = 'Mauvais mail';
-			$password='Mauvais mot de passe';
+		if(isset($_GET['err_compte'])){
+			if($_GET['err_compte'] == "wrong_mail_password"){
+				$mail_message='Email ou mot de passe inconnu';
+				$password_message='';
+			}
+			else{
+				$mail_message = 'Mauvaise utilisation';
+				$password_message=$mail_message;
+			}
 		}
-		elseif (isset($_GET['err_compte']) && $_GET['err_compte'] == 'wrong_use') {
-			$mail = "Mauvaise utilisation du script";
-			$password = $mail;			
-		}
-
-		$div_connect_info_deco = <<<HTML
-			<h4>Identification</h4>
-			<form name='login_user' action="user/login.php" method='POST'>
-				<div class="form-champ1">
-					<i class="fa fa-user"></i>
-					<input type="text" name="mail" value="" required="required" placeholder="$mail"/>
-				</div>
-				<div class="form-champ2">
-					<i class="fa fa-key"></i>
-					<input type="password" name="password" value="" required="required" placeholder="$password"/>
-				</div>
-				<input type="submit" name="connexion" value="Connexion" />
-			</form>
-HTML;
 	}
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -63,8 +37,8 @@ HTML;
 		<title>Agence Immo</title>
 
 		<link rel='stylesheet' href='css/pushy.css' type='text/css' media='all' />
-		<link rel='stylesheet' href='css/flexslider.css' type='text/css' media='all' />
 		<link rel='stylesheet' href='css/bootstrap.min.css' type='text/css' media='all' />
+		<link rel='stylesheet' href='css/flexslider.css' type='text/css' media='all' />
 		<link rel='stylesheet' href='css/default.css' type='text/css' media='all' />
 		<link rel='stylesheet' href='css/styles.css' type='text/css' media='all' />
 
@@ -85,12 +59,22 @@ HTML;
 	<body>
 
 
-		<?php echo $div_connect ?>
+<!-- <div id="fixed-connect">
+	<div id="fixed-connect-pic">
+		<img src="img/avatar.png" width="90" height="90">
+	</div>
+
+	<div id="fixed-connect-menu" class="bg-grey">
+		<a href="index.html"><i class="fa fa-user"></i></a>
+		<a href="index.html"><i class="fa fa-envelope"></i></a>
+		<a href="index.html"><i class="fa fa-gears"></i></a>
+	</div>
+</div> -->
 
 
 		<nav class="pushy pushy-left">
             <ul>
-                <li><a href="index.html" class="button-home"><i class="fa fa-home"></i></a></li>
+                <li><a href="index.php" class="button-home"><i class="fa fa-home"></i></a></li>
 				<li><a href="#">Acheter</a></li>
 				<li><a href="#">Vendre</a></li>
 				<li><a href="#">Louer</a></li>
@@ -103,36 +87,23 @@ HTML;
 
 
 
-		<section class="slider">
-			<div class="flexslider">
-				<ul class="slides">
-					<li>
-
-						<img src="img/slides/1_.jpg" />
-					</li>
-					<li>
-						<img src="img/slides/2_.jpg" />
-					</li>
-					<li>
-						<img src="img/slides/1_.jpg" />
-					</li>
-				</ul>
-			</div>
-		</section>
-
-
 
 		<header>
-			<div class="container" >
+			<?php echo $banniere_connexion ?>
 
+			<div class="container" >
 
 				<div class="row">
 
 					<div class="col-md-12">
+						
+						
+
+
 						<div id="menu">
 
 							<ul id="menu-nav" class="only-desktop">
-								<li><a href="index.html" class="button-home"><i class="fa fa-home"></i></a></li>
+								<li><a href="index.php" class="button-home"><i class="fa fa-home"></i></a></li>
 								<li><a href="#">Acheter</a></li>
 								<li><a href="#">Vendre</a></li>
 								<li><a href="#">Louer</a></li>
@@ -140,7 +111,7 @@ HTML;
 							</ul>
 
 
-							<a href="#" id="connect" class="only-desktop">
+							<a href="#" id="connect" class="only-desktop" style="<?php echo $display_mon_compte ?>">
 								<i class="fa fa-unlock-alt"></i>Mon compte
 							</a>
 
@@ -150,7 +121,7 @@ HTML;
 								<i class="fa fa-bars"></i>
 							</a>
 
-							<a  id="connect-mobile" class="only-mobile">
+							<a  id="connect-mobile" class="only-mobile" style="<?php echo $display_mon_compte ?>">
 								<i class="fa fa-unlock-alt"></i>Mon compte
 							</a>
 						</div>
@@ -165,11 +136,36 @@ HTML;
 			<div id="connect-form" style="display:none;">
 				<div class="container" >
 					<div class="row">
+
+						
+						
+
 						<div class="col-md-3">
-							<?php echo $div_connect_info_deco; ?>
+						<h4>Identification</h4>
+						<form action='user/login.php' method='POST'>
+						<div class="form-champ1">
+							<i class="fa fa-user"></i>
+							<input type="text" name="mail" value="" required="required" placeholder="<?php echo $mail_message ?>"/>
 						</div>
+						<div class="form-champ2">
+							<i class="fa fa-key"></i>
+							<input type="password" name="password" value="" required="required" placeholder="<?php echo $password_message ?>"/>
+						</div>
+						<input type="submit" name="connexion" value="Connexion" />
+						
+						</form>
+						</div>
+
 						<div class="col-md-3">
-							<?php echo $div_connect_message ;?>
+							<div class="no-count">
+							<h4>Pas encore de compte ?</h4>
+							<p>Pour proposer ou gerer des biens, vous devez disposer d'un compte. Il vous permettra nottament d'acceder aux statistiques mensuelles, et d'obtenir un contact privilégié avec l'agence.</p>
+							<a href="inscription.html"><i class="fa fa-unlock"></i>Demander la création d'un compte</a>
+							
+							<div id="connect-mobile" class="close-form only-mobile">
+							<a href=""><i class="fa fa-close"></i>FERMER LA FENETRE</a>
+							</div>
+						</div>
 						</div>
 
 						<div class="col-md-3 hide980 only-desktop">
@@ -190,28 +186,12 @@ HTML;
 
 
 
-		<!-- <div id="navigation-mobile">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<ul id="menu-nav-mobile">
-							<li class="current-menu-ancestor"><a href="#">Accueil</a></li>
-							<li><a href="#">Acheter</a></li>
-							<li><a href="#">Vendre</a></li>
-							<li><a href="#">Louer</a></li>
-							<li><a href="#">Faire gérer</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div> -->
-
-
+	
 
 		<section class="bg-grey first-section" >
 
 
-			<div class="container margin60">
+			<div class="container margin30">
 
 
 				<div class="row">
@@ -237,35 +217,32 @@ HTML;
 						<div class="bg-white home-form-search">
 							<h4>Rechercher par critères</h4>
 
-							<form id="search-form" action='result.php' method='GET' name='search_biens'>								
-
-
+							<form id="search-form" action='result.phh' method='GET'>					
+								<div id="search-form">
 								<div id="form-col2" class="col-md-4 form-col2">
 									<p>
-										<input type="radio" name="choice" value="vente" id="acheter" /> 
+										<input type="radio" name="type_achat_location" value="vente"/> 
 										<label class="choice" for="acheter">Acheter</label>
 									</p>
 									<p>
-										<input type="radio" name="choice" value="location" id="louer" />
+										<input type="radio" name="type_achat_location" value="location" id="louer" />
 										<label class="choice" for="louer">Louer</label>
 									</p>
 
 									<p>
-										<select id="type" name="type_biens[]" multiple="multiple">
+										<select id="type" name="types_bien[]" multiple="multiple">
 											<option value="maison">Maison</option>
 											<option value="appartement">Appartement</option>
 											<option value="immeuble">Immeuble</option>
 											<option value="garage">Garage</option>
 										</select>
 									</p>
+									<hr>
 									<p>
-										<input type="text" name="ville" value="Paris">
-										<!-- <label>~</label>
-										<select>
-											<option selected> 5 km </option>
-											<option> 20 km </option>
-											<option> 50 km </option>
-										</select> -->
+											<?php 
+												echo getSelectDepartementsHTML("departement");
+											?>
+
 									</p>
 								</div>
 
@@ -273,30 +250,27 @@ HTML;
 								<div id="form-col3" class="col-md-4 form-col3">
 									<p>
 										<label>Budget</label><br>
-										<input type="number" name="budget_mini" id="bud" value="0">
+										<input type="number" name="budget_mini" id="budget_mini" value="0">
 										<label> à </label>
-										<input type="number" name="budget_maxi" id="bud" value="400">
+										<input type="number" name="budget_maxi" id="budget_maxi" value="1000">
 										<label> € </label>
 									</p>
 									<p class="margin30">
 										<label>Nombre de pièces</label><br>
-										<input type="number" name="nb_pieces" id="room" value="3">
+										<input type="number" name="nb_pieces" id="room" value="">
 									</p>
 								</div>
 								
 								<div id="form-col1" class="col-md-4 form-col1">
 									<p>
-										Un affinement de recherche comprenant surface, garage, jardin vous sera proposé selon les différents résultats de votre recherche.
+										Pour une précision de recherche plus importante, l'agence vous conseille l'utilisation de la recherche avancée, située à gauche de la page.
 									</p>
 									
-									<input type="submit" name="submit" id="search" value="Rechercher">
+									<input type="submit" name="submit_base" id="search" value="Rechercher">
 
 									
 								</div>
-
-
-								
-								
+							</div>
 
 							</form>
 
@@ -492,41 +466,42 @@ HTML;
 </div>
 
  		<script src="js/pushy.js"></script>
-		<script defer src="js/flexslider.js"></script>
-
+ 		<script defer src="js/flexslider.js"></script>
 		<script type="text/javascript">
 
 
-		animheader = function(){
+// 		animheader = function(){
 
-	$(window).scroll(function(){
-		var $this = $(this),
-		pos   = $this.scrollTop();
-
-
-		if (pos > 300){
-			$('header').addClass('menu-small');
-			$('.first-section').addClass('pad-top');
-
-		} else {
-			$('header').removeClass('menu-small');
-			$('.first-section').removeClass('pad-top');
-		}
-	});
-};
+// 	$(window).scroll(function(){
+// 		var $this = $(this),
+// 		pos   = $this.scrollTop();
 
 
+// 		if (pos > 300){
+// 			$('header').addClass('menu-small');
+// 			$('.first-section').addClass('pad-top');
 
-$(document).ready(function() {
-	animheader();
-});
+// 		} else {
+// 			$('header').removeClass('menu-small');
+// 			$('.first-section').removeClass('pad-top');
+// 		}
+// 	});
+// };
 
 
-		<?php 
-			if(isset($_GET['err_compte']) && !empty($_GET['err_compte']) && ($_GET['err_compte'] == 'wrong_mail_password' || $_GET['err_compte'] == 'wrong_use'))
-				echo "$('#connect-form').slideToggle('fast');";
-		?>
+
+// $(document).ready(function() {
+// 	animheader();
+// });
+
+
+
 		var open_menu = 0;
+		<?php 
+			if(isset($_GET['err_compte']) && ($_GET['err_compte'] == 'wrong_use' || $_GET['err_compte'] == 'wrong_mail_password' ))
+				echo "$('#connect-form').slideToggle('fast');"
+		?>
+
 		$( "#connect").click(function() {
 			$('#connect-form').slideToggle('fast');
 		});
@@ -550,6 +525,9 @@ $(document).ready(function() {
 				}
 			});
 		});
+
+
+		
 		</script>
 
 
@@ -610,4 +588,3 @@ $(document).ready(function() {
 
 	</body>
 	</html>
-	

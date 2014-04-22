@@ -20,7 +20,7 @@
 	function getAllBiensFromType($type){
 		try{
 			$stmt = myPDO::getSingletonPDO()->prepare("SELECT id_bien_immobilier FROM {$type}");
-			$stm->excute();
+			$stmt->execute();
 			$res = array();
 
 			while($ligne = $stmt->fetch()){
@@ -55,8 +55,18 @@
 		return $res;
 	}
 
-	function getConsosElectriques(){
+	function getConsosEnergetiques(){
 		$stmt = myPDO::getSingletonPDO()->query("SELECT DISTINCT * FROM consommation_energetique_classe");
+		$res  = array();
+		while($ligne = $stmt->fetch()){
+			$res[]=$ligne;
+		}
+		$stmt->closeCursor();
+		return $res;
+	}
+
+	function getAllDepartements(){
+		$stmt = myPDO::getSingletonPDO()->query("SELECT DISTINCT * FROM departement");
 		$res  = array();
 		while($ligne = $stmt->fetch()){
 			$res[]=$ligne;

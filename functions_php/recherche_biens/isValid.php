@@ -21,10 +21,10 @@
 		return false;
 	}
 
-	function isValidConsoElectrique($id_conso_electrique){
-		$consos = getConsosElectriques();
+	function isValidConsoEnergetique($id_consommation_energetique){
+		$consos = getConsosEnergetiques();
 		foreach ($consos as $value) {
-			if($value['id_consommation_energetique'] == $id_conso_electrique)
+			if($value['id_consommation_energetique'] == $id_consommation_energetique)
 				return true;
 		}
 		return false;

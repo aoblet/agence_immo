@@ -1,25 +1,77 @@
 <?php
 	session_start();
 	require_once('functions_php/recherche_biens/search.php');
+	require_once('functions_php/recherche_biens/getUtils_html.php');
 	require_once('functions_php/user_utils/getUtils_html.php');
+	require_once('functions_php/user_utils/getUtils.php');
 	require_once('functions_php/recherche_biens/affichage_result.php');
+
 	var_dump($_GET);
+
 	$div_connect='';
-	
+
 	if(!empty($_SESSION['id_personne'])){
 		$div_connect=getBlocConnect($_SESSION);
 	}
 
 	// messages connect etc ...
 
+	// penser aux consos energetiques : fonction
+	if(isset($_GET['submit_base'])){
+		// on enleve l'affinage
+		$indices_to_remove = array("jardin","parking","ascenseur","superficie_mini","superficie_maxi","ville","nb_etages");
+		foreach ($indices_to_remove as $value) {
+			if(isset($_GET[$value])){
+				unset($_GET[$value]);
+			}
+		}
+	}
+
+	//completion formulaire base:
+	$departement_selected_form  	= isset($_GET['departement']) && !empty($_GET['departement']) ? $_GET['departement'] :'';
+	$budget_mini_form		  		= isset($_GET['budget_mini']) && is_numeric($_GET['budget_mini']) ? $_GET['budget_mini'] : '';
+	$budget_maxi_form		  		= isset($_GET['budget_maxi']) && is_numeric($_GET['budget_maxi']) ? $_GET['budget_maxi']:'';
+	$nb_pieces_form					= isset($_GET['nb_pieces']) && is_numeric($_GET['nb_pieces']) ? $_GET['nb_pieces']:'';
+	$type_vente_checked_form		= isset($_GET['type_achat_location']) && !empty($_GET['type_achat_location']) && $_GET['type_achat_location'] == 'vente' ? "checked":'';
+	$type_location_checked_form 	='';	//bouton radio
+
+	if(!$type_vente_checked_form)
+		$type_location_checked_form= isset($_GET['type_achat_location']) && !empty($_GET['type_achat_location']) && $_GET['type_achat_location'] == 'location' ? "checked":'';
+
+	//completion type biens
+	/*$types_bien_maison_form			= isset($_GET['types_bien']) && !empty($_GET['types_bien']) ? 'checked':'';
+	$types_bien_appartement_form	=
+	$types_bien_immeuble_form		=
+	$types_bien_garage_form			=*/
+
+	//completion affinage
+	$jardin_form 			= isset($_GET['jardin']) && is_numeric($_GET['jardin']) && $_GET['jardin'] == 1 ? "checked" : '';
+	$parking_form 			= isset($_GET['parking']) && is_numeric($_GET['parking']) && $_GET['parking'] == 1 ? "checked" : '';
+	$ascenseur_form 		= isset($_GET['ascenseur']) && is_numeric($_GET['ascenseur']) && $_GET['ascenseur'] == 1 ? "checked" : '';
+	$nb_etages_form			= isset($_GET['nb_etages']) && is_numeric($_GET['nb_etages']) ? $_GET['nb_etages'] : '';
+	$superficie_mini_form	= isset($_GET['superficie_mini']) && is_numeric($_GET['superficie_mini']) ? $_GET['superficie_mini'] : '';
+	$superficie_maxi_form	= isset($_GET['superficie_maxi']) && is_numeric($_GET['superficie_maxi']) ? $_GET['superficie_maxi'] : '';
+	$ville_form				= isset($_GET['ville']) && !empty($_GET['ville']) ? $_GET['ville'] :'';
+
+
+	//completion tri
+	$order_by_prix_croissant_form 	= isset($_GET['order_by']) && !empty($_GET['order_by']) && $_GET['order_by'] =='prix_croissant' ? "selected" : '';
+	$order_by_prix_decroissant_form = isset($_GET['order_by']) && !empty($_GET['order_by']) && $_GET['order_by'] =='prix_decroissant' ? "selected" : '';
+	$order_by_date_parution_form	= isset($_GET['order_by']) && !empty($_GET['order_by']) && $_GET['order_by'] =='date_parution' ? "selected" : '';	
+	$order_by_superficie_form		= isset($_GET['order_by']) && !empty($_GET['order_by']) && $_GET['order_by'] =='superficie' ? "selected" : '';
+	$order_by_nb_pieces_form		= isset($_GET['order_by']) && !empty($_GET['order_by']) && $_GET['order_by'] =='nb_pieces' ? "selected" : '';
+
 	$opts = formToArrayOpt($_GET);
 	//var_dump($opts);
 	$res = searchBase($opts);
 	//var_dump($res);
 
-	$nb_res_search = count($res);
+	$phrase_associe_count = 'résultats associés';
+	$nb_res_search = "<span>".count($res)."</span>";
+	if($nb_res_search == 0 || $nb_res_search==1)
+		$phrase_associe_count = 'résultat associé';
 
-	$resultat_html = affichage_base_liste_html($res);
+	$resultat_search_html = affichage_base_liste_html($res);
 
 ?>
 <!DOCTYPE html>
@@ -179,47 +231,38 @@
 
 
 
-						<form>
-							
-
-
-
-
-
+						<form action='' method='GET'>
 
 							<h4>Affiner votre recherche</h4>
 
 							<p>
 								<label>Ville</label>
-								<input type="text" name="nom" value="" placeholder="Ville"/>
+								<input type="text" name="ville" value="<?php echo $ville_form ?>" placeholder="Nom de ville"/>
 							</p>
 
 							<p>
-								<label></label>
-								<input type="checkbox" name="vehicle" value="jardin"><span>Jardin</span><br>
-								<input type="checkbox" name="vehicle" value="terasse"><span>Terasse</span><br>
-								<input type="checkbox" name="vehicle" value="garage"><span>Garage</span><br>
-								<input type="checkbox" name="vehicle" value="ascenseur"><span>Ascenseur</span><br>
-								<input type="checkbox" name="vehicle" value="Parking"><span>Parking</span><br>
+								<label>Utilitaires</label>
+								<input type="checkbox" name="jardin" <?php echo $jardin_form ?>  value="1"><span>Jardin</span><br>
+								<input type="checkbox" name="parking" <?php echo $parking_form ?>  value="1"><span>Parking</span><br>
+								<input type="checkbox" name="ascenseur" <?php echo $ascenseur_form ?> value="1"><span>Ascenseur</span><br>
 							</p>
 
 							<p>
 								<label>Nombre d'étages</label>
-								<input type="number" name="etages" value="3"/>
+								<input type="number" name="nb_etages" value="<?php echo $nb_etages_form ?>"/>
+							</p>
+
+							<p>
+								<label>Superficie</label>
+								<input type="number" name="superficie_mini" id="superficie_mini" placeHolder='Mini' value='<?php echo $superficie_mini_form ?>'>
+								<input type="number" name="superficie_maxi" id="superficie_maxi" placeHolder='Maxi' value='<?php echo $superficie_maxi_form ?>'>
 							</p>
 							<p>
-								<label>Nombre de pièces</label>
-								<input type="number" name="chambres" value="2"/>
-							</p>
-							<p>
-								<label>Nombre de chambres</label>
-								<input type="number" name="chambres" value="1"/>
-							</p>
-							<p>
+
 								<input class="affiner" type="submit" name="submit_affine" value="Affiner la recherche"/>
 							</p>
 						
-						</div>
+						</div>	
 					</div>
 
 					<div class="col-md-9 bg-grey margin60">
@@ -230,31 +273,28 @@
 							<div id="search-form">
 								<div id="form-col2" class="col-md-4 form-col2">
 									<p>
-										<input type="radio" name="choice" value="acheter" id="acheter" /> 
+										<input type="radio" name="type_achat_location" value="vente" <?php echo $type_vente_checked_form ?> id="acheter" /> 
 										<label class="choice" for="acheter">Acheter</label>
 									</p>
 									<p>
-										<input type="radio" name="choice" value="louer" id="louer" />
+										<input type="radio" name="type_achat_location" value="location" <?php echo $type_location_checked_form ?> id="louer" />
 										<label class="choice" for="louer">Louer</label>
 									</p>
 
 									<p>
-										<select id="type" name="type" multiple="multiple">
-											<option value="1">Maison</option>
-											<option value="2">Appartement</option>
-											<option value="3">Immeuble</option>
-											<option value="4">Garage</option>
-											<option value="5">Commerce</option>
+										<select id="type" name="types_bien[]" multiple="multiple">
+											<option value="maison">Maison</option>
+											<option value="appartement">Appartement</option>
+											<option value="immeuble">Immeuble</option>
+											<option value="garage">Garage</option>
 										</select>
 									</p>
+									<hr>
 									<p>
-										<input type="text" name="location" value="Paris">
-										<!-- <label>~</label>
-										<select>
-											<option selected> 5 km </option>
-											<option> 20 km </option>
-											<option> 50 km </option>
-										</select> -->
+											<?php 
+												echo getSelectDepartementsHTML("departement",$departement_selected_form);
+											?>
+
 									</p>
 								</div>
 
@@ -262,14 +302,14 @@
 								<div id="form-col3" class="col-md-4 form-col3">
 									<p>
 										<label>Budget</label><br>
-										<input type="number" name="bud" id="bud" value="0">
+										<input type="number" name="budget_mini" id="budget_mini" value="<?php echo $budget_mini_form ?>">
 										<label> à </label>
-										<input type="number" name="bud" id="bud" value="400">
+										<input type="number" name="budget_maxi" id="budget_maxi" value="<?php echo $budget_maxi_form ?>">
 										<label> € </label>
 									</p>
 									<p class="margin30">
 										<label>Nombre de pièces</label><br>
-										<input type="number" name="room" id="room" value="3">
+										<input type="number" name="nb_pieces" id="room" value="<?php echo $nb_pieces_form ?>">
 									</p>
 								</div>
 								
@@ -284,13 +324,13 @@
 								</div>
 							</div>
 						</div>
-					</form>
+					
 						
 						
 						<div class="margin30 results-title">
 
 								<div class="col-md-6 bg-blue">
-									<h4><span>102</span> résultats correspondants</h4>
+									<h4><?php echo $nb_res_search.$phrase_associe_count ?></h4>
 								</div>
 
 								<div class="col-md-6 bg-white" style="border:none">
@@ -299,11 +339,12 @@
 
 										Trier par
 
-										<select>
-										<option>Date</option>
-										<option>Prix croissant</option>
-										<option>Prix décroissant</option>
-										<option>Localité</option>
+										<select name='order_by'>
+											<option value='prix_croissant' 		<?php echo $order_by_prix_croissant_form ?> 	>Prix croissant</option>
+											<option value='prix_decroissant' 	<?php echo $order_by_prix_decroissant_form ?> 	>Prix décroissant</option>
+											<option value='superficie' 			<?php echo $order_by_superficie_form ?> 		>Superficie</option>
+											<option value='nb_pieces' 			<?php echo $order_by_nb_pieces_form ?> 			>Nombre de pièces</option>
+											<option value='date_parution' 		<?php echo $order_by_date_parution_form ?>		>Date</option>
 										</select>
 
 										<input type="submit" name="submit_trier" id="search" value="Trier">
@@ -312,114 +353,9 @@
 								</div>
 						</div>
 
+					</form>
 
-
-						
-						<article class="article-bien margin30">
-							<a href="">
-							<div class="col-md-4 article-bien-pic" style="background:url(img/plans/1.jpg) top center no-repeat;">
-								<div class="article-bien-pic-loc-achat">Vente</div>
-							</div>
-							<div class="col-md-8 bg-white article-bien-desc">
-
-								<div class="bien-title">
-									<h4>
-									Maison 59 m&sup2;
-									</h4>
-									<h5>340 000 €</h5>
-								</div>
-
-								<div class="bien-desc">
-									<div class="col-md-6">
-									<p><i class="fa fa-globe"></i> 75017 Paris</p>
-									<p><i class="fa fa-home"></i> Maison</p>
-									<p><i class="fa fa-tachometer"></i> Indice éco : <span>B</span></p>
-									</div>
-									<div class="col-md-6">
-									<p>Grands espaces : appréciable, à visiter rapidement.</p>	
-									</div>
-								</div>
-
-								
-								<div class="article-bien-contact-agency"><a href=""><i class="fa fa-envelope"></i></a></div>
-								<div class="article-bien-contact-agency2"><a href=""><i class="fa fa-bell"></i></a></div>
-							</div>
-						</a>
-						</article>
-
-
-						<article class="article-bien margin30">
-							<a href="">
-							<div class="col-md-4 article-bien-pic" style="background:url(img/plans/2.jpg) top center no-repeat;">
-								<div class="article-bien-pic-loc-achat">Location</div>
-							</div>
-							<div class="col-md-8 bg-white article-bien-desc">
-
-								<div class="bien-title">
-									<h4>
-									Appartement 24 m&sup2;
-									</h4>
-									<h5>1018 €</h5>
-								</div>
-
-								<div class="bien-desc">
-									<div class="col-md-6">
-									<p><i class="fa fa-globe"></i> 75009 Paris</p>
-									<p><i class="fa fa-home"></i> Appartement</p>
-									<p><i class="fa fa-tachometer"></i> Indice éco : <span>A</span></p>
-									</div>
-									<div class="col-md-6">
-									<p>Superbe préstation, appartement de grande qualité.</p>	
-									</div>
-								</div>
-
-								
-								<div class="article-bien-contact-agency"><a href=""><i class="fa fa-envelope"></i></a></div>
-								<div class="article-bien-contact-agency2"><a href=""><i class="fa fa-bell"></i></a></div>
-							</div>
-						</a>
-						</article>
-
-
-						<article class="article-bien margin30">
-							<a href="">
-							<div class="col-md-4 article-bien-pic" style="background:url(img/plans/3.jpg) top center no-repeat;">
-								<div class="article-bien-pic-loc-achat">Vente</div>
-							</div>
-							<div class="col-md-8 bg-white article-bien-desc">
-
-								<div class="bien-title">
-									<h4>
-									Appartement 38 m&sup2;
-									</h4>
-									<h5>780 000 €</h5>
-								</div>
-
-								<div class="bien-desc">
-									<div class="col-md-6">
-									<p><i class="fa fa-globe"></i> 75001 Paris</p>
-									<p><i class="fa fa-home"></i> Appartement</p>
-									<p><i class="fa fa-tachometer"></i> Indice éco : <span>C</span></p>
-									</div>
-									<div class="col-md-6">
-									<p>Dans grand immeuble de standing, fabuleux.</p>	
-									</div>
-								</div>
-
-								
-								<div class="article-bien-contact-agency"><a href=""><i class="fa fa-envelope"></i></a></div>
-								<div class="article-bien-contact-agency2"><a href=""><i class="fa fa-bell"></i></a></div>
-							</div>
-						</a>
-						</article>
-
-						
-
-
-
-
-
-
+					<?php echo $resultat_search_html ?>	
 
 					</div>
 			</div>
@@ -511,6 +447,7 @@ $(document).ready(function() {
 		$(document).ready(function(){
 			$("#type").multiselect();
 		});
+
 		</script>
 
 

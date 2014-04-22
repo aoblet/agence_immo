@@ -19,6 +19,7 @@
 			$this->pdo = new PDO(self::$dsn, self::$user, self::$password);
 			//mise en place du mode exception pour les erreurs de type PDO
 			$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$this->pdo->query("SET NAMES UTF8");
 		}
 
 		public function __destruct(){

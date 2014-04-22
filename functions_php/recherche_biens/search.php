@@ -8,11 +8,11 @@
 	// transforme les donnees du formulaire en option
 	function formToArrayOpt($GET_form){
 		$array_data_indices=array(	'id_bien_immobilier', 'types_bien','type_achat_location', 'budget_mini','budget_maxi','ville','region','departement','nb_pieces','superficie_mini',
-									'superficie_maxi', 'gaz_effet_serre','type_chauffage','conso_electrique', 'jardin', 'parking', 'nb_etages', 'ascenseur','order_by');
+									'superficie_maxi', 'gaz_effet_serre','type_chauffage','consos_energetiques', 'jardin', 'parking', 'nb_etages', 'ascenseur','order_by');
 
 		$array_opt = array();
 		foreach ($array_data_indices as $value) {
-			if(isset($GET_form[$value]) && !empty($GET_form[$value]))
+			if(isset($GET_form[$value]))
 				$array_opt[$value] = $GET_form[$value];
 		}
 
@@ -37,7 +37,7 @@
 	 CF LES DEP REGIONS: CODE OU NOM??
 	 
 	 opt array indices : 'id_bien_immobilier', 'types_bien','type_achat_location', 'budget_mini','budget_maxi','ville','region','departement','nb_pieces','superficie_mini',
-						  'superficie_maxi', 'gaz_effet_serre','type_chauffage','conso_electrique', 'jardin', 'parking', 'nb_etages', 'ascenseur','order_by'
+						  'superficie_maxi', 'gaz_effet_serre','type_chauffage','consos_energetiques', 'jardin', 'parking', 'nb_etages', 'ascenseur','order_by'
 	 */
 	function searchBase($opt=NULL){
 
@@ -71,16 +71,16 @@
 
 			if(!empty($opt['type_achat_location'])){
 				if($opt['type_achat_location'] == 'location')
-					$clause_type_achat_location = 'AND id_agence_vendeur IS NULL';
+					$clause_type_achat_location = ' AND id_agence_vendeur IS NULL ';
 				elseif($opt['type_achat_location'] == 'vente')
-					$clause_type_achat_location= 'AND id_agence_loueur IS NULL AND id_personne_proprio IS NULL';
+					$clause_type_achat_location= ' AND id_agence_loueur IS NULL AND id_personne_proprio IS NULL ';
 			}
 
 
 			//budget
 			$clause_budget='';
-			if(!empty($opt['budget_mini']) && !empty($opt['budget_maxi']) && is_numeric($opt['budget_mini']) && is_numeric($opt['budget_maxi']))
-				$clause_budget = "prix BETWEEN {$opt['budget_mini']} AND {$opt['budget_maxi']}";
+			if(isset($opt['budget_mini']) && !empty($opt['budget_maxi']) && is_numeric($opt['budget_mini']) && is_numeric($opt['budget_maxi']))
+				$clause_budget = "AND prix BETWEEN {$opt['budget_mini']} AND {$opt['budget_maxi']}";
 
 
 			//ville
@@ -117,6 +117,12 @@
 			if(!empty($opt['superficie_mini']) && !empty($opt['superficie_maxi']) && is_numeric($opt['superficie_mini']) && is_numeric($opt['superficie_maxi']) ){
 				$clause_superficie=" AND superficie BETWEEN {$opt['superficie_mini']} AND {$opt['superficie_maxi']} ";
 			}
+			elseif(!empty($opt['superficie_mini']) && is_numeric($opt['superficie_mini'])){
+				$clause_superficie=" AND superficie > {$opt['superficie_mini']} ";
+			}
+			elseif(!empty($opt['superficie_maxi']) && is_numeric($opt['superficie_maxi'])){
+				$clause_superficie=" AND superficie < {$opt['superficie_maxi']} ";
+			}
 
 
 			//gaz effet de serre
@@ -132,14 +138,14 @@
 
 
 			//conso electrique
-			$clause_conso_electrique='';
-			if(!empty($opt['conso_electrique'])){
-				foreach ($opt['conso_electrique'] as $value) {
-					if(isValidConsoElectrique($value))
-						$clause_conso_electrique.=" id_consommation_energetique = $value OR ";
+			$clause_conso_energetique='';
+			if(!empty($opt['consos_energetiques']) && is_array($opt['consos_energetiques'])){
+				foreach ($opt['consos_energetiques'] as $value) {
+					if(isValidConsoEnergetique($value))
+						$clause_conso_energetique.=" id_consommation_energetique = $value OR ";
 				}
-				if(!empty($clause_conso_electrique))
-					$clause_gaz = " AND ( ".$clause_conso_electrique." '')";
+				if(!empty($clause_conso_energetique))
+					$clause_conso_energetique = " AND ( ".$clause_conso_energetique." '')";
 			}
 
 
@@ -151,29 +157,29 @@
 						$clause_type_chauffage.=" id_type_chauffage = $value OR ";
 				}
 				if(!empty($clause_type_chauffage))
-					$clause_gaz = " AND ( ".$clause_type_chauffage." '')";
+					$clause_conso_energetique = " AND ( ".$clause_type_chauffage." '')";
 			}
 
 
 			//parking
 			$clause_parking='';
 			if(!empty($opt['parking']) && ($opt['parking'] == 0 || $opt['parking'] == 1))
-				$clause_parking = "AND parking = {$opt['parking']} ";
+				$clause_parking = " AND parking = {$opt['parking']} ";
 
 			//nb etages
 			$clause_nb_etages='';
 			if(!empty($opt['nb_etages']) && is_numeric($opt['nb_etages']))
-				$clause_nb_etages = "AND nb_etages = {$opt['nb_etages']} ";
+				$clause_nb_etages = " AND nb_etages = {$opt['nb_etages']} ";
 
 			//ascenseur
 			$clause_ascenseur='';
 			if(!empty($opt['ascenseur']) && is_numeric($opt['ascenseur']) && $opt['ascenseur'] == 1)
-				$clause_ascenseur = "AND immeuble.id_bien_immobilier = bien_immobilier.id_bien_immobilier AND immeuble.ascenseur = 1";
+				$clause_ascenseur = " AND appartement.id_bien_immobilier = bien_immobilier.id_bien_immobilier AND appartement.ascenseur = 1 ";
 
 			//jardin
 			$clause_jardin='';
 			if(!empty($opt['jardin']) && is_numeric($opt['jardin']) && $opt['jardin'] == 1)
-				$clause_jardin = "AND maison.id_bien_immobilier = bien_immobilier.id_bien_immobilier AND maison.superficie_jardin > 0";
+				$clause_jardin = " AND maison.id_bien_immobilier = bien_immobilier.id_bien_immobilier AND maison.superficie_jardin > 0 ";
 
 			//orderby
 			$clause_order_by='';
@@ -181,19 +187,19 @@
 				if($opt['order_by'] == 'prix_croissant' || $opt['order_by'] == 'prix_decroissant' || $opt['order_by'] == 'superficie' || $opt['order_by'] =='nb_pieces' || $opt['order_by'] =='date_parution')
 					if($opt['order_by'] == 'prix_croissant')
 						$clause_order_by = " ORDER BY prix";
-					elseif($opt['order_by'] == 'prix_croissant')
+					elseif($opt['order_by'] == 'prix_decroissant')
 						$clause_order_by = " ORDER BY prix DESC";
 					else
 						$clause_order_by = " ORDER BY {$opt['order_by']}";
 			}
 			
 
-			$query = "SELECT * FROM bien_immobilier WHERE 1=1 ".$clause_types_bien.$clause_type_achat_location.$clause_budget.$clause_superficie;
+			$query = "SELECT * FROM bien_immobilier, appartement, maison WHERE 1=1 ".$clause_types_bien.$clause_type_achat_location.$clause_budget.$clause_superficie;
 			$query.= $clause_departement.$clause_region.$clause_ville.$clause_nb_pieces;
-			$query.= $clause_gaz.$clause_conso_electrique.$clause_type_chauffage.$clause_order_by;
+			$query.= $clause_gaz.$clause_conso_energetique.$clause_type_chauffage.$clause_parking.$clause_nb_etages.$clause_ascenseur.$clause_jardin.$clause_order_by;
 		}
 		
-		//echo $query;
+		echo $query;
 		$stmt = myPDO::getSingletonPDO()->query($query); 
 
 		$resultas = array();
