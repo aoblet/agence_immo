@@ -36,10 +36,10 @@ HTML;
 
 						<form action='user/login.php' method='POST'>
 							<div class="form-champ1">
-								<input type="text" name="mail" value="" required="required" placeholder="$mail_message"/>
+								<input type="text" name="mail" value="" required="required" placeholder="$mail_message" title="Email"/>
 							</div>
 							<div class="form-champ2">
-								<input type="password" name="password" value="" required="required" placeholder="$password_message"/>
+								<input type="password" name="password" value="" required="required" placeholder="$password_message" title="Mot de passe"/>
 							</div>
 							<input type='hidden' name='come_from' value='$file_come_from'>
 							<input type="submit" name="connexion" value="Connexion" />
