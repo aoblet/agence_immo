@@ -19,7 +19,7 @@
 				AND pe.id_photo = ph.id_photo";
 
 		$stmt = myPDO::getSingletonPDO()->prepare($query);
-		$stmt->execute(array("mail"=>$mail, "password"=>sha1($password)));
+		$stmt->execute(array(":mail"=>$mail, ":password"=>sha1($password)));
 
 		if( $ligne=$stmt->fetch() ){
 			$_SESSION['id_personne']=$ligne['id_personne'];

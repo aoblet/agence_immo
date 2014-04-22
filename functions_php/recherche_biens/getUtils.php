@@ -66,7 +66,7 @@
 	}
 
 	function getAllDepartements(){
-		$stmt = myPDO::getSingletonPDO()->query("SELECT DISTINCT * FROM departement");
+		$stmt = myPDO::getSingletonPDO()->query("SELECT DISTINCT * FROM departement ORDER BY code_departement");
 		$res  = array();
 		while($ligne = $stmt->fetch()){
 			$res[]=$ligne;

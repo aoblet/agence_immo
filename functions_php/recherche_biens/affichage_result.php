@@ -35,7 +35,7 @@
 
 			$descriptif='';
 			if(!empty($value['descriptif'])){
-				$descriptif=substr($value['descriptif'], 0, 50)."...";
+				$descriptif=substr($value['descriptif'], 0, 80)."...";
 			}
 
 			$lien_bien_immobilier='';

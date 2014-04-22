@@ -7,14 +7,12 @@
 	require_once('functions_php/recherche_biens/affichage_result.php');
 
 	// var_dump($_GET);
-	$display_mon_compte='';
-	$banniere_connexion='';
 	$mail_message = 'Email';
 	$password_message='Mot de passe';
+	$session_to_getBanniere ='';
 
 	if(isset($_SESSION['id_personne']) && !empty($_SESSION['id_personne'])){
-		$banniere_connexion=getBanniereConnexion($_SESSION,basename(__FILE__));
-		$display_mon_compte="display:none";		
+		$session_to_getBanniere = $_SESSION;
 	}
 	else{
 		if(isset($_GET['err_compte'])){
@@ -29,8 +27,9 @@
 		}
 	}
 
-	//dernier parmam:come_from
+	//dernier parmam:come_from pour redirection
 	$formulaire_connexion = getFormulaireConnexion($mail_message,$password_message,basename(__FILE__));
+	$banniere_header = getBanniere($session_to_getBanniere,basename(__FILE__));
 
 
 	// penser aux consos energetiques : fonction
@@ -46,8 +45,8 @@
 
 	//completion formulaire base:
 	$departement_selected_form  	= isset($_GET['departement']) && !empty($_GET['departement']) ? $_GET['departement'] :'';
-	$budget_mini_form		  		= isset($_GET['budget_mini']) && is_numeric($_GET['budget_mini']) ? $_GET['budget_mini'] : '0';
-	$budget_maxi_form		  		= isset($_GET['budget_maxi']) && is_numeric($_GET['budget_maxi']) ? $_GET['budget_maxi']:'10000000000';
+	$budget_mini_form		  		= isset($_GET['budget_mini']) && is_numeric($_GET['budget_mini']) ? $_GET['budget_mini'] : '';
+	$budget_maxi_form		  		= isset($_GET['budget_maxi']) && is_numeric($_GET['budget_maxi']) ? $_GET['budget_maxi']:'';
 	$nb_pieces_form					= isset($_GET['nb_pieces']) && is_numeric($_GET['nb_pieces']) ? $_GET['nb_pieces']:'';
 	$type_vente_checked_form		= isset($_GET['type_achat_location']) && !empty($_GET['type_achat_location']) && $_GET['type_achat_location'] == 'vente' ? "checked":'';
 	$type_location_checked_form 	='';	//bouton radio
@@ -84,9 +83,12 @@
 	//var_dump($res);
 
 	$phrase_associe_count = 'résultats associés';
-	$nb_res_search = "<span>".count($res)."</span>";
+	$nb_res_search = count($res);
+
 	if($nb_res_search == 0 || $nb_res_search==1)
 		$phrase_associe_count = 'résultat associé';
+
+	$nb_res_search="<span>".$nb_res_search."</span> ";
 
 	$resultat_search_html = affichage_base_liste_html($res);
 
@@ -124,61 +126,13 @@
 	<body>
 
 
-		
-
-
-
-
 		<header>
-			<?php echo $banniere_connexion ?>
-
-			<div class="container" >
-
-				<div class="row">
-
-					<div class="col-md-12">
-						
-						
-
-
-						<div id="menu">
-
-							<ul id="menu-nav" class="only-desktop">
-								<li><a href="index.php" class="button-home"><i class="fa fa-home"></i></a></li>
-								<li><a href="#">Acheter</a></li>
-								<li><a href="#">Vendre</a></li>
-								<li><a href="#">Louer</a></li>
-								<li><a href="#">Faire gerer</a></li>
-							</ul>
-
-
-							<a href="#" id="connect" class="only-desktop" style="<?php echo $display_mon_compte ?>">
-								<i class="fa fa-unlock-alt"></i>Mon compte
-							</a>
-
-
-
-							<a href="#" id="nav-mobile-button" class="only-mobile menu-btn">
-								<i class="fa fa-bars"></i>
-							</a>
-
-							<a  id="connect-mobile" class="only-mobile" style="<?php echo $display_mon_compte ?>">
-								<i class="fa fa-unlock-alt"></i>Mon compte
-							</a>
-						</div>
-
-						
-
-					</div>
-
-				</div>
-			</div>
-
+			<?php echo $banniere_header ?>
 			<?php echo $formulaire_connexion ?>
 
 		</header>
 
-<section class="bg-grey first-section" >
+	<section class="bg-grey first-section" >
 		<div class="container" >
 			<div class="row">
 
@@ -265,9 +219,9 @@
 								<div id="form-col3" class="col-md-4 form-col3">
 									<p>
 										<label>Budget</label><br>
-										<input class="bud" type="number" name="budget_mini" id="budget_mini" value="<?php echo $budget_mini_form ?>">
+										<input class="bud" type="number" name="budget_mini" id="budget_mini" placeHolder="Mini" value="<?php echo $budget_mini_form ?>">
 										<label> à </label>
-										<input class="bud" type="number" name="budget_maxi" id="budget_maxi" value="<?php echo $budget_maxi_form ?>">
+										<input class="bud" type="number" name="budget_maxi" id="budget_maxi" placeHolder="Maxi" value="<?php echo $budget_maxi_form ?>">
 										<label> € </label>
 									</p>
 									<p class="margin30">

@@ -3,14 +3,12 @@
 	require_once('functions_php/user_utils/getUtils_html.php');
 	require_once('functions_php/recherche_biens/getUtils_html.php');
 
-	$display_mon_compte='';
-	$banniere_connexion='';
 	$mail_message = 'Email';
 	$password_message='Mot de passe';
+	$session_to_getBanniere='';
 
 	if(isset($_SESSION['id_personne']) && !empty($_SESSION['id_personne'])){
-		$banniere_connexion=getBanniereConnexion($_SESSION);
-		$display_mon_compte="display:none";		
+		$session_to_getBanniere=$_SESSION;
 	}
 	else{
 		if(isset($_GET['err_compte'])){
@@ -24,7 +22,7 @@
 			}
 		}
 	}
-
+	$banniere_header = getBanniere($session_to_getBanniere);
 	$formulaire_connexion = getFormulaireConnexion($mail_message,$password_message);
 ?>
 <!DOCTYPE html>
@@ -90,52 +88,8 @@
 
 
 		<header>
-			<?php echo $banniere_connexion ?>
-
-			<div class="container" >
-
-				<div class="row">
-
-					<div class="col-md-12">
-						
-						
-
-
-						<div id="menu">
-
-							<ul id="menu-nav" class="only-desktop">
-								<li><a href="index.php" class="button-home"><i class="fa fa-home"></i></a></li>
-								<li><a href="#">Acheter</a></li>
-								<li><a href="#">Vendre</a></li>
-								<li><a href="#">Louer</a></li>
-								<li><a href="#">Faire gerer</a></li>
-							</ul>
-
-
-							<a href="#" id="connect" class="only-desktop" style="<?php echo $display_mon_compte ?>">
-								<i class="fa fa-unlock-alt"></i>Mon compte
-							</a>
-
-
-
-							<a href="#" id="nav-mobile-button" class="only-mobile menu-btn">
-								<i class="fa fa-bars"></i>
-							</a>
-
-							<a  id="connect-mobile" class="only-mobile" style="<?php echo $display_mon_compte ?>">
-								<i class="fa fa-unlock-alt"></i>Mon compte
-							</a>
-						</div>
-
-						
-
-					</div>
-
-				</div>
-			</div>
-
+			<?php echo $banniere_header ?>
 			<?php echo $formulaire_connexion ?>
-
 		</header>
 
 
@@ -204,9 +158,9 @@
 								<div id="form-col3" class="col-md-4 form-col3">
 									<p>
 										<label>Budget</label><br>
-										<input class="bud" type="number" name="budget_mini" id="budget_mini" value="0">
+										<input class="bud" type="number" name="budget_mini" id="budget_mini" placeHolder="Mini" value="">
 										<label> à </label>
-										<input class="bud" type="number" name="budget_maxi" id="budget_maxi" value="1000">
+										<input class="bud" type="number" name="budget_maxi" id="budget_maxi" placeHolder="Maxi" value="">
 										<label> € </label>
 									</p>
 									<p class="margin30">

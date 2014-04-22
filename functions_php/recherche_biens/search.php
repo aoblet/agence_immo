@@ -84,7 +84,16 @@
 			//ville
 			$clause_ville='';
 			if(!empty($opt['ville'])){
-				$clause_ville = " AND bien_immobilier.id_adresse = (SELECT DISTINCT id_adresse FROM adresse WHERE UPPER(VILLE) LIKE UPPER('%{$opt['ville']}%'))";
+				$stmt_adr = myPDO::getSingletonPDO()->prepare("SELECT DISTINCT id_adresse FROM adresse WHERE UPPER(ville) LIKE UPPER(:ville) ");
+				$stmt_adr->execute(array(":ville"=>$opt['ville'].'%'));
+				while($ligne = $stmt_adr->fetch()){
+					$clause_ville.=" bien_immobilier.id_adresse = {$ligne['id_adresse']} OR ";
+				}
+				$stmt_adr->closeCursor();
+
+				if($clause_ville != '')
+					$clause_ville = " AND ( ".$clause_ville." '')";
+				
 			}
 
 
@@ -92,7 +101,7 @@
 			$clause_departement='';
 			if(!empty($opt['departement']) and !is_array($opt['departement'])){
 				$stmt_dep = myPDO::getSingletonPDO()->prepare("SELECT DISTINCT id_adresse FROM adresse WHERE id_departement = :dep");
-				$stmt_dep->execute(array("dep"=>$opt['departement']));
+				$stmt_dep->execute(array(":dep"=>$opt['departement']));
 				while($ligne = $stmt_dep->fetch()){
 					$clause_departement.=" bien_immobilier.id_adresse = {$ligne['id_adresse']} OR ";
 				}
@@ -109,10 +118,10 @@
 				$stmt_adr = myPDO::getSingletonPDO()->prepare("SELECT DISTINCT id_adresse FROM adresse WHERE id_departement = :adr");
 				$stmt_dep = myPDO::getSingletonPDO()->prepare("SELECT DISTINCT id_departement FROM departement WHERE id_region = :region");
 
-				$stmt_dep->execute(array("reg"=>$opt['region']));
+				$stmt_dep->execute(array(":reg"=>$opt['region']));
 
 				while($ligne_dep = $stmt_dep->fetch()){
-					$stmt_adr->execute(array("adr"=>$ligne_dep['id_departement']));
+					$stmt_adr->execute(array(":adr"=>$ligne_dep['id_departement']));
 
 					while ($ligne_adr = $stmt_adr->fetch()) {
 						$clause_region.=" bien_immobilier.id_adresse = {$ligne_adr['id_adresse']} OR ";

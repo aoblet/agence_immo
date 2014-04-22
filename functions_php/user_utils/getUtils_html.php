@@ -70,3 +70,43 @@ HTML;
 		</div>
 HTML;
 	}
+
+	function getBanniere($session,$come_from=''){
+		$banniere='';
+		$display_mon_compte='';
+		if(isset($session) && !empty($session)){
+			$banniere.=getBanniereConnexion($session,$come_from);
+			$display_mon_compte='display:none';
+		}
+
+		$banniere.=<<<HTML
+		<div class="container" >
+			<div class="row">
+				<div class="col-md-12">
+					<div id="menu">
+						<ul id="menu-nav" class="only-desktop">
+							<li><a href="index.php" class="button-home"><i class="fa fa-home"></i></a></li>
+							<li><a href="result.php?type_achat_location=vente">Acheter</a></li>
+							<li><a href="">Vendre</a></li>
+							<li><a href="result.php?type_achat_location=location">Louer</a></li>
+							<li><a href="#">Faire gerer</a></li>
+						</ul>
+
+						<a href="#" id="connect" class="only-desktop" style="$display_mon_compte">
+							<i class="fa fa-unlock-alt"></i>Mon compte
+						</a>
+
+						<a href="#" id="nav-mobile-button" class="only-mobile menu-btn">
+							<i class="fa fa-bars"></i>
+						</a>
+
+						<a  id="connect-mobile" class="only-mobile" style="display_mon_compte ">
+							<i class="fa fa-unlock-alt"></i>Mon compte
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+HTML;
+	return $banniere;
+	}

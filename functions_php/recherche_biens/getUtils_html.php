@@ -11,7 +11,7 @@
 				if($value['id_departement'] == $id_selected)
 					$selected='selected';
 
-				$dep_opt.=" <option value='{$value['id_departement']}' $selected > {$value['nom_departement']}</option>\n";
+				$dep_opt.=" <option value='{$value['id_departement']}' $selected >{$value['code_departement']} - {$value['nom_departement']}</option>\n";
 			}
 
 			$html="<select name='{$name_select}' id='$name_select'> \n".$dep_opt." </select>";
