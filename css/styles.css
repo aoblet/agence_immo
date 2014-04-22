@@ -278,7 +278,6 @@ input[type="submit"]:hover{
 
 #connect-form .container label, #connect-form .container input[type=text],#connect-form .container input[type=password]{
     padding: 10px;
-    padding-left: 50px;
     border-radius: 3px;
 }
 
