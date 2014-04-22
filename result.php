@@ -168,11 +168,11 @@
 						<form action='user/login.php' method='POST'>
 						<div class="form-champ1">
 							<i class="fa fa-user"></i>
-							<input type="text" name="mail" value="" required="required" placeholder="<?php echo $mail_message ?>"/>
+							<input type="text" name="mail" value="" required="required" placeholder="Email"/>
 						</div>
 						<div class="form-champ2">
 							<i class="fa fa-key"></i>
-							<input type="password" name="password" value="" required="required" placeholder="<?php echo $password_message ?>"/>
+							<input type="password" name="password" value="" required="required" placeholder="Mot de passe"/>
 						</div>
 						<input type="submit" name="connexion" value="Connexion" />
 						

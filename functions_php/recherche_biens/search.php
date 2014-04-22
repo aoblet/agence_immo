@@ -199,7 +199,7 @@
 			$query.= $clause_gaz.$clause_conso_energetique.$clause_type_chauffage.$clause_parking.$clause_nb_etages.$clause_ascenseur.$clause_jardin.$clause_order_by;
 		}
 		
-		echo $query;
+		//echo $query;
 		$stmt = myPDO::getSingletonPDO()->query($query); 
 
 		$resultas = array();
@@ -217,7 +217,7 @@
 		}
 
 		$stmt->closeCursor();
-		var_dump($resultas);
+		//var_dump($resultas);
 		return $resultas;
 	}
 
