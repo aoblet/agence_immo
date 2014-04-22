@@ -237,7 +237,7 @@
 											<option value="garage" selected>Garage</option>
 										</select>
 									</p>
-									<hr>
+									
 									<p>
 											<?php 
 												echo getSelectDepartementsHTML("departement");
@@ -250,9 +250,9 @@
 								<div id="form-col3" class="col-md-4 form-col3">
 									<p>
 										<label>Budget</label><br>
-										<input type="number" name="budget_mini" id="budget_mini" value="0">
+										<input class="bud" type="number" name="budget_mini" id="budget_mini" value="0">
 										<label> à </label>
-										<input type="number" name="budget_maxi" id="budget_maxi" value="1000">
+										<input class="bud" type="number" name="budget_maxi" id="budget_maxi" value="1000">
 										<label> € </label>
 									</p>
 									<p class="margin30">
