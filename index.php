@@ -217,11 +217,11 @@
 						<div class="bg-white home-form-search">
 							<h4>Rechercher par critères</h4>
 
-							<form id="search-form" action='result.phh' method='GET'>					
+							<form id="search-form" action='result.php' method='GET'>					
 								<div id="search-form">
 								<div id="form-col2" class="col-md-4 form-col2">
 									<p>
-										<input type="radio" name="type_achat_location" value="vente"/> 
+										<input type="radio" name="type_achat_location" value="vente" id="acheter"/> 
 										<label class="choice" for="acheter">Acheter</label>
 									</p>
 									<p>
@@ -231,10 +231,10 @@
 
 									<p>
 										<select id="type" name="types_bien[]" multiple="multiple">
-											<option value="maison">Maison</option>
-											<option value="appartement">Appartement</option>
-											<option value="immeuble">Immeuble</option>
-											<option value="garage">Garage</option>
+											<option value="maison" selected>Maison</option>
+											<option value="appartement" selected>Appartement</option>
+											<option value="immeuble" selected>Immeuble</option>
+											<option value="garage" selected>Garage</option>
 										</select>
 									</p>
 									<hr>

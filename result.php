@@ -8,13 +8,13 @@
 
 	var_dump($_GET);
 
-	$div_connect='';
-
-	if(!empty($_SESSION['id_personne'])){
-		$div_connect=getBlocConnect($_SESSION);
+	$banniere_connexion='';
+	$display_mon_compte='';		
+	if(isset($_SESSION['id_personne']) && !empty($_SESSION['id_personne'])){
+		$banniere_connexion=getBanniereConnexion($_SESSION);
+		$display_mon_compte="display:none";		
 	}
 
-	// messages connect etc ...
 
 	// penser aux consos energetiques : fonction
 	if(isset($_GET['submit_base'])){
@@ -117,18 +117,40 @@
 		<a href="index.html"><i class="fa fa-gears"></i></a>
 	</div>
 </div> -->
-	
-<!-- <header>
-			<div class="container" >
 
+
+		<nav class="pushy pushy-left">
+            <ul>
+                <li><a href="index.php" class="button-home"><i class="fa fa-home"></i></a></li>
+				<li><a href="#">Acheter</a></li>
+				<li><a href="#">Vendre</a></li>
+				<li><a href="#">Louer</a></li>
+				<li><a href="#">Faire gerer</a></li>
+            </ul>
+        </nav>
+        <div class="site-overlay"></div>
+
+<div class="all-wrap">
+
+
+
+
+		<header>
+			<?php echo $banniere_connexion ?>
+
+			<div class="container" >
 
 				<div class="row">
 
 					<div class="col-md-12">
+						
+						
+
+
 						<div id="menu">
 
 							<ul id="menu-nav" class="only-desktop">
-								<li><a href="index.html" class="button-home"><i class="fa fa-home"></i></a></li>
+								<li><a href="index.php" class="button-home"><i class="fa fa-home"></i></a></li>
 								<li><a href="#">Acheter</a></li>
 								<li><a href="#">Vendre</a></li>
 								<li><a href="#">Louer</a></li>
@@ -136,7 +158,7 @@
 							</ul>
 
 
-							<a href="#" id="connect" class="only-desktop">
+							<a href="#" id="connect" class="only-desktop" style="<?php echo $display_mon_compte ?>">
 								<i class="fa fa-unlock-alt"></i>Mon compte
 							</a>
 
@@ -146,7 +168,7 @@
 								<i class="fa fa-bars"></i>
 							</a>
 
-							<a  id="connect-mobile" class="only-mobile">
+							<a  id="connect-mobile" class="only-mobile" style="<?php echo $display_mon_compte ?>">
 								<i class="fa fa-unlock-alt"></i>Mon compte
 							</a>
 						</div>
@@ -167,14 +189,14 @@
 
 						<div class="col-md-3">
 						<h4>Identification</h4>
-						<form>
+						<form action='user/login.php' method='POST'>
 						<div class="form-champ1">
 							<i class="fa fa-user"></i>
-							<input type="text" name="email" value="" required="required" placeholder="Email"/>
+							<input type="text" name="mail" value="" required="required" placeholder="<?php echo $mail_message ?>"/>
 						</div>
 						<div class="form-champ2">
 							<i class="fa fa-key"></i>
-							<input type="password" name="pwd" value="" required="required" placeholder="Mot de passe"/>
+							<input type="password" name="password" value="" required="required" placeholder="<?php echo $password_message ?>"/>
 						</div>
 						<input type="submit" name="connexion" value="Connexion" />
 						
@@ -207,7 +229,7 @@
 				</div>
 			</div>
 
-		</header> -->
+		</header>
 
 <section class="bg-grey first-section" >
 		<div class="container" >

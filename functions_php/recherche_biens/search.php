@@ -217,6 +217,7 @@
 		}
 
 		$stmt->closeCursor();
+		var_dump($resultas);
 		return $resultas;
 	}
 

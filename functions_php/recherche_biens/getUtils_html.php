@@ -5,7 +5,7 @@
 		$departemens = getAllDepartements();
 
 		if(!empty($departemens)){
-			$dep_opt="<option value=''>Départements</option>";
+			$dep_opt="<option value=''>Tous les départements</option>";
 			foreach ($departemens as $key => $value) {
 				$selected='';
 				if($value['id_departement'] == $id_selected)
