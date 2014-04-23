@@ -1,12 +1,28 @@
 <?php
 	require_once(dirname(__FILE__).'/../../enum/enum_type_user.php');
+	require_once(dirname(__FILE__).'/../../enum/enum_type_biens.php');
 
 	//type personne : pour le lien
 	function affichage_base_liste_html($res, $type_user=''){
 		$result_html='';
 		foreach ($res as $value) {
 			//si photo absente : hardcoded ici
-			$photo_apercu = empty($value['chemins_photos']) ? "img/plans/1.jpg" : $value['chemins_photos'][0];
+			//$photo_apercu = empty($value['chemins_photos']) ? "img/plans/1.jpg" : $value['chemins_photos'][0];
+			$photo_apercu ='';
+			if($value['info_type_bien'] == MAISON){
+				$photo_apercu = 'img/plans/1.jpg';
+			}
+			elseif($value['info_type_bien'] == IMMEUBLE){
+				$photo_apercu = 'img/plans/2.jpg';
+			}
+			elseif($value['info_type_bien'] == APPARTEMENT){
+				$photo_apercu = 'img/plans/2.jpg';
+			}
+			elseif($value['info_type_bien'] == GARAGE){
+				$photo_apercu = 'img/plans/4.jpg';
+			}
+
+
 
 			$prix  = (empty($value['prix']) || $value['prix'] == 0) ? "Prix inconnu" : $value['prix'].' €';
 			$superficie = empty($value['superficie']) ? "Superficie inconnue" : $value['superficie'].' m&sup2;';
@@ -39,7 +55,7 @@
 			}
 
 			$lien_bien_immobilier='';
-			if(isset($value['id_bien_immobilier']) && !empty($value['id_bien_immobilier'])){
+			if(!empty($value['id_bien_immobilier'])){
 
 				$dir_current_script_using = str_replace("\\", "/", (dirname($_SERVER['PHP_SELF'])) );
 				$dir_current_path = explode("/", $dir_current_script_using);
