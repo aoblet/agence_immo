@@ -3,7 +3,7 @@
 	$_SESSION = array();
 	session_destroy();
 
-	if(isset($_POST['come_from']) && ($_POST['come_from']=="result.php" ){
+	if(isset($_POST['come_from']) && $_POST['come_from']=="result.php" ){
 		header('Location: ../result.php');
 		die();
 	}
