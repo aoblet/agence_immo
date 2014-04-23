@@ -239,8 +239,8 @@ input[type="password"]{
     border-radius: 4px;
 }
 
-
-input[type="submit"]{
+/* modif Alex: ajout reset */
+input[type='reset'], input[type="submit"]{
 	display: block;
 	float: left;
 	position: relative;
@@ -261,11 +261,11 @@ input[type="submit"]{
     border-radius: 4px;
 }
 
-input[type="submit"]:hover{
+input[type='reset']:hover, input[type="submit"]:hover{
 	opacity: 0.8;
 }
 
-
+/*fin modif Alex*/
 #connect-form h4{
 	color: #fff;
 	float: left;
@@ -615,8 +615,8 @@ footer{
     border-radius: 4px;
 }
 
-.home-form-search input[type="submit"]{
-	float: left;
+/* debut modif Alex : reunion des deux puis separation float left - right*/
+.home-form-search input[type='submit'], .home-form-search input[type='submit']{
 	position: relative;
 	padding:5px;
     padding-left: 10px;
@@ -634,6 +634,16 @@ footer{
     cursor:pointer;
     border-radius: 4px;
 }
+
+.home-form-search input[type="submit"]{
+	float: left;
+}
+
+.home-form-search input[type='reset']{
+	float: right;
+}
+
+/* fin modif Alex*/
 
 .home-form-search input[type="submit"]:hover{
 	opacity: 0.8;

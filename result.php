@@ -236,6 +236,7 @@
 									</p>
 									
 									<input type="submit" name="submit_base" id="search" value="Rechercher">
+									<input type='reset'  value='Annuler'>
 
 									
 								</div>
