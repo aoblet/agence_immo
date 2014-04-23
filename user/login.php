@@ -38,12 +38,12 @@
 		}
 
 		if(isset($_POST['come_from'])){
-				if($_POST['come_from'] == 'bien.php'){
+				/*if($_POST['come_from'] == 'bien.php'){
 					// traitement url a voir
 					header('Location: ../bien.php'.$param_url);
 					die();
 				}
-				elseif($_POST['come_from'] == 'result.php'){
+				else*/if($_POST['come_from'] == 'result.php'){
 					header('Location: ../result.php'.$param_url);
 					die();
 				}

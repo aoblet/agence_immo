@@ -2,9 +2,22 @@
 	require_once(dirname(__FILE__).'/../../enum/enum_type_user.php');
 	require_once(dirname(__FILE__).'/../../enum/enum_type_biens.php');
 
+	function getMessageNotFound($racine_agence=''){
+		$lien_acceuil = $racine_agence.'index.php';
+		return <<<HTML
+			<div class="no-result bg-white margin30">
+				<h2><i class="fa fa-puzzle-piece"></i></h2>
+				<h3>Oups..</h3>
+				<p>Fake Agency ne dispose malheureusement pas de biens corréspondants à tous vos critères. Veuillez élargir votre recherche, ou contacter directement l'agence pour plus de précisions.</p>
+				<a href="$lien_acceuil"><i class="fa fa-reply"></i>Retourner sur la page d'accueuil</a>
+				<a href="mailto:contact@fakeagency.com"><i class="fa fa-envelope"></i>Contacter l'agence</a>
+			</div>
+HTML;
+	}
 	//type personne : pour le lien
 	function affichage_base_liste_html($res, $type_user=''){
 		$result_html='';
+		
 		foreach ($res as $value) {
 			//si photo absente : hardcoded ici
 			//$photo_apercu = empty($value['chemins_photos']) ? "img/plans/1.jpg" : $value['chemins_photos'][0];
@@ -120,5 +133,13 @@
 			</article>
 HTML;
 		}
+		$current_dir = str_replace('\\','/',dirname($_SERVER['PHP_SELF']));
+		$current_dir = explode('/', $current_dir);
+		$current_dir = $current_dir[count($current_dir) -1]; 
+
+		if(isset($res) && empty($res) && $current_dir == 'agence_immo'){
+			$result_html=getMessageNotFound();
+		}
+
 	 	return $result_html;
 	}
