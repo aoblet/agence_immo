@@ -1279,13 +1279,31 @@ width: 100px;
 }
 
 .bien-title h5{
-	padding-right: 45px;
+	padding-right: 25px;
 	float: right;
 	line-height: 80px;
 	text-align: right;
 	font-weight: 500;
 	font-size: 24px;
 }
+
+.bien-title h3{
+	padding-left: 15px;
+	padding-right: 45px;
+	float: right;
+	line-height: 80px;
+	color: #2C3E50;
+	background: #2C3E50;
+	background: rgba(0,0,0,0.05);
+	text-align: right;
+	font-weight: 500;
+	font-size: 17px;
+}
+
+.bien-title h3 .fa{
+	padding-right: 7px;
+}
+
 
 .article-bien .col-md-8{
 	padding-left: 0px;
@@ -1487,6 +1505,7 @@ width: 100px;
 }
 
 .no-bien .fa{
+	padding-left: 7px;
 	padding-right: 7px;
 }
 

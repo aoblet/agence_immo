@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -30,110 +31,77 @@
 
 	<body>
 
-<!-- <div id="fixed-connect">
-	<div id="fixed-connect-pic">
-		<img src="img/avatar.png" width="90" height="90">
-	</div>
 
-	<div id="fixed-connect-menu" class="bg-grey">
-		<a href="index.html"><i class="fa fa-user"></i></a>
-		<a href="index.html"><i class="fa fa-envelope"></i></a>
-		<a href="index.html"><i class="fa fa-gears"></i></a>
-	</div>
-</div> -->
-	
-<header>
-			<div class="container" >
+		<header>
+					<div class="container" >
+			<div class="row">
+				<div class="col-md-12">
+					<div id="menu">
+						<ul id="menu-nav" class="only-desktop">
+							<li><a href="index.php" class="button-home"><i class="fa fa-home"></i></a></li>
+							<li><a href="result.php?type_achat_location=vente">Acheter</a></li>
+							<li><a href="">Vendre</a></li>
+							<li><a href="result.php?type_achat_location=location">Louer</a></li>
+							<li><a href="#">Faire gerer</a></li>
+						</ul>
 
+						<a href="#" id="connect" class="only-desktop" style="">
+							<i class="fa fa-unlock-alt"></i>Mon compte
+						</a>
 
-				<div class="row">
+						<a href="#" id="nav-mobile-button" class="only-mobile menu-btn">
+							<i class="fa fa-bars"></i>
+						</a>
 
-					<div class="col-md-12">
-						<div id="menu">
-
-							<ul id="menu-nav" class="only-desktop">
-								<li><a href="index.html" class="button-home"><i class="fa fa-home"></i></a></li>
-								<li><a href="#">Acheter</a></li>
-								<li><a href="#">Vendre</a></li>
-								<li><a href="#">Louer</a></li>
-								<li><a href="#">Faire gerer</a></li>
-							</ul>
-
-
-							<a href="#" id="connect" class="only-desktop">
-								<i class="fa fa-unlock-alt"></i>Mon compte
-							</a>
-
-
-
-							<a href="#" id="nav-mobile-button" class="only-mobile menu-btn">
-								<i class="fa fa-bars"></i>
-							</a>
-
-							<a  id="connect-mobile" class="only-mobile">
-								<i class="fa fa-unlock-alt"></i>Mon compte
-							</a>
-						</div>
-
-						
-
+						<a  id="connect-mobile" class="only-mobile" style="display_mon_compte ">
+							<i class="fa fa-unlock-alt"></i>Mon compte
+						</a>
 					</div>
-
 				</div>
 			</div>
-
-			<div id="connect-form" style="display:none;">
-				<div class="container" >
-					<div class="row">
-
-						
-						
-
-						<div class="col-md-3">
+		</div>					<div id="connect-form" style="display:none;">
+			<div class="container" >
+				<div class="row">
+					<div class="col-md-3">
 						<h4>Identification</h4>
-						<form>
-						<div class="form-champ1">
-							
-							<input type="text" name="email" value="" required="required" placeholder="Email"/>
-						</div>
-						<div class="form-champ2">
-							
-							<input type="password" name="pwd" value="" required="required" placeholder="Mot de passe"/>
-						</div>
-						<input type="submit" name="connexion" value="Connexion" />
-						
-						</form>
-						</div>
 
-						<div class="col-md-3">
-							<div class="no-count">
+						<form action='user/login.php' method='POST'>
+							<div class="form-champ1">
+								<input type="text" name="mail" value="" required="required" placeholder="Email" title="Email"/>
+							</div>
+							<div class="form-champ2">
+								<input type="password" name="password" value="" required="required" placeholder="Mot de passe" title="Mot de passe"/>
+							</div>
+							<input type='hidden' name='come_from' value='result.php'>
+							<input type="submit" name="connexion" value="Connexion" />
+							
+						</form>
+					</div>
+
+					<div class="col-md-3">
+						<div class="no-count">
 							<h4>Pas encore de compte ?</h4>
 							<p>Pour proposer ou gerer des biens, vous devez disposer d'un compte. Il vous permettra nottament d'acceder aux statistiques mensuelles, et d'obtenir un contact privilégié avec l'agence.</p>
 							<a href="inscription.html"><i class="fa fa-unlock"></i>Demander la création d'un compte</a>
 							
 							<div id="connect-mobile" class="close-form only-mobile">
-							<a href=""><i class="fa fa-close"></i>FERMER LA FENETRE</a>
+								<a href=""><i class="fa fa-close"></i>FERMER LA FENETRE</a>
 							</div>
 						</div>
-						</div>
-
-						<div class="col-md-3 hide980 only-desktop">
-						</div>
-
-						<div class="col-md-3 hide980 only-desktop">
-						</div>
-
-						
-
-						
-
 					</div>
+
+					<div class="col-md-3 hide980 only-desktop">
+					</div>
+
+					<div class="col-md-3 hide980 only-desktop">
+					</div>
+
 				</div>
 			</div>
-
+		</div>
 		</header>
 
-<section class="bg-grey first-section" >
+	<section class="bg-grey first-section" >
 		<div class="container" >
 			<div class="row">
 
@@ -149,88 +117,164 @@
 						<div id="avanced-search" class="bg-white margin30">
 							
 
-
-
-
-
-
-
-						<form>
-							
-
-
-
-
-
+						<form action='' method='GET'>
 
 							<h4>Affiner votre recherche</h4>
 
 							<p>
 								<label>Ville</label>
-								<input type="text" name="nom" value="" placeholder="Ville"/>
+								<input type="text" name="ville" value="" placeholder="Nom de ville"/>
 							</p>
 
 							<p>
-								<label></label>
-								<input type="checkbox" name="vehicle" value="jardin"><span>Jardin</span><br>
-								<input type="checkbox" name="vehicle" value="terasse"><span>Terasse</span><br>
-								<input type="checkbox" name="vehicle" value="garage"><span>Garage</span><br>
-								<input type="checkbox" name="vehicle" value="ascenseur"><span>Ascenseur</span><br>
-								<input type="checkbox" name="vehicle" value="Parking"><span>Parking</span><br>
+								<label>Utilitaires</label>
+								<input type="checkbox" name="jardin"   value="1"><span>Jardin</span><br>
+								<input type="checkbox" name="parking"   value="1"><span>Parking</span><br>
+								<input type="checkbox" name="ascenseur"  value="1"><span>Ascenseur</span><br>
 							</p>
 
 							<p>
 								<label>Nombre d'étages</label>
-								<input type="number" name="etages" value="3"/>
+								<input type="number" name="nb_etages" placeHolder='Indifférent' value=""/>
+							</p>
+
+							<p>
+								<label>Superficie</label>
+								<input type="number" name="superficie_mini" id="superficie_mini" placeHolder='Mini' value=''>
+								<input type="number" name="superficie_maxi" id="superficie_maxi" placeHolder='Maxi' value=''>
 							</p>
 							<p>
-								<label>Nombre de pièces</label>
-								<input type="number" name="chambres" value="2"/>
-							</p>
-							<p>
-								<label>Nombre de chambres</label>
-								<input type="number" name="chambres" value="1"/>
-							</p>
-							<p>
+
 								<input class="affiner" type="submit" name="submit_affine" value="Affiner la recherche"/>
 							</p>
 						
-						</div>
+						</div>	
 					</div>
 
 					<div class="col-md-9 bg-grey margin30">
 						
 						<div class="bg-white home-form-search">
-							<h4>Votre recherche par critères</h4>
+							<h4>Votre recherche de base</h4>
 
 							<div id="search-form">
 								<div id="form-col2" class="col-md-4 form-col2">
 									<p>
-										<input type="radio" name="choice" value="acheter" id="acheter" /> 
+										<input type="radio" name="type_achat_location" value="vente"  id="acheter" /> 
 										<label class="choice" for="acheter">Acheter</label>
 									</p>
 									<p>
-										<input type="radio" name="choice" value="louer" id="louer" />
+										<input type="radio" name="type_achat_location" value="location"  id="louer" />
 										<label class="choice" for="louer">Louer</label>
 									</p>
 
 									<p>
-										<select id="type" name="type" multiple="multiple">
-											<option value="1">Maison</option>
-											<option value="2">Appartement</option>
-											<option value="3">Immeuble</option>
-											<option value="4">Garage</option>
-											<option value="5">Commerce</option>
+										<select id="type" name="types_bien[]" multiple="multiple">
+											<option value="maison">Maison</option>
+											<option value="appartement">Appartement</option>
+											<option value="immeuble">Immeuble</option>
+											<option value="garage">Garage</option>
 										</select>
 									</p>
+									
 									<p>
-										<input type="text" name="location" value="Paris">
-										<!-- <label>~</label>
-										<select>
-											<option selected> 5 km </option>
-											<option> 20 km </option>
-											<option> 50 km </option>
-										</select> -->
+											<select name='departement' id='departement'> 
+<option value=''>Tous les départements</option> <option value='1'  >01 - Ain</option>
+ <option value='2'  >02 - Aisne</option>
+ <option value='3'  >03 - Allier</option>
+ <option value='4'  >04 - Alpes de haute provence</option>
+ <option value='5'  >05 - Hautes alpes</option>
+ <option value='6'  >06 - Alpes maritimes</option>
+ <option value='7'  >07 - Ardèche</option>
+ <option value='8'  >08 - Ardennes</option>
+ <option value='9'  >09 - Ariège</option>
+ <option value='10'  >10 - Aube</option>
+ <option value='11'  >11 - Aude</option>
+ <option value='12'  >12 - Aveyron</option>
+ <option value='13'  >13 - Bouches du rhône</option>
+ <option value='14'  >14 - Calvados</option>
+ <option value='15'  >15 - Cantal</option>
+ <option value='16'  >16 - Charente</option>
+ <option value='17'  >17 - Charente maritime</option>
+ <option value='18'  >18 - Cher</option>
+ <option value='19'  >19 - Corrèze</option>
+ <option value='20'  >21 - Côte d'or</option>
+ <option value='21'  >22 - Côtes d'Armor</option>
+ <option value='22'  >23 - Creuse</option>
+ <option value='23'  >24 - Dordogne</option>
+ <option value='24'  >25 - Doubs</option>
+ <option value='25'  >26 - Drôme</option>
+ <option value='26'  >27 - Eure</option>
+ <option value='27'  >28 - Eure et Loir</option>
+ <option value='28'  >29 - Finistère</option>
+ <option value='95'  >2A - Corse du Sud</option>
+ <option value='96'  >2B - Haute Corse</option>
+ <option value='29'  >30 - Gard</option>
+ <option value='30'  >31 - Haute garonne</option>
+ <option value='31'  >32 - Gers</option>
+ <option value='32'  >33 - Gironde</option>
+ <option value='33'  >34 - Hérault</option>
+ <option value='34'  >35 - Ile et Vilaine</option>
+ <option value='35'  >36 - Indre</option>
+ <option value='36'  >37 - Indre et Loire</option>
+ <option value='37'  >38 - Isère</option>
+ <option value='38'  >39 - Jura</option>
+ <option value='39'  >40 - Landes</option>
+ <option value='40'  >41 - Loir et Cher</option>
+ <option value='41'  >42 - Loire</option>
+ <option value='42'  >43 - Haute Loire</option>
+ <option value='43'  >44 - Loire Atlantique</option>
+ <option value='44'  >45 - Loiret</option>
+ <option value='45'  >46 - Lot</option>
+ <option value='46'  >47 - Lot et Garonne</option>
+ <option value='47'  >48 - Lozère</option>
+ <option value='48'  >49 - Maine et Loire</option>
+ <option value='49'  >50 - Manche</option>
+ <option value='50'  >51 - Marne</option>
+ <option value='51'  >52 - Haute Marne</option>
+ <option value='52'  >53 - Mayenne</option>
+ <option value='53'  >54 - Meurthe et Moselle</option>
+ <option value='54'  >55 - Meuse</option>
+ <option value='55'  >56 - Morbihan</option>
+ <option value='56'  >57 - Moselle</option>
+ <option value='57'  >58 - Nièvre</option>
+ <option value='58'  >59 - Nord</option>
+ <option value='59'  >60 - Oise</option>
+ <option value='60'  >61 - Orne</option>
+ <option value='61'  >62 - Pas de Calais</option>
+ <option value='62'  >63 - Puy de Dôme</option>
+ <option value='63'  >64 - Pyrénées Atlantiques</option>
+ <option value='64'  >65 - Hautes Pyrénées</option>
+ <option value='65'  >66 - Pyrénées Orientales</option>
+ <option value='66'  >67 - Bas Rhin</option>
+ <option value='67'  >68 - Haut Rhin</option>
+ <option value='68'  >69 - Rhône</option>
+ <option value='69'  >70 - Haute Saône</option>
+ <option value='70'  >71 - Saône et Loire</option>
+ <option value='71'  >72 - Sarthe</option>
+ <option value='72'  >73 - Savoie</option>
+ <option value='73'  >74 - Haute Savoie</option>
+ <option value='74'  >75 - Paris</option>
+ <option value='75'  >76 - Seine Maritime</option>
+ <option value='76'  >77 - Seine et Marne</option>
+ <option value='77'  >78 - Yvelines</option>
+ <option value='78'  >79 - Deux Sèvres</option>
+ <option value='79'  >80 - Somme</option>
+ <option value='80'  >81 - Tarn</option>
+ <option value='81'  >82 - Tarn et Garonne</option>
+ <option value='82'  >83 - Var</option>
+ <option value='83'  >84 - Vaucluse</option>
+ <option value='84'  >85 - Vendée</option>
+ <option value='85'  >86 - Vienne</option>
+ <option value='86'  >87 - Haute Vienne</option>
+ <option value='87'  >88 - Vosges</option>
+ <option value='88'  >89 - Yonne</option>
+ <option value='89'  >90 - Territoire de Belfort</option>
+ <option value='90'  >91 - Essonne</option>
+ <option value='91'  >92 - Hauts de Seine</option>
+ <option value='92'  >93 - Seine Saint Denis</option>
+ <option value='93'  >94 - Val de Marne</option>
+ <option value='94'  >95 - Val d'Oise</option>
+ </select>
 									</p>
 								</div>
 
@@ -238,14 +282,14 @@
 								<div id="form-col3" class="col-md-4 form-col3">
 									<p>
 										<label>Budget</label><br>
-										<input type="number" name="bud" id="bud" value="0">
+										<input class="bud" type="number" name="budget_mini" id="budget_mini" placeHolder="Mini" value="">
 										<label> à </label>
-										<input type="number" name="bud" id="bud" value="400">
+										<input class="bud" type="number" name="budget_maxi" id="budget_maxi" placeHolder="Maxi" value="">
 										<label> € </label>
 									</p>
 									<p class="margin30">
 										<label>Nombre de pièces</label><br>
-										<input type="number" name="room" id="room" value="3">
+										<input type="number" name="nb_pieces" id="room" placeHolder='Indifférent' value="">
 									</p>
 								</div>
 								
@@ -255,6 +299,7 @@
 									</p>
 									
 									<input type="submit" name="submit_base" id="search" value="Rechercher">
+									<input type='reset'  value='Annuler'>
 
 									
 								</div>
@@ -266,7 +311,7 @@
 						<div class="margin30 results-title">
 
 								<div class="col-md-6 bg-blue">
-									<h4><span>102</span> résultats correspondants</h4>
+									<h4><span>8</span> résultats associés</h4>
 								</div>
 
 								<div class="col-md-6 bg-white" style="border:none">
@@ -275,11 +320,13 @@
 
 										Trier par
 
-										<select>
-										<option>Date</option>
-										<option>Prix croissant</option>
-										<option>Prix décroissant</option>
-										<option>Localité</option>
+										<select name='order_by'>
+											<option value='prix_croissant' 			 			>Prix croissant</option>
+											<option value='prix_decroissant' 		 			>Prix décroissant</option>
+											<option value='superficie_croissant' 	 		>Superficie croissante</option>
+											<option value='superficie_decroissant' 	 		>Superficie decroissante</option>
+											<option value='nb_pieces' 				 					>Nombre de pièces</option>
+											<option value='date_parution' 							>Date</option>
 										</select>
 
 										<input type="submit" name="submit_trier" id="search" value="Trier">
@@ -288,114 +335,47 @@
 								</div>
 						</div>
 
-</form>
+					</form>
 
-						
-						<article class="article-bien margin30">
-							<a href="">
-							<div class="col-md-4 article-bien-pic" style="background:url(img/plans/1.jpg) top center no-repeat;">
-								<div class="article-bien-pic-loc-achat">Vente</div>
+					<div class="no-result bg-white margin30">
+						<h2><i class="fa fa-puzzle-piece"></i></h2>
+						<h3>Oups..</h3>
+						<p>Fake Agency ne dispose malheureusement pas de biens corréspondants à tous vos critères. Veuillez élargir votre recherche, ou contacter directement l'agence pour plus de précisions.</p>
+
+						<a href="index.php"><i class="fa fa-reply"></i>Retourner sur la page précédente</a>
+						<a href="maito:contact@fakeagency.com"><i class="fa fa-envelope"></i>Contacter l'agence</a>
+					</div>
+
+								<article class="article-bien margin30">
+				<a href="/agence_immo/visualisation_bien/bien.php?id_bien_immobilier=2">
+					<div class="col-md-4 article-bien-pic" style="background:url(img/plans/2.jpg) top center no-repeat;">
+						<div class="article-bien-pic-loc-achat">Location</div>
+					</div>
+					<div class="col-md-8 bg-white article-bien-desc">
+						<div class="bien-title">
+							<h4>
+								Appartement 26 m&sup2;
+							</h4>
+							<h3><i class="fa fa-clock-o"></i>2j</h3>
+							<h5>850 €</h5>
+
+						</div>
+						<div class="bien-desc">
+							<div class="col-md-6">
+								<p><i class='fa fa-globe'></i> 75018 Paris</p>
+								<p><i class="fa fa-home"></i> Appartement</p>
+								 <p><i class='fa fa-tachometer'></i> Indice éco : <span>B</span></p>
 							</div>
-							<div class="col-md-8 bg-white article-bien-desc">
-
-								<div class="bien-title">
-									<h4>
-									Maison 59 m&sup2;
-									</h4>
-									<h5>340 000 €</h5>
-								</div>
-
-								<div class="bien-desc">
-									<div class="col-md-6">
-									<p><i class="fa fa-globe"></i> 75017 Paris</p>
-									<p><i class="fa fa-home"></i> Maison</p>
-									<p><i class="fa fa-tachometer"></i> Indice éco : <span>B</span></p>
-									</div>
-									<div class="col-md-6">
-									<p>Grands espaces : appréciable, à visiter rapidement.</p>	
-									</div>
-								</div>
-
-								
-								<div class="article-bien-contact-agency"><a href=""><i class="fa fa-envelope"></i></a></div>
-								<div class="article-bien-contact-agency2"><a href=""><i class="fa fa-bell"></i></a></div>
+							<div class="col-md-6">
+								Location donnant sur un jardin. Proche du métro barbès et de salles de sports....
 							</div>
-						</a>
-						</article>
-
-
-						<article class="article-bien margin30">
-							<a href="">
-							<div class="col-md-4 article-bien-pic" style="background:url(img/plans/2.jpg) top center no-repeat;">
-								<div class="article-bien-pic-loc-achat">Location</div>
-							</div>
-							<div class="col-md-8 bg-white article-bien-desc">
-
-								<div class="bien-title">
-									<h4>
-									Appartement 24 m&sup2;
-									</h4>
-									<h5>1018 €</h5>
-								</div>
-
-								<div class="bien-desc">
-									<div class="col-md-6">
-									<p><i class="fa fa-globe"></i> 75009 Paris</p>
-									<p><i class="fa fa-home"></i> Appartement</p>
-									<p><i class="fa fa-tachometer"></i> Indice éco : <span>A</span></p>
-									</div>
-									<div class="col-md-6">
-									<p>Superbe préstation, appartement de grande qualité.</p>	
-									</div>
-								</div>
-
-								
-								<div class="article-bien-contact-agency"><a href=""><i class="fa fa-envelope"></i></a></div>
-								<div class="article-bien-contact-agency2"><a href=""><i class="fa fa-bell"></i></a></div>
-							</div>
-						</a>
-						</article>
-
-
-						<article class="article-bien margin30">
-							<a href="">
-							<div class="col-md-4 article-bien-pic" style="background:url(img/plans/3.jpg) top center no-repeat;">
-								<div class="article-bien-pic-loc-achat">Vente</div>
-							</div>
-							<div class="col-md-8 bg-white article-bien-desc">
-
-								<div class="bien-title">
-									<h4>
-									Appartement 38 m&sup2;
-									</h4>
-									<h5>780 000 €</h5>
-								</div>
-
-								<div class="bien-desc">
-									<div class="col-md-6">
-									<p><i class="fa fa-globe"></i> 75001 Paris</p>
-									<p><i class="fa fa-home"></i> Appartement</p>
-									<p><i class="fa fa-tachometer"></i> Indice éco : <span>C</span></p>
-									</div>
-									<div class="col-md-6">
-									<p>Dans grand immeuble de standing, fabuleux.</p>	
-									</div>
-								</div>
-
-								
-								<div class="article-bien-contact-agency"><a href=""><i class="fa fa-envelope"></i></a></div>
-								<div class="article-bien-contact-agency2"><a href=""><i class="fa fa-bell"></i></a></div>
-							</div>
-						</a>
-						</article>
-
-						
-
-
-
-
-
-
+							
+						</div>
+						<div class="article-bien-contact-agency"><a href=""><i class="fa fa-envelope"></i></a></div>
+						<div class="article-bien-contact-agency2"><a href=""><i class="fa fa-bell"></i></a></div>
+					</div>
+				</a>
+			</article>				
 
 					</div>
 			</div>
@@ -447,6 +427,7 @@
 
 
 
+
 <script type="text/javascript">
 
 var open_menu = 0;
@@ -464,6 +445,7 @@ var open_menu = 0;
 		$(document).ready(function(){
 			$("#type").multiselect();
 		});
+
 		</script>
 
 
