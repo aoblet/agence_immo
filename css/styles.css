@@ -1403,6 +1403,13 @@ width: 100px;
 	margin-left: 5px;
 }
 
+.bien-spe-desc h4:last-of-type{
+	text-align: left;
+	padding: 15px;
+	padding-top: 35px;
+	margin-left: 5px;
+}
+
 .bien-spe-desc p{
 	text-align: left;
 	padding: 0px;
@@ -1411,6 +1418,11 @@ width: 100px;
 	margin-left: 5px;
 	font-size: 12px;
 }
+
+.bien-spe-desc .padleft35{
+	padding-left: 30px;
+}
+
 
 .bien-spe-desc p .fa{
 	padding-right: 7px;
