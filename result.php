@@ -130,7 +130,6 @@
 		<header>
 			<?php echo $banniere_header ?>
 			<?php echo $formulaire_connexion ?>
-
 		</header>
 
 	<section class="bg-grey first-section" >
