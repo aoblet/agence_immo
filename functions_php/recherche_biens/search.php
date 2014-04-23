@@ -50,7 +50,7 @@
 						bien_immobilier.descriptif,
 						bien_immobilier.parking,
 						bien_immobilier.nb_etages,
- 						DATE_FORMAT(DATE(bien_immobilier.date_parution),'%d/%m/%Y') as date_parution,
+ 						bien_immobilier.date_parution,
 						appartement.etage,
 						appartement.ascenseur,
 						appartement.numero_appartement,

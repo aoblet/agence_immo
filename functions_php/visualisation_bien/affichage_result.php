@@ -3,6 +3,8 @@
 	require_once(dirname(__FILE__).'/../../enum/enum_type_biens.php');
 	require_once(dirname(__FILE__).'/../user_utils/getUtils_html.php');
 	require_once(dirname(__FILE__).'/../recherche_biens/search.php');
+	require_once(dirname(__FILE__).'/getUtils.php');
+
 
 	function getMessageNotFoundVisu(){
 		$lien_acceuil = getPathRoot().'index.php';
@@ -25,14 +27,14 @@
 HTML;
 	}
 
-	function affichage_base_visu($id_bien_immobilier,$is_for_landa){
+	function affichage_base_visu($id_bien_immobilier,$is_for_lambda){
 		$link_retour = getPathRoot().'result.php';
 		$res=array();
 
 		if($id_bien_immobilier=='')
 			return getMessageNotFoundVisu();
 
-		$res=searchBase(array('id_bien_immobilier'=>$id_bien_immobilier,'is_for_landa'=>$is_for_landa)); 
+		$res=searchBase(array('id_bien_immobilier'=>$id_bien_immobilier,'is_for_lambda'=>$is_for_lambda)); 
 		if(empty($res))
 			return getMessageNotFoundVisu();
 
@@ -49,7 +51,6 @@ HTML;
 		$chauffage 		= empty($res['infos_chauffage']['nom_type_chauffage'])	? '' : "<p><i class='fa fa-fire'></i><span>Chauffage :</span> {$res['infos_chauffage']['nom_type_chauffage']} </p>";
 		$type_bien 		= empty($res['info_type_bien']) ? '' : $res['info_type_bien'] ;
 		$type_achat_location	= empty($res['info_type_achat_location']) ? '' : $res['info_type_achat_location'] ;
-		$date_parution = empty($res['date_parution']) ?'':$res['date_parution'];
 
 		$consommation_energetique ='';
 		$gaz ='';
@@ -130,6 +131,15 @@ HTML;
 
 		if(!empty($res['superficie']))
 			$phrase_type_bien_type_operation_superficie.=" <span>".$res['superficie']." m&sup2;</span>";
+
+		if(!empty($res['date_parution'])){
+			$date_formated_base = getDateFormatedVisuBase($res['date_parution']);
+			$date_formated_details = getDateFormatedVisuDetails($res['date_parution']);
+			if($date_formated_details)
+				$date_formated_details="<i class='fa fa-clock-o'></i> ".$date_formated_details;
+			
+			$date_parution = "<i class='fa fa-calendar-o'></i> {$date_formated_base} {$date_formated_details}";
+		}
 
 		$result_html=<<<HTML
 		<section class="bg-grey first-section" >

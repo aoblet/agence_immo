@@ -2,6 +2,8 @@
 	require_once(dirname(__FILE__).'/../../enum/enum_type_user.php');
 	require_once(dirname(__FILE__).'/../../enum/enum_type_biens.php');
 	require_once(dirname(__FILE__).'/../user_utils/getUtils_html.php');
+	require_once(dirname(__FILE__).'/getUtils.php');
+	
 
 	function getMessageNotFoundResult(){
 		$lien_acceuil = getPathRoot().'index.php';
@@ -42,7 +44,6 @@ HTML;
 			$superficie = empty($value['superficie']) ? "Superficie inconnue" : $value['superficie'].' m&sup2;';
 			$type_bien = empty($value['info_type_bien']) ? "Bien immobilier": ucfirst($value['info_type_bien']);
 			$type_achat_location = empty($value['info_type_achat_location']) ? "Agence" : $value['info_type_achat_location'];
-			$date_parution = empty($value['date_parution']) ? '' : "<i class='fa fa-clock-o'></i>{$value['date_parution']}";
 
 			$conso_energetique ='';
 			$adresse = '';
@@ -69,6 +70,15 @@ HTML;
 			if(!empty($value['descriptif'])){
 				$descriptif=substr($value['descriptif'], 0, 80)."...";
 			}
+
+			if(!empty($value['date_parution'])){
+				$date_formated = getDateFormatedResultDetails($value['date_parution']);
+				if(!$date_formated)
+					$date_formated = getDateFormatedResultBase($value['date_parution']);
+
+				$date_parution = "<i class='fa fa-clock-o'></i>{$date_formated}";
+			}
+
 
 			$lien_bien_immobilier='';
 			if(!empty($value['id_bien_immobilier'])){

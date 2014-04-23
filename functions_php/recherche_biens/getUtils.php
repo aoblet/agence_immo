@@ -74,3 +74,64 @@
 		$stmt->closeCursor();
 		return $res;
 	}
+
+	
+	
+	function getDateFormatedResultBase($date_to_print){
+		return (new DateTime($date_to_print,new DateTimeZone('Europe/Paris')))->format('d/m/Y');
+	}
+
+	function getDateFormatedResultDetails($date_to_compare){
+		$date_return		='';
+		if(!empty($date_to_compare)){
+			$time_zone 			= new DateTimeZone('Europe/Paris');
+			$date_to_compare 	= new DateTime($date_to_compare, $time_zone);
+			$date_current 		= new DateTime(NULL,$time_zone);
+			$date_diff 			= $date_current->diff($date_to_compare);
+			$time_zone 			= NULL; //opti
+			var_dump($date_diff);
+			
+			// si mois > 5 on affiche pas de détails
+			if($date_diff->m == 0){
+				// jours
+				if($date_diff->d == 0){
+					//heures
+					if($date_diff->h == 0){
+						//minutes
+						if($date_diff->i == 0){
+							$date_return = "Il y a ".$date_diff->s." seconde";
+
+							if($date_diff->s > 1)
+								$date_return.='s';
+						}
+						else{
+							$date_return = "Il y a ".$date_diff->i." minute";
+
+							if($date_diff->i > 1)
+								$date_return.='s';
+						}
+					}
+					else{
+						$date_return = "Il y a ".$date_diff->h." heure";
+
+						if($date_diff->h > 1)
+							$date_return .='s';
+					}
+				}
+				elseif($date_diff->d < 32){
+					$date_return = "Il y a ".$date_diff->d." jour";
+					if($date_diff->d > 1)
+						$date_return.='s';
+				}
+				else{
+					$date_return = ''; // secu
+				}
+			}
+			elseif($date_diff->m <6){
+				$date_return="Il y a ".$date_diff->m." mois";
+			}
+		}
+		
+		return $date_return;
+	}
+
