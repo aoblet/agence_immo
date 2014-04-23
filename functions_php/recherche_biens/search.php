@@ -37,7 +37,7 @@
 	 CF LES DEP REGIONS: CODE OU NOM??
 	 
 	 opt array indices : 'id_bien_immobilier', 'types_bien','type_achat_location', 'budget_mini','budget_maxi','ville','region','departement','nb_pieces','superficie_mini',
-						  'superficie_maxi', 'gaz_effet_serre','type_chauffage','consos_energetiques', 'jardin', 'parking', 'nb_etages', 'ascenseur','order_by',is_for_landa
+						  'superficie_maxi', 'gaz_effet_serre','type_chauffage','consos_energetiques', 'jardin', 'parking', 'nb_etages', 'ascenseur','order_by',is_for_lambda
 	 */
 	function searchBase($opt=NULL){
 
@@ -68,7 +68,7 @@ SQL;
 		}
 		elseif(!empty($opt['id_bien_immobilier']) && is_numeric($opt['id_bien_immobilier'])){
 			$query.=" AND bien_immobilier.id_bien_immobilier = {$opt['id_bien_immobilier']} ";
-			if(isset($opt['is_for_landa']) && $opt['is_for_landa'])
+			if(isset($opt['is_for_lambda']) && $opt['is_for_lambda'])
 				$query.=' AND bien_immobilier.id_personne_locataire IS NULL';
 		}
 		else{

@@ -54,19 +54,21 @@ HTML;
 		$consommation_energetique ='';
 		$gaz ='';
 		$ascenseur =''; 
+		$adresse='';
+
 		if(!empty($res['infos_conso_energetique']) && !empty($res['infos_conso_energetique']['id_consommation_energetique'])){
 			$consommation_energetique=<<<HTML
 				<p><i class="fa fa-signal"></i><span>Indice energetique :</span> {$res['infos_conso_energetique']['nom_consommation_energetique']}</p>
-				<p><i class="fa fa-signal"></i><span>Conso energ mini :</span> {$res['infos_conso_energetique']['conso_kilowatt_an_mcarre_mini']}</p>
-				<p><i class="fa fa-signal"></i><span>Conso energ maxi :</span> {$res['infos_conso_energetique']['conso_kilowatt_an_mcarre_maxi']}</p>
+				<p class="padleft35"><span>Conso energ mini kilowatt :</span> {$res['infos_conso_energetique']['conso_kilowatt_an_mcarre_mini']}</p>
+				<p class="padleft35"></i><span>Conso energ maxi kilowatt:</span> {$res['infos_conso_energetique']['conso_kilowatt_an_mcarre_maxi']}</p>
 HTML;
 		}
 
 		if(!empty($res['infos_gaz']) && !empty($res['infos_gaz']['id_gaz'])){
 			$gaz=<<<HTML
-				<p><i class="fa fa-signal"></i><span>Indice energetique :</span> {$res['infos_gaz']['nom_gaz']}</p>
-				<p><i class="fa fa-signal"></i><span>Conso energ mini :</span> {$res['infos_gaz']['emission_kilo_co2_an_mcarre_mini']}</p>
-				<p><i class="fa fa-signal"></i><span>Conso energ maxi :</span> {$res['infos_gaz']['emission_kilo_co2_an_mcarre_maxi']}</p>
+				<p><i class="fa fa-globe"></i><span>Effet de serre :</span> {$res['infos_gaz']['nom_gaz']}</p>
+				<p class="padleft35" ><span>Emission co2 mini :</span> {$res['infos_gaz']['emission_kilo_co2_an_mcarre_mini']}</p>
+				<p class="padleft35"><span>Emission co2 maxi :</span> {$res['infos_gaz']['emission_kilo_co2_an_mcarre_maxi']}</p>
 HTML;
 		}
 
@@ -76,6 +78,42 @@ HTML;
 			else
 				$is_present ='Oui';
 			$ascenseur = "<p><i class='fa fa-sort'></i><span>Ascenseur :</span> $is_present</p>";
+		}
+
+		if(!empty($res['infos_adresse']) && !empty($res['infos_adresse']['id_adresse'])){
+			$adresse_rue='';
+			$adresse_numero_rue='';
+			$adresse_dep='';
+			$adresse_region='';
+			$adresse_code_postal='';
+			$addresse_ville='';
+
+			if(!empty($res['infos_adresse']['rue']))
+				$adresse_rue=$res['infos_adresse']['rue'];
+
+			if(!empty($res['infos_adresse']['numero_rue']))
+				$adresse_numero_rue=$res['infos_adresse']['numero_rue'];
+
+			if(!empty($res['infos_adresse']['nom_departement']))
+				$adresse_dep=$res['infos_adresse']['nom_departement'];
+
+			if(!empty($res['infos_adresse']['code_postal']))
+				$adresse_code_postal=$res['infos_adresse']['code_postal'];
+
+			if(!empty($res['infos_adresse']['ville']))
+				$adresse_ville=$res['infos_adresse']['ville'];
+
+			if(!empty($res['infos_adresse']['nom_region']))
+				$adresse_region=$res['infos_adresse']['nom_region'];
+
+
+			$adresse.=<<<HTML
+			
+				<p><i class="fa fa-map-marker"></i><span>Adresse :</span> $adresse_numero_rue $adresse_rue</p>
+				<p class="padleft35"><span>Ville :</span> $adresse_code_postal $adresse_ville</p>
+				<p class="padleft35"><span>Département :</span> $adresse_dep</p>
+				<p class="padleft35"><span>Région :</span> $adresse_region</p>
+HTML;
 		}
 
 		$phrase_type_bien_type_operation_superficie = '';
@@ -122,6 +160,9 @@ HTML;
 
 							<h4>Description du bien</h4>
 							<p class="desc-p-bien"> $descriptif</p>
+
+							<h4>Localisation</h4>
+							$adresse
 
 							<h4>Informations techniques</h4>
 							<div class="row">

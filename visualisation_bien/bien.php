@@ -36,8 +36,8 @@
 	if(isset($_GET['id_bien_immobilier']) && !empty($_GET['id_bien_immobilier']) && is_numeric($_GET['id_bien_immobilier']))
 		$id_bien_immobilier = $_GET['id_bien_immobilier'];
 
-	$is_for_landa = true;
-	$affichage_result = affichage_base_visu($id_bien_immobilier,$is_for_landa);
+	$is_for_lambda = true;
+	$affichage_result = affichage_base_visu($id_bien_immobilier,$is_for_lambda);
 
 ?>
 
