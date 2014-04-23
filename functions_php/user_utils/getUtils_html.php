@@ -18,12 +18,13 @@
 	function getBanniereConnexion($session,$file_come_from=''){
 		$link_photo = getPathRoot().$session['photo_personne'];
 		$link_deco  = getPathRoot().'user/deconnexion.php';
+		$link_dash  = getPathRoot().'/user/dashboardGateway.php';
 		return <<<HTML
 		<div id="bar-connected">
 			<div class="container" >
 				<div class="row">
 					<div class="col-md-6">
-						<a href="./user/dashboardGateway.php"><i class="fa fa-th"></i>Accéder à mon dashboard</a>
+						<a href="$link_dash"><i class="fa fa-th"></i>Accéder à mon dashboard</a>
 					</div>
 
 					<div class="col-md-6">
@@ -42,6 +43,49 @@
 HTML;
 	}
 
+	function getBanniere($session,$come_from=''){
+		$banniere='';
+		$display_mon_compte='';
+		if(isset($session) && !empty($session)){
+			$banniere.=getBanniereConnexion($session,$come_from);
+			$display_mon_compte='display:none';
+		}
+
+		$link_index = getPathRoot().'index.php';
+		$link_achat = getPathRoot().'result.php?type_achat_location=vente';
+		$link_location = getPathRoot().'result.php?type_achat_location=location';
+
+		$banniere.=<<<HTML
+		<div class="container" >
+			<div class="row">
+				<div class="col-md-12">
+					<div id="menu">
+						<ul id="menu-nav" class="only-desktop">
+							<li><a href="$link_index" class="button-home"><i class="fa fa-home"></i></a></li>
+							<li><a href="$link_achat">Acheter</a></li>
+							<li><a href="">Vendre</a></li>
+							<li><a href="$link_location">Louer</a></li>
+							<li><a href="#">Faire gerer</a></li>
+						</ul>
+
+						<a href="#" id="connect" class="only-desktop" style="$display_mon_compte">
+							<i class="fa fa-unlock-alt"></i>Mon compte
+						</a>
+
+						<a href="#" id="nav-mobile-button" class="only-mobile menu-btn">
+							<i class="fa fa-bars"></i>
+						</a>
+
+						<a  id="connect-mobile" class="only-mobile" style="display_mon_compte ">
+							<i class="fa fa-unlock-alt"></i>Mon compte
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+HTML;
+	return $banniere;
+	}
 	function getFormulaireConnexion($mail_message,$password_message,$file_come_from=''){
 		$link_to_root=getPathRoot();
 		$link_form_login = $link_to_root.'user/login.php';
@@ -91,46 +135,4 @@ HTML;
 HTML;
 	}
 
-	function getBanniere($session,$come_from=''){
-		$banniere='';
-		$display_mon_compte='';
-		if(isset($session) && !empty($session)){
-			$banniere.=getBanniereConnexion($session,$come_from);
-			$display_mon_compte='display:none';
-		}
-
-		$link_index = getPathRoot().'index.php';
-		$link_achat = getPathRoot().'result.php?type_achat_location=vente';
-		$link_location = getPathRoot().'result.php?type_achat_location=location';
-
-		$banniere.=<<<HTML
-		<div class="container" >
-			<div class="row">
-				<div class="col-md-12">
-					<div id="menu">
-						<ul id="menu-nav" class="only-desktop">
-							<li><a href="index.php" class="button-home"><i class="fa fa-home"></i></a></li>
-							<li><a href="$link_achat">Acheter</a></li>
-							<li><a href="">Vendre</a></li>
-							<li><a href="$link_location">Louer</a></li>
-							<li><a href="#">Faire gerer</a></li>
-						</ul>
-
-						<a href="#" id="connect" class="only-desktop" style="$display_mon_compte">
-							<i class="fa fa-unlock-alt"></i>Mon compte
-						</a>
-
-						<a href="#" id="nav-mobile-button" class="only-mobile menu-btn">
-							<i class="fa fa-bars"></i>
-						</a>
-
-						<a  id="connect-mobile" class="only-mobile" style="display_mon_compte ">
-							<i class="fa fa-unlock-alt"></i>Mon compte
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-HTML;
-	return $banniere;
-	}
+	

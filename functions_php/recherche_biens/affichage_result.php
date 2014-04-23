@@ -42,6 +42,8 @@ HTML;
 			$superficie = empty($value['superficie']) ? "Superficie inconnue" : $value['superficie'].' m&sup2;';
 			$type_bien = empty($value['info_type_bien']) ? "Bien immobilier": ucfirst($value['info_type_bien']);
 			$type_achat_location = empty($value['info_type_achat_location']) ? "Agence" : $value['info_type_achat_location'];
+			$date_parution = empty($value['date_parution']) ? '' : "<i class='fa fa-clock-o'></i>{$value['date_parution']}";
+
 			$conso_energetique ='';
 			$adresse = '';
 
@@ -114,6 +116,7 @@ HTML;
 							<h4>
 								$type_bien $superficie
 							</h4>
+							<h3>$date_parution</h3>
 							<h5>$prix</h5>
 						</div>
 						<div class="bien-desc">

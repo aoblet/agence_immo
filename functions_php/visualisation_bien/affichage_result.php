@@ -82,8 +82,13 @@ HTML;
 		if(!empty($type_bien))
 			$phrase_type_bien_type_operation_superficie.=$type_bien." ";
 
-		if(!empty($type_achat_location))
-			$phrase_type_bien_type_operation_superficie.='à la '.$type_achat_location;
+		if(!empty($type_achat_location)){
+			if($type_achat_location == 'location')
+				$type_achat_location ='louer';
+			else
+				$type_achat_location ='acheter';
+		}
+			$phrase_type_bien_type_operation_superficie.='à '.$type_achat_location;
 
 		if(!empty($res['superficie']))
 			$phrase_type_bien_type_operation_superficie.=" <span>".$res['superficie']." m&sup2;</span>";

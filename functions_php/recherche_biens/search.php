@@ -102,6 +102,12 @@ SQL;
 			$clause_budget='';
 			if(isset($opt['budget_mini']) && !empty($opt['budget_maxi']) && is_numeric($opt['budget_mini']) && is_numeric($opt['budget_maxi']))
 				$clause_budget = "AND prix BETWEEN {$opt['budget_mini']} AND {$opt['budget_maxi']}";
+			elseif(isset($opt['budget_mini']) && is_numeric($opt['budget_mini'])){
+				$clause_budget = "AND prix > {$opt['budget_mini']} ";
+			}
+			elseif(isset($opt['budget_maxi']) && is_numeric($opt['budget_maxi'])){
+				$clause_budget = "AND prix < {$opt['budget_maxi']} ";
+			}
 
 
 			//ville
