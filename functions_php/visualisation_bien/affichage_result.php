@@ -25,14 +25,14 @@
 HTML;
 	}
 
-	function affichage_base_visu($id_bien_immobilier=''){
+	function affichage_base_visu($id_bien_immobilier,$is_for_landa){
 		$link_retour = getPathRoot().'result.php';
 		$res=array();
 
 		if($id_bien_immobilier=='')
 			return getMessageNotFoundVisu();
 
-		$res=searchBase($id_bien_immobilier); 
+		$res=searchBase(array('id_bien_immobilier'=>$id_bien_immobilier,'is_for_landa'=>$is_for_landa)); 
 		if(empty($res))
 			return getMessageNotFoundVisu();
 

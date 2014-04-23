@@ -33,10 +33,11 @@
 	$banniere_header = getBanniere($session_to_getBanniere,basename(__FILE__));
 
 	$id_bien_immobilier ='';
-	if(isset($_GET['id_bien_immobilier']) && !empty($_GET['id_bien_immobilier']))
+	if(isset($_GET['id_bien_immobilier']) && !empty($_GET['id_bien_immobilier']) && is_numeric($_GET['id_bien_immobilier']))
 		$id_bien_immobilier = $_GET['id_bien_immobilier'];
 
-	$affichage_result = affichage_base_visu(array('id_bien_immobilier'=>$id_bien_immobilier,'is_for_landa'=>true));
+	$is_for_landa = true;
+	$affichage_result = affichage_base_visu($id_bien_immobilier,$is_for_landa);
 
 ?>
 
