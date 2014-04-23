@@ -275,6 +275,15 @@
 
 					</form>
 
+					<div class="no-result bg-white margin30">
+						<h2><i class="fa fa-puzzle-piece"></i></h2>
+						<h3>Oups..</h3>
+						<p>Fake Agency ne dispose malheureusement pas de biens corréspondants à tous vos critères. Veuillez élargir votre recherche, ou contacter directement l'agence pour plus de précisions.</p>
+
+						<a href="index.php"><i class="fa fa-reply"></i>Retourner sur la page précédente</a>
+						<a href="maito:contact@fakeagency.com"><i class="fa fa-envelope"></i>Contacter l'agence</a>
+					</div>
+
 					<?php echo $resultat_search_html ?>	
 
 					</div>
