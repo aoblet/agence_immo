@@ -237,7 +237,7 @@
 									</p>
 									
 									<input type="submit" name="submit_base" id="search" value="Rechercher">
-									<input type='reset'  value='Annuler'>
+									<input type='reset'  value='Annuler' onclick="window.location.href='result.php'">
 
 									
 								</div>
