@@ -1297,11 +1297,12 @@ width: 100px;
 	background: rgba(0,0,0,0.05);
 	text-align: right;
 	font-weight: 500;
-	font-size: 17px;
+	font-size: 20px;
 }
 
 .bien-title h3 .fa{
 	padding-right: 7px;
+	font-size: 17px;
 }
 
 
