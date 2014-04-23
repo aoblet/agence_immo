@@ -89,7 +89,7 @@
 			$date_current 		= new DateTime(NULL,$time_zone);
 			$date_diff 			= $date_current->diff($date_to_compare);
 			$time_zone 			= NULL; //opti
-			var_dump($date_diff);
+			//var_dump($date_diff);
 			
 			// si mois > 5 on affiche pas de détails
 			if($date_diff->m == 0){

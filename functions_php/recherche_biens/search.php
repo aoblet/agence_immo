@@ -237,7 +237,8 @@ SQL;
 		}
 		
 		//echo $query;
-		$stmt = myPDO::getSingletonPDO()->query($query); 
+		$stmt = myPDO::getSingletonPDO()->prepare($query); 
+		$stmt->execute(); // opti
 
 		$resultas = array();
 		while($ligne = $stmt->fetch()){

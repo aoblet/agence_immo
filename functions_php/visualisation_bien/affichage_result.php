@@ -57,17 +57,20 @@ HTML;
 		$ascenseur =''; 
 		$adresse='';
 
+
 		if(!empty($res['infos_conso_energetique']) && !empty($res['infos_conso_energetique']['id_consommation_energetique'])){
+			$classe='indice_'.trim(strtoupper($res['infos_conso_energetique']['nom_consommation_energetique']));
 			$consommation_energetique=<<<HTML
-				<p><i class="fa fa-signal"></i><span>Indice energetique :</span> {$res['infos_conso_energetique']['nom_consommation_energetique']}</p>
+				<p><i class="fa fa-signal"></i>Indice energetique : <span class="$classe" >{$res['infos_conso_energetique']['nom_consommation_energetique']}</span></p>
 				<p class="padleft35"><span>Conso energ mini kilowatt :</span> {$res['infos_conso_energetique']['conso_kilowatt_an_mcarre_mini']}</p>
 				<p class="padleft35"></i><span>Conso energ maxi kilowatt:</span> {$res['infos_conso_energetique']['conso_kilowatt_an_mcarre_maxi']}</p>
 HTML;
 		}
 
 		if(!empty($res['infos_gaz']) && !empty($res['infos_gaz']['id_gaz'])){
+			$classe='indice_'.trim(strtoupper($res['infos_gaz']['nom_gaz']));
 			$gaz=<<<HTML
-				<p><i class="fa fa-globe"></i><span>Effet de serre :</span> {$res['infos_gaz']['nom_gaz']}</p>
+				<p><i class="fa fa-globe"></i>Effet de serre :<span class="$classe"> {$res['infos_gaz']['nom_gaz']}</span></p>
 				<p class="padleft35" ><span>Emission co2 mini :</span> {$res['infos_gaz']['emission_kilo_co2_an_mcarre_mini']}</p>
 				<p class="padleft35"><span>Emission co2 maxi :</span> {$res['infos_gaz']['emission_kilo_co2_an_mcarre_maxi']}</p>
 HTML;
@@ -137,7 +140,7 @@ HTML;
 			$date_formated_details = getDateFormatedVisuDetails($res['date_parution']);
 			if($date_formated_details)
 				$date_formated_details="<i class='fa fa-clock-o'></i> ".$date_formated_details;
-			
+
 			$date_parution = "<i class='fa fa-calendar-o'></i> {$date_formated_base} {$date_formated_details}";
 		}
 

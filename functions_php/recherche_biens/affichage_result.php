@@ -3,7 +3,7 @@
 	require_once(dirname(__FILE__).'/../../enum/enum_type_biens.php');
 	require_once(dirname(__FILE__).'/../user_utils/getUtils_html.php');
 	require_once(dirname(__FILE__).'/getUtils.php');
-	
+
 
 	function getMessageNotFoundResult(){
 		$lien_acceuil = getPathRoot().'index.php';
@@ -49,8 +49,9 @@ HTML;
 			$adresse = '';
 
 			if(!empty($value['infos_conso_energetique']) && !empty($value['infos_conso_energetique']['nom_consommation_energetique'])){
+				$classe = 'indice_'.trim(strtoupper($value['infos_conso_energetique']['nom_consommation_energetique']));
 				$indice = $value['infos_conso_energetique']['nom_consommation_energetique'];
-				$conso_energetique = " <p><i class='fa fa-tachometer'></i> Indice éco : <span>$indice</span></p>";
+				$conso_energetique = " <p><i class='fa fa-tachometer'></i> Indice éco : <span class='$classe' >$indice</span></p>";
 			}
 
 
