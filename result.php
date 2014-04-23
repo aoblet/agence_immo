@@ -258,12 +258,12 @@
 										Trier par
 
 										<select name='order_by'>
+											<option value='date_parution' 			<?php echo $order_by_date_parution_form ?>				>Date</option>							
 											<option value='prix_croissant' 			<?php echo $order_by_prix_croissant_form ?> 			>Prix croissant</option>
 											<option value='prix_decroissant' 		<?php echo $order_by_prix_decroissant_form ?> 			>Prix décroissant</option>
 											<option value='superficie_croissant' 	<?php echo $order_by_superficie_croissant_form ?> 		>Superficie croissante</option>
 											<option value='superficie_decroissant' 	<?php echo $order_by_superficie_decroissant_form ?> 		>Superficie decroissante</option>
 											<option value='nb_pieces' 				<?php echo $order_by_nb_pieces_form ?> 					>Nombre de pièces</option>
-											<option value='date_parution' 			<?php echo $order_by_date_parution_form ?>				>Date</option>
 										</select>
 
 										<input type="submit" name="submit_trier" id="search" value="Trier">

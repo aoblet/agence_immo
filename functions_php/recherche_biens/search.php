@@ -209,7 +209,7 @@ SQL;
 				$clause_jardin = " AND maison.id_bien_immobilier = bien_immobilier.id_bien_immobilier AND maison.superficie_jardin > 0 ";
 
 			//orderby
-			$clause_order_by='';
+			$clause_order_by=' ORDER BY date_parution DESC';
 			if(!empty($opt['order_by'])){
 				if( $opt['order_by'] == 'prix_croissant' || $opt['order_by'] == 'prix_decroissant' || 
 					$opt['order_by'] == 'superficie_croissant' || $opt['order_by'] == 'superficie_decroissant' || 
@@ -223,6 +223,8 @@ SQL;
 						$clause_order_by = " ORDER BY superficie";
 					elseif($opt['order_by'] == 'superficie_decroissant')
 						$clause_order_by = " ORDER BY superficie DESC";
+					elseif($opt['order_by'] == 'date_parution')
+						$clause_order_by = " ORDER BY date_parution DESC";	
 					else
 						$clause_order_by = " ORDER BY {$opt['order_by']}";
 				}
