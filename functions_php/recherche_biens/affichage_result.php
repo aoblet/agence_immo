@@ -1,9 +1,10 @@
 <?php
 	require_once(dirname(__FILE__).'/../../enum/enum_type_user.php');
 	require_once(dirname(__FILE__).'/../../enum/enum_type_biens.php');
+	require_once(dirname(__FILE__).'/../user_utils/getUtils_html.php');
 
-	function getMessageNotFound($racine_agence=''){
-		$lien_acceuil = $racine_agence.'index.php';
+	function getMessageNotFoundResult(){
+		$lien_acceuil = getPathRoot().'index.php';
 		return <<<HTML
 			<div class="no-result bg-white margin30">
 				<h2><i class="fa fa-puzzle-piece"></i></h2>
@@ -138,7 +139,7 @@ HTML;
 		$current_dir = $current_dir[count($current_dir) -1]; 
 
 		if(isset($res) && empty($res) && $current_dir == 'agence_immo'){
-			$result_html=getMessageNotFound();
+			$result_html=getMessageNotFoundResult();
 		}
 
 	 	return $result_html;

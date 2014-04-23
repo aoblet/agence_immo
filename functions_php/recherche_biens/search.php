@@ -37,15 +37,39 @@
 	 CF LES DEP REGIONS: CODE OU NOM??
 	 
 	 opt array indices : 'id_bien_immobilier', 'types_bien','type_achat_location', 'budget_mini','budget_maxi','ville','region','departement','nb_pieces','superficie_mini',
-						  'superficie_maxi', 'gaz_effet_serre','type_chauffage','consos_energetiques', 'jardin', 'parking', 'nb_etages', 'ascenseur','order_by'
+						  'superficie_maxi', 'gaz_effet_serre','type_chauffage','consos_energetiques', 'jardin', 'parking', 'nb_etages', 'ascenseur','order_by',is_for_landa
 	 */
 	function searchBase($opt=NULL){
 
+		$query = <<<SQL
+				SELECT DISTINCT 
+						bien_immobilier.id_bien_immobilier,
+						bien_immobilier.prix,
+						bien_immobilier.superficie,
+						bien_immobilier.nb_pieces,
+						bien_immobilier.descriptif,
+						bien_immobilier.parking,
+						bien_immobilier.nb_etages,
+ 						DATE_FORMAT(DATE(bien_immobilier.date_parution),'%d/%m/%Y') as date_parution,
+						appartement.etage,
+						appartement.ascenseur,
+						appartement.numero_appartement,
+						maison.superficie_jardin
+				FROM    bien_immobilier 
+						LEFT OUTER JOIN appartement  ON appartement.id_bien_immobilier = bien_immobilier.id_bien_immobilier
+						LEFT OUTER JOIN maison    	 ON maison.id_bien_immobilier = bien_immobilier.id_bien_immobilier
+						LEFT OUTER JOIN immeuble     ON immeuble.id_bien_immobilier = bien_immobilier.id_bien_immobilier
+						LEFT OUTER JOIN garage    	 ON garage.id_bien_immobilier = bien_immobilier.id_bien_immobilier
+				WHERE   1=1 
+SQL;
+
 		if(empty($opt)){
-			$query=" SELECT * FROM bien_immobilier WHERE id_personne_locataire IS NULL ";
+			$query.=" AND bien_immobilier.id_personne_locataire IS NULL ";
 		}
 		elseif(!empty($opt['id_bien_immobilier']) && is_numeric($opt['id_bien_immobilier'])){
-			$query=" SELECT * FROM bien_immobilier WHERE id_bien_immobilier = {$opt['id_bien_immobilier']} ";
+			$query.=" AND bien_immobilier.id_bien_immobilier = {$opt['id_bien_immobilier']} ";
+			if(isset($opt['is_for_landa']) && $opt['is_for_landa'])
+				$query.=' AND bien_immobilier.id_personne_locataire IS NULL';
 		}
 		else{
 			$opt = secureArray($opt);
@@ -198,28 +222,8 @@
 				}
 			}
 			
-			$query = <<<SQL
-				SELECT DISTINCT 
-						bien_immobilier.id_bien_immobilier,
-						bien_immobilier.prix,
-						bien_immobilier.superficie,
-						bien_immobilier.nb_pieces,
-						bien_immobilier.descriptif,
-						bien_immobilier.parking,
-						bien_immobilier.nb_etages,
-						bien_immobilier.date_parution,
-						appartement.etage,
-						appartement.ascenseur,
-						appartement.numero_appartement,
-						maison.superficie_jardin
-				FROM    bien_immobilier 
-						LEFT OUTER JOIN appartement  ON appartement.id_bien_immobilier = bien_immobilier.id_bien_immobilier
-						LEFT OUTER JOIN maison    	 ON maison.id_bien_immobilier = bien_immobilier.id_bien_immobilier
-						LEFT OUTER JOIN immeuble     ON immeuble.id_bien_immobilier = bien_immobilier.id_bien_immobilier
-						LEFT OUTER JOIN garage    	 ON garage.id_bien_immobilier = bien_immobilier.id_bien_immobilier
-				WHERE   1=1 
-SQL;
-			$query .= $clause_types_bien.$clause_type_achat_location.$clause_budget.$clause_superficie;
+			
+			$query.= $clause_types_bien.$clause_type_achat_location.$clause_budget.$clause_superficie;
 			$query.= $clause_departement.$clause_region.$clause_ville.$clause_nb_pieces;
 			$query.= $clause_gaz.$clause_conso_energetique.$clause_type_chauffage.$clause_parking.$clause_nb_etages.$clause_ascenseur.$clause_jardin.$clause_order_by;
 		}

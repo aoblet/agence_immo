@@ -5,6 +5,7 @@
 	require_once('../functions_php/user_utils/getUtils_html.php');
 	require_once('../functions_php/user_utils/getUtils.php');
 	require_once('../functions_php/recherche_biens/affichage_result.php');
+	require_once('../functions_php/visualisation_bien/affichage_result.php');
 
 
 	$mail_message = 'Email';
@@ -30,6 +31,12 @@
 	//dernier parmam:come_from pour redirection
 	$formulaire_connexion = getFormulaireConnexion($mail_message,$password_message,basename(__FILE__));
 	$banniere_header = getBanniere($session_to_getBanniere,basename(__FILE__));
+
+	$id_bien_immobilier ='';
+	if(isset($_GET['id_bien_immobilier']) && !empty($_GET['id_bien_immobilier']))
+		$id_bien_immobilier = $_GET['id_bien_immobilier'];
+
+	$affichage_result = affichage_base_visu(array('id_bien_immobilier'=>$id_bien_immobilier,'is_for_landa'=>true));
 
 ?>
 
@@ -71,149 +78,11 @@
 	</header>
 
 
-
-	
-
-	<section class="bg-grey first-section" >
-
-
-
-
-
-		<div class="container margin60">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="bien-spe-title bg-white">
-						<div class="bien-spe-title-alert">
-							<h4>Excusivité</h4>
-						</div>
-						<h2>Appartement à vendre <span>47 m&sup2;</span></h2>
-
-
-						<div class="bien-spe-title-back">
-							<a href=""><i class="fa fa-reply"></i> Retour</a>
-						</div>
-
-						<h3>340 000 €</h3>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="container margin30">
-			<div class="row">
-				<div class="col-md-6">
-					<div class="bien-spe-desc bg-white">
-
-						
-
-
-						<h4>Description du bien</h4>
-						<p class="desc-p-bien">Dans un bel immeuble de la rue du Docteur Heulin, aux portes des Batignolles, un très bel appartement en étage sur cour, calme et ensoleillé, comprenant : entrée, séjour, 2 chambres dont une avec vue dégagée sans vis à vis, et la seconde munie d'un dressing, cuisine séparée, salle d'eau et wc séparés (nous consulter pour plus de détails). </p>
-
-						<h4>Informations techniques</h4>
-						<div class="row">
-							<div class="col-md-6">
-								<p><i class="fa fa-map-marker"></i><span>Adresse :</span> 4 rue du php, 75002 Paris</p>
-								<p><i class="fa fa-expand"></i><span>Surface :</span> 47 m&sup2;</p>
-								<p><i class="fa fa-picture-o"></i><span>Jardin :</span> 9 m&sup2;</p>
-								<p><i class="fa fa-th-large"></i><span>Nb pièces :</span> 5</p>
-								<p><i class="fa fa-road"></i><span>Stationnement :</span> Garage (ou parking)</p>
-								<p><i class="fa fa-ellipsis-v"></i><span>Nb étages :</span> 4</p>
-								<p><i class="fa fa-arrows-v"></i><span>Num étages :</span> 3ème</p>
-								<p><i class="fa fa-sort"></i><span>Ascenseur :</span> non</p>
-								
-							</div>
-							<div class="col-md-6">
-								
-								<p><i class="fa fa-fire"></i><span>Chauffage :</span> Individuel</p>
-								<p><i class="fa fa-signal"></i><span>Indice energetique :</span> A</p>
-								<p><i class="fa fa-signal"></i><span>Conso energ mini :</span> 100</p>
-								<p><i class="fa fa-signal"></i><span>Conso energ maxi :</span> 200</p>
-
-								<p><i class="fa fa-globe"></i><span>Effet de serre :</span> B</p>
-								<p><i class="fa fa-globe"></i><span>E.d.S mini :</span> 200</p>
-								<p><i class="fa fa-globe"></i><span>E.d.S maxi :</span> 700</p>
-								
-								
-							</div>
-						</div>
-
-
-
-					</div>
-				</div>
-
-				<div class="col-md-6">
-					<div class="bien-spe-contact bg-white">
-						<div class="bien-spe-desc-mel">En ligne depuis 5 jours</div>
-						<a href="mailto:contact@fakeagency.com">Contacter l'agence</a>
-					</div>
-
-					<div class="bien-spe-pic bg-white margin30">
-						
-						<div class="flexslider">
-							<ul class="slides">
-								<li>
-									<img src="../img/biens/1.jpg" />
-								</li>
-								<li>
-									<img src="../img/biens/2.jpg" />
-								</li>
-								<li>
-									<img src="../img/biens/3.jpg" />
-								</li>
-							</ul>
-						</div>
-					</div>
-
-				</div>
-
-			</div>
-		</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	</section>
-
-
+	<?php echo $affichage_result ?>
 
 	<section class="bg-grey" style="min-height:100px;">
 
 	</section>
-
-
-
 
 	<footer class="bg-blue">
 		<div class="container">
