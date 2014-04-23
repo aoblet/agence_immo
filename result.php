@@ -73,9 +73,10 @@
 	//completion tri
 	$order_by_prix_croissant_form 	= isset($_GET['order_by']) && !empty($_GET['order_by']) && $_GET['order_by'] =='prix_croissant' ? "selected" : '';
 	$order_by_prix_decroissant_form = isset($_GET['order_by']) && !empty($_GET['order_by']) && $_GET['order_by'] =='prix_decroissant' ? "selected" : '';
-	$order_by_date_parution_form	= isset($_GET['order_by']) && !empty($_GET['order_by']) && $_GET['order_by'] =='date_parution' ? "selected" : '';	
-	$order_by_superficie_form		= isset($_GET['order_by']) && !empty($_GET['order_by']) && $_GET['order_by'] =='superficie' ? "selected" : '';
 	$order_by_nb_pieces_form		= isset($_GET['order_by']) && !empty($_GET['order_by']) && $_GET['order_by'] =='nb_pieces' ? "selected" : '';
+	$order_by_date_parution_form	= isset($_GET['order_by']) && !empty($_GET['order_by']) && $_GET['order_by'] =='date_parution' ? "selected" : '';	
+	$order_by_superficie_decroissant_form	= isset($_GET['order_by']) && !empty($_GET['order_by']) && $_GET['order_by'] =='superficie_decroissant' ? "selected" : '';
+	$order_by_superficie_croissant_form		= isset($_GET['order_by']) && !empty($_GET['order_by']) && $_GET['order_by'] =='superficie_croissant' ? "selected" : '';
 
 	$opts = formToArrayOpt($_GET);
 	//var_dump($opts);
@@ -185,7 +186,7 @@
 					<div class="col-md-9 bg-grey margin30">
 						
 						<div class="bg-white home-form-search">
-							<h4>Votre recherche par critères</h4>
+							<h4>Votre recherche de base</h4>
 
 							<div id="search-form">
 								<div id="form-col2" class="col-md-4 form-col2">
@@ -258,11 +259,12 @@
 										Trier par
 
 										<select name='order_by'>
-											<option value='prix_croissant' 		<?php echo $order_by_prix_croissant_form ?> 	>Prix croissant</option>
-											<option value='prix_decroissant' 	<?php echo $order_by_prix_decroissant_form ?> 	>Prix décroissant</option>
-											<option value='superficie' 			<?php echo $order_by_superficie_form ?> 		>Superficie</option>
-											<option value='nb_pieces' 			<?php echo $order_by_nb_pieces_form ?> 			>Nombre de pièces</option>
-											<option value='date_parution' 		<?php echo $order_by_date_parution_form ?>		>Date</option>
+											<option value='prix_croissant' 			<?php echo $order_by_prix_croissant_form ?> 			>Prix croissant</option>
+											<option value='prix_decroissant' 		<?php echo $order_by_prix_decroissant_form ?> 			>Prix décroissant</option>
+											<option value='superficie_croissant' 	<?php echo $order_by_superficie_croissant_form ?> 		>Superficie croissante</option>
+											<option value='superficie_decroissant' 	<?php echo $order_by_superficie_decroissant_form ?> 		>Superficie decroissante</option>
+											<option value='nb_pieces' 				<?php echo $order_by_nb_pieces_form ?> 					>Nombre de pièces</option>
+											<option value='date_parution' 			<?php echo $order_by_date_parution_form ?>				>Date</option>
 										</select>
 
 										<input type="submit" name="submit_trier" id="search" value="Trier">

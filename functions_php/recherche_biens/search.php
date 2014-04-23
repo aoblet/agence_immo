@@ -31,7 +31,7 @@
 
 	/*
 	 return table correpsondant aux critères ou si id_bien_immo ok => infos uniquement de celui ci
-	 $orderby: prix_croissant, prix_decroissant, superficie, nb_pieces, date
+	 $orderby: prix_croissant, prix_decroissant, superficie_croissant, superficie_decroissant, nb_pieces, date
 	 param : region,dep,gaz,chaffage,conso elec : id
 	 		 gaz, conso elect, type chauffage : tableau
 	 CF LES DEP REGIONS: CODE OU NOM??
@@ -181,13 +181,21 @@
 			//orderby
 			$clause_order_by='';
 			if(!empty($opt['order_by'])){
-				if($opt['order_by'] == 'prix_croissant' || $opt['order_by'] == 'prix_decroissant' || $opt['order_by'] == 'superficie' || $opt['order_by'] =='nb_pieces' || $opt['order_by'] =='date_parution')
+				if( $opt['order_by'] == 'prix_croissant' || $opt['order_by'] == 'prix_decroissant' || 
+					$opt['order_by'] == 'superficie_croissant' || $opt['order_by'] == 'superficie_decroissant' || 
+					$opt['order_by'] =='nb_pieces' || $opt['order_by'] =='date_parution'){
+
 					if($opt['order_by'] == 'prix_croissant')
 						$clause_order_by = " ORDER BY prix";
 					elseif($opt['order_by'] == 'prix_decroissant')
 						$clause_order_by = " ORDER BY prix DESC";
+					elseif($opt['order_by'] == 'superficie_croissant')
+						$clause_order_by = " ORDER BY superficie";
+					elseif($opt['order_by'] == 'superficie_decroissant')
+						$clause_order_by = " ORDER BY superficie DESC";
 					else
 						$clause_order_by = " ORDER BY {$opt['order_by']}";
+				}
 			}
 			
 			$query = <<<SQL

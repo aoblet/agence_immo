@@ -27,7 +27,7 @@
 			$prix  = (empty($value['prix']) || $value['prix'] == 0) ? "Prix inconnu" : $value['prix'].' €';
 			$superficie = empty($value['superficie']) ? "Superficie inconnue" : $value['superficie'].' m&sup2;';
 			$type_bien = empty($value['info_type_bien']) ? "Bien immobilier": ucfirst($value['info_type_bien']);
-			$type_achat_location = empty($value['info_type_achat_location']) ? "AGENCE" : $value['info_type_achat_location'];
+			$type_achat_location = empty($value['info_type_achat_location']) ? "Agence" : $value['info_type_achat_location'];
 			$conso_energetique ='';
 			$adresse = '';
 
