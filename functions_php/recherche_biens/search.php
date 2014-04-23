@@ -199,7 +199,8 @@
 			}
 			
 			$query = <<<SQL
-				SELECT  bien_immobilier.id_bien_immobilier,
+				SELECT DISTINCT 
+						bien_immobilier.id_bien_immobilier,
 						bien_immobilier.prix,
 						bien_immobilier.superficie,
 						bien_immobilier.nb_pieces,
