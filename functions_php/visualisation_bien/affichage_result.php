@@ -121,7 +121,7 @@ HTML;
 			$phrase_type_bien_type_operation_superficie.=$type_bien." ";
 
 		if(!empty($type_achat_location)){
-			if($type_achat_location == 'location')
+			if(trim(strtolower($type_achat_location)) == 'location')
 				$type_achat_location ='louer';
 			else
 				$type_achat_location ='acheter';
