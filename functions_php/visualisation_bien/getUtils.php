@@ -1,7 +1,8 @@
 <?php
 	
 	function getDateFormatedVisuBase($date_to_print){
-		return (new DateTime($date_to_print,new DateTimeZone('Europe/Paris')))->format('d/m/Y');
+		$date = new DateTime($date_to_print,new DateTimeZone('Europe/Paris'));
+		return $date->format('d/m/Y');
 	}
 
 	function getDateFormatedVisuDetails($date_to_compare){
