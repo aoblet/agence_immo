@@ -18,7 +18,7 @@
 	function getBanniereConnexion($session,$file_come_from=''){
 		$link_photo = getPathRoot().$session['photo_personne'];
 		$link_deco  = getPathRoot().'user/deconnexion.php';
-		$link_dash  = getPathRoot().'/user/dashboardGateway.php';
+		$link_dash  = getPathRoot().'user/dashboardGateway.php';
 		return <<<HTML
 		<div id="bar-connected">
 			<div class="container" >
