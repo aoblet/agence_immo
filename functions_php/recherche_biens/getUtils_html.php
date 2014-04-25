@@ -21,3 +21,7 @@
 		return '';
 		
 	}
+
+	function getAnnoncesRecentes(){
+		
+	}

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mar 22 Avril 2014 à 21:15
+-- Généré le: Ven 25 Avril 2014 à 16:32
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.16
 
@@ -143,14 +143,14 @@ CREATE TABLE IF NOT EXISTS `bien_immobilier` (
 
 INSERT INTO `bien_immobilier` (`id_bien_immobilier`, `prix`, `superficie`, `nb_pieces`, `descriptif`, `parking`, `nb_etages`, `id_personne_locataire`, `id_personne_proprio`, `id_personne_gest`, `id_agence_vendeur`, `id_agence_loueur`, `id_type_chauffage`, `id_adresse`, `id_gaz`, `id_consommation_energetique`, `date_parution`) VALUES
 (1, 450000, 450, 6, 'Belle demeure :)', 0, 6, 9, 8, 8, NULL, NULL, 3, 1, 3, 5, '2014-04-07 22:00:00'),
-(2, 850, 26, 2, 'Location donnant sur un jardin. Proche du métro barbès et de salles de sports. Voisins conviviaux. Bien non fumeurs. Résidence très propre et protégé par vidéo surveillance.', 0, 0, NULL, 11, 12, NULL, NULL, 3, 3, 4, 2, '2014-04-22 18:21:08'),
-(3, 3000, 120, 8, 'Petite maison situé dans l''Aisne, elle vous apportera tout le bonheur qu''il vous faut. Idéal pour une petite famille.', 1, 1, NULL, NULL, 12, NULL, 1, 3, 4, 2, 2, '2014-04-22 18:34:11'),
-(4, 200000, 1500, 23, 'Immeuble idéal pour l''implentation d''une petite entreprise.', 1, 4, NULL, NULL, 12, 1, NULL, 2, 5, 6, 4, '2014-04-22 18:38:03'),
+(2, 850, 26, 2, 'Location donnant sur un jardin. Proche du métro barbès et de salles de sports. Voisins conviviaux. Bien non fumeurs. Résidence très propre et protégé par vidéo surveillance.', 0, 0, NULL, 11, 12, NULL, NULL, 3, 3, 4, 2, '2014-04-24 22:49:44'),
+(3, 3000, 120, 8, 'Petite maison situé dans l''Aisne, elle vous apportera tout le bonheur qu''il vous faut. Idéal pour une petite famille.', 1, 1, NULL, NULL, 12, NULL, 1, 3, 4, 2, 2, '2014-04-01 18:34:11'),
+(4, 200000, 1500, 23, 'Immeuble idéal pour l''implentation d''une petite entreprise.', 1, 4, NULL, NULL, 12, 1, NULL, 2, 5, 6, 4, '2014-04-01 18:38:03'),
 (5, 300, 12, 1, 'Garage à la location. Idéal pour les berlines, motos, et quads.', 0, 0, NULL, NULL, 12, NULL, 1, 5, 4, 5, NULL, '2014-04-22 18:38:03'),
 (6, 450, 21, 3, 'Petit studio lumineux, très agréable pour les étudiants', 0, 0, NULL, 11, 12, NULL, NULL, 4, 6, 6, 7, '2014-04-22 18:40:20'),
-(7, 1600, 162, 9, 'Maison très agréable à vivre en communauté.', 1, 2, NULL, 11, 12, NULL, NULL, 1, 7, 4, 1, '2014-04-22 18:45:31'),
+(7, 1600, 162, 9, 'Maison très agréable à vivre en communauté.', 1, 2, NULL, 11, 12, NULL, NULL, 1, 7, 4, 1, '2014-02-22 19:45:31'),
 (8, 5000, 500, 12, 'Immeuble en location parfait pour le début d''une TPE en région parisienne.', 1, 3, NULL, NULL, 12, NULL, 1, 1, 8, 5, 5, '2014-04-22 18:47:45'),
-(9, 7000, 22, 1, 'Grand garage utile pour tout le monde. Pratique pour stocker de la drogue.', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, 9, 7, 1, '2014-04-22 18:49:54');
+(9, 7000, 22, 1, 'Grand garage utile pour tout le monde. Pratique pour stocker de la drogue.', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, 9, 7, 1, '2013-09-22 18:49:54');
 
 -- --------------------------------------------------------
 
@@ -386,11 +386,22 @@ CREATE TABLE IF NOT EXISTS `historique` (
   `id_historique` int(11) NOT NULL AUTO_INCREMENT,
   `nom_action` varchar(255) NOT NULL,
   `prix_action` double DEFAULT NULL,
-  `descriptif_action` varchar(25) DEFAULT NULL,
+  `descriptif_action` varchar(255) DEFAULT NULL,
   `id_bien_immobilier` int(11) DEFAULT NULL,
+  `date_historique` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_historique`),
   KEY `FK_Historique_id_bien_immobilier` (`id_bien_immobilier`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Contenu de la table `historique`
+--
+
+INSERT INTO `historique` (`id_historique`, `nom_action`, `prix_action`, `descriptif_action`, `id_bien_immobilier`, `date_historique`) VALUES
+(1, 'achat fournitures peintures', 3000, 'couches d''impressions satinées pour le salon', 1, '2014-04-25 16:17:12'),
+(2, 'achat ciment pour la terrasse', 500, 'remise à neuf des joints pour la terasse', 1, '2014-04-25 16:17:12'),
+(3, 'paiement intervention chauffagiste', 1000, 'remise à jour de la chaudière', 1, '2014-04-25 16:31:16'),
+(4, 'changement de fenêtre', 150, 'suite à une fusillade avec la police, la fenêtre du salon a été détruite', 1, '2014-04-25 16:31:16');
 
 -- --------------------------------------------------------
 
@@ -400,10 +411,20 @@ CREATE TABLE IF NOT EXISTS `historique` (
 
 CREATE TABLE IF NOT EXISTS `historique_depense` (
   `id_historique` int(11) NOT NULL,
-  `id_personne` int(11) DEFAULT NULL,
+  `id_personne_impute` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_historique`),
-  KEY `FK_Historique_depense_id_personne` (`id_personne`)
+  KEY `FK_Historique_depense_id_personne` (`id_personne_impute`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `historique_depense`
+--
+
+INSERT INTO `historique_depense` (`id_historique`, `id_personne_impute`) VALUES
+(1, NULL),
+(3, NULL),
+(2, 9),
+(4, 9);
 
 -- --------------------------------------------------------
 
@@ -518,10 +539,10 @@ CREATE TABLE IF NOT EXISTS `paiement` (
   `date_paiement` date DEFAULT NULL,
   `montant_paiement` double DEFAULT NULL,
   `motif_paiement` char(255) DEFAULT NULL,
-  `id_personne` int(11) DEFAULT NULL,
+  `id_personne_payeur` int(11) DEFAULT NULL,
   `id_historique` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_paiement`),
-  KEY `FK_Paiement_id_personne` (`id_personne`),
+  KEY `FK_Paiement_id_personne` (`id_personne_payeur`),
   KEY `FK_Paiement_id_historique` (`id_historique`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -731,22 +752,22 @@ ALTER TABLE `historique`
 -- Contraintes pour la table `historique_depense`
 --
 ALTER TABLE `historique_depense`
-  ADD CONSTRAINT `FK_Historique_depense_id_personne` FOREIGN KEY (`id_personne`) REFERENCES `personne` (`id_personne`),
-  ADD CONSTRAINT `FK_Historique_depense_id_historique` FOREIGN KEY (`id_historique`) REFERENCES `historique` (`id_historique`);
+  ADD CONSTRAINT `FK_Historique_depense_id_historique` FOREIGN KEY (`id_historique`) REFERENCES `historique` (`id_historique`),
+  ADD CONSTRAINT `FK_Historique_depense_id_personne` FOREIGN KEY (`id_personne_impute`) REFERENCES `personne` (`id_personne`);
 
 --
 -- Contraintes pour la table `historique_entree`
 --
 ALTER TABLE `historique_entree`
-  ADD CONSTRAINT `FK_Historique_entree_id_paiement` FOREIGN KEY (`id_paiement`) REFERENCES `paiement` (`id_paiement`),
-  ADD CONSTRAINT `FK_Historique_entree_id_historique` FOREIGN KEY (`id_historique`) REFERENCES `historique` (`id_historique`);
+  ADD CONSTRAINT `FK_Historique_entree_id_historique` FOREIGN KEY (`id_historique`) REFERENCES `historique` (`id_historique`),
+  ADD CONSTRAINT `FK_Historique_entree_id_paiement` FOREIGN KEY (`id_paiement`) REFERENCES `paiement` (`id_paiement`);
 
 --
 -- Contraintes pour la table `illustrer`
 --
 ALTER TABLE `illustrer`
-  ADD CONSTRAINT `FK_illustrer_id_photo` FOREIGN KEY (`id_photo`) REFERENCES `photo` (`id_photo`),
-  ADD CONSTRAINT `FK_illustrer_id_bien_immobilier` FOREIGN KEY (`id_bien_immobilier`) REFERENCES `bien_immobilier` (`id_bien_immobilier`);
+  ADD CONSTRAINT `FK_illustrer_id_bien_immobilier` FOREIGN KEY (`id_bien_immobilier`) REFERENCES `bien_immobilier` (`id_bien_immobilier`),
+  ADD CONSTRAINT `FK_illustrer_id_photo` FOREIGN KEY (`id_photo`) REFERENCES `photo` (`id_photo`);
 
 --
 -- Contraintes pour la table `immeuble`
@@ -778,7 +799,7 @@ ALTER TABLE `message`
 --
 ALTER TABLE `paiement`
   ADD CONSTRAINT `FK_Paiement_id_historique` FOREIGN KEY (`id_historique`) REFERENCES `historique` (`id_historique`),
-  ADD CONSTRAINT `FK_Paiement_id_personne` FOREIGN KEY (`id_personne`) REFERENCES `personne` (`id_personne`);
+  ADD CONSTRAINT `FK_Paiement_id_personne` FOREIGN KEY (`id_personne_payeur`) REFERENCES `personne` (`id_personne`);
 
 --
 -- Contraintes pour la table `personne`

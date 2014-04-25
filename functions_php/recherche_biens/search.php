@@ -37,9 +37,14 @@
 	 CF LES DEP REGIONS: CODE OU NOM??
 	 
 	 opt array indices : 'id_bien_immobilier', 'types_bien','type_achat_location', 'budget_mini','budget_maxi','ville','region','departement','nb_pieces','superficie_mini',
-						  'superficie_maxi', 'gaz_effet_serre','type_chauffage','consos_energetiques', 'jardin', 'parking', 'nb_etages', 'ascenseur','order_by',is_for_lambda
+						  'superficie_maxi', 'gaz_effet_serre','type_chauffage','consos_energetiques', 'jardin', 'parking', 'nb_etages', 'ascenseur','order_by',is_for_lambda,
+						  limit
 	 */
 	function searchBase($opt=NULL){
+		$limit = '';
+		if(isset($opt['limit']) && !empty($opt['limit']) && is_numeric($opt['limit']))
+			$limit = "LIMIT 0 {$opt['limit']}";
+
 
 		$query = <<<SQL
 				SELECT DISTINCT 
@@ -55,6 +60,7 @@
 						appartement.ascenseur,
 						appartement.numero_appartement,
 						maison.superficie_jardin
+						$limit
 				FROM    bien_immobilier 
 						LEFT OUTER JOIN appartement  ON appartement.id_bien_immobilier = bien_immobilier.id_bien_immobilier
 						LEFT OUTER JOIN maison    	 ON maison.id_bien_immobilier = bien_immobilier.id_bien_immobilier

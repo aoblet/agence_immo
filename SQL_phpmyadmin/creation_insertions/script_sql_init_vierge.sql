@@ -165,8 +165,9 @@ CREATE TABLE Historique(
         id_historique      int (11) Auto_increment  NOT NULL ,
         nom_action         Varchar (255) NOT NULL ,
         prix_action        Double ,
-        descriptif_action  Varchar (25) ,
+        descriptif_action  Varchar (255) ,
         id_bien_immobilier Int ,
+        date_historique    TimeStamp
         PRIMARY KEY (id_historique )
 )ENGINE=InnoDB;
 
