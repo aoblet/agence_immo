@@ -29,88 +29,97 @@
 
 
 
+
+
+
 header {
-    position: fixed;
+    position: relative;
     top: 0px;
-    background: #2C3E50; 
+    background: rgba(44,62,80,0.9);
     width: 100%;
     z-index: 7000;
+    border-bottom: 1px solid;
+    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
 }
-#menu {
+
+header h1{
+    background: #2C3E50; 
+    padding: 15px;
+	color: #FFF;
+	line-height: 2;
+	font-weight: 300;
+}
+
+.dash-nav {
 	display: block;
     float: left;
     min-width: 100%;
 }
-#menu ul {
-	margin: 0;
-	padding: 0;
+
+
+.dash-nav ul{
+
 	list-style: none;
-}
-#menu ul li {
-    position: relative;
-    float: left;
-    margin: 0px;
-    margin-right: 20px;
-    line-height: 90px;
-    z-index: 10;
-}
-#menu ul a {
-	font-weight: 200;
-	font-size: 14px;
-    color: #fff;
-    text-transform: uppercase;
-    padding: 0 10px;
-}
-#menu > ul > li:after {
-    content: "";
-    position: absolute;
-    width: 10px;
-    height: 14px;
-    left: -20px;
-    top: 38px;
-    border-right: 1px solid rgba(255,255,255,0.3);
-}
-#menu > ul > li:first-child:after,#menu > ul > li:nth-child(2):after{
-	display: none;
-}
-header #menu ul li .button-home{
-	font-size: 22px;
+	
 }
 
-header #connect{
-	margin-right: 0px; 
-	font-size: 13px;
-	float: right;
-	color: #fff;
-	line-height: 90px;
-	text-transform: uppercase;
-}
-
-
-
-
-#nav-mobile-button{
+.dash-nav ul li a{
+	padding-top: 15px;
+	padding-bottom: 15px;
+	line-height: 2;
+	text-align: left;
 	float: left;
+	list-style: none;
+	color: #FFF;
+	font-weight: 300;
 }
-#connect-mobile{
-	float: right;
-	margin-right: 0px;
-	color: #fff;
-	line-height: 110px;
+
+.dash-nav ul li a .fa{
+	padding-right: 7px;
+}
+
+
+
+
+.dash-menu{
+	min-height: 500px;
+}
+
+.dash-menu h4{
+	width: 100%;
+	padding: 20px;
+	background: #2C3E50;
+	color: #FFF;
+}
+
+.dash-menu a{
+	width: 100%;
+	padding: 5px;
+	padding-left: 15px;
+	float: left;
+	text-align: left;
 	font-size: 15px;
 }
 
+.dash-menu a:first-of-type{
+	padding-top: 25px;
+}
 
-header #connect .fa-unlock-alt, #connect-mobile .fa-unlock-alt{
-	padding-right: 10px;
+.dash-menu a .fa{
+	padding-right: 7px;
+}
+
+.titlepage h2{
+	text-align: left;
+	margin-left: 20px;
+	text-transform: uppercase;
+	font-size: 18px;
+	line-height: 60px;
+	color: #FFF;
 }
 
 
-.menu-small{
-	position: fixed;
-	top: 0px;
-	/*height: 80px;*/
-}
+
 
 .pad-top{
 	margin-top: 170px;
@@ -121,10 +130,7 @@ header #connect .fa-unlock-alt, #connect-mobile .fa-unlock-alt{
 }
 
 @media screen and (max-width: 900px){
-	.menu-small{
-	position: relative;
-	/*height: 80px;*/
-}
+	
 .pad-top{
 	margin-top: 0px;
 }
@@ -132,36 +138,6 @@ header #connect .fa-unlock-alt, #connect-mobile .fa-unlock-alt{
 	margin-top: 0px;
 }
 }
-/*
-.menu-small #menu ul li{
-    position: relative;
-    float: left;
-    margin: 0px;
-    margin-right: 20px;
-    line-height: 80px;
-    z-index: 10;
-}
-.menu-small #menu > ul > li:after {
-    top: 33px;
-}
-.menu-small #connect{
-	line-height: 80px;
-}
-*/
-#connect-form{
-	color: #fff;
-	width: 100%;
-	min-height: 0px;
-	overflow: hidden;
-}
-
-#connect-form .container{
-	height: auto;
-	min-height: 260px;
-	padding-bottom: 30px;
-}
-
-
 
 input[type="text"]{
 	float: left;
@@ -1324,10 +1300,11 @@ width: 100px;
 
 .bien-spe-title h2{
 	float: left;
-	margin-left: 40px;
+	padding-left: 20px;
 	text-transform: uppercase;
 	font-size: 18px;
-	line-height: 60px;
+	line-height: 58px;
+	border-left: 5px solid #2C3E50;
 }
 
 .bien-spe-title h2 span{
@@ -1381,6 +1358,7 @@ width: 100px;
 	text-align: left;
 	padding: 15px;
 	margin-left: 5px;
+
 }
 
 .bien-spe-desc h4:last-of-type{
