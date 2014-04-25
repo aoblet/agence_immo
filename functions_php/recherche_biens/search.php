@@ -43,7 +43,7 @@
 	function searchBase($opt=NULL){
 		$limit = '';
 		if(isset($opt['limit']) && !empty($opt['limit']) && is_numeric($opt['limit']))
-			$limit = "LIMIT 0 {$opt['limit']}";
+			$limit = " LIMIT {$opt['limit']} ";
 
 
 		$query = <<<SQL
@@ -60,7 +60,6 @@
 						appartement.ascenseur,
 						appartement.numero_appartement,
 						maison.superficie_jardin
-						$limit
 				FROM    bien_immobilier 
 						LEFT OUTER JOIN appartement  ON appartement.id_bien_immobilier = bien_immobilier.id_bien_immobilier
 						LEFT OUTER JOIN maison    	 ON maison.id_bien_immobilier = bien_immobilier.id_bien_immobilier
@@ -240,6 +239,7 @@ SQL;
 			$query.= $clause_types_bien.$clause_type_achat_location.$clause_budget.$clause_superficie;
 			$query.= $clause_departement.$clause_region.$clause_ville.$clause_nb_pieces;
 			$query.= $clause_gaz.$clause_conso_energetique.$clause_type_chauffage.$clause_parking.$clause_nb_etages.$clause_ascenseur.$clause_jardin.$clause_order_by;
+			$query.= $limit;
 		}
 		
 		//echo $query;
@@ -274,4 +274,6 @@ SQL;
 	function searchForProprio($id_bien_immobilier = NULL){
 
 	}
+
+
 

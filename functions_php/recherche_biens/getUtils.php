@@ -137,3 +137,33 @@
 		return $date_return;
 	}
 
+	// on pourrait utiliser searchBase, mais trop d'infos récupérés par cette fonction
+	// on va rechercher que les infos qu'on veut: le mini => rapidité ++
+
+	function getAnnoncesRecentes($limit){
+		// gérer les photos aussi
+		$query=<<<SQL
+			SELECT  bien_immobilier.id_bien_immobilier,
+					bien_immobilier.superficie,
+					bien_immobilier.date_parution
+			FROM 	bien_immobilier
+				LEFT OUTER JOIN appartement  ON appartement.id_bien_immobilier = bien_immobilier.id_bien_immobilier
+				LEFT OUTER JOIN maison    	 ON maison.id_bien_immobilier = bien_immobilier.id_bien_immobilier
+				LEFT OUTER JOIN immeuble     ON immeuble.id_bien_immobilier = bien_immobilier.id_bien_immobilier
+				LEFT OUTER JOIN garage    	 ON garage.id_bien_immobilier = bien_immobilier.id_bien_immobilier
+			WHERE bien_immobilier.id_personne_locataire IS NULL
+			ORDER by bien_immobilier.date_parution DESC
+			LIMIT $limit
+SQL;
+
+		$stmt = myPDO::getSingletonPDO()->prepare($query); // risque de ne pas changer beaucoup de fois => prepare => opti vitesse
+		$stmt->execute();
+		$annonces = array();
+		while($ligne = $stmt->fetch()){
+			$ligne['info_type_bien'] = getTypeBien($ligne['id_bien_immobilier']);
+			$annonces[]=$ligne;
+		}
+		$stmt->closeCursor();
+		return $annonces;
+	}
+

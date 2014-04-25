@@ -198,7 +198,7 @@
 		if($id_bien_immobilier != NULL){
 			$query="SELECT chemin_photo 
 					FROM photo
-					WHERE id_photo = (SELECT DISTINCT id_photo FROM illustrer WHERE id_bien_immobilier = $id_bien_immobilier)";
+					WHERE id_photo IN (SELECT DISTINCT id_photo FROM illustrer WHERE id_bien_immobilier = $id_bien_immobilier)";
 			$stmt = myPDO::getSingletonPDO()->query($query);
 
 			while($infos = $stmt->fetch()){

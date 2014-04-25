@@ -226,49 +226,7 @@
 
 				<div class="row">
 
-					<div class="col-md-3">
-						<div class="bg-white last-ann">
-							<div class="last-ann-pic" style="background:url(img/plans/1.jpg) top center no-repeat;">
-
-							</div>
-							<div class="last-ann-desc bg-blue">
-								Annonce récente
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-3">
-						<div class="bg-white last-ann">
-							<div class="last-ann-pic" style="background:url(img/plans/2.jpg) top center no-repeat;">
-
-							</div>
-							<div class="last-ann-desc bg-blue">
-								Annonce récente
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-3">
-						<div class="bg-white last-ann">
-							<div class="last-ann-pic" style="background:url(img/plans/3.jpg) top center no-repeat;">
-
-							</div>
-							<div class="last-ann-desc bg-blue">
-								Annonce récente
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-3">
-						<div class="bg-white last-ann">
-							<div class="last-ann-pic" style="background:url(img/plans/4.jpg) top center no-repeat;">
-
-							</div>
-							<div class="last-ann-desc bg-blue">
-								Annonce récente
-							</div>
-						</div>
-					</div>
+					<?php echo getAnnoncesRecentesLimit4(); ?>
 
 				</div>
 			</div>
