@@ -158,6 +158,7 @@ SQL;
 
 		$stmt = myPDO::getSingletonPDO()->prepare($query); // risque de ne pas changer beaucoup de fois => prepare => opti vitesse
 		$stmt->execute();
+		
 		$annonces = array();
 		while($ligne = $stmt->fetch()){
 			$ligne['info_type_bien'] = getTypeBien($ligne['id_bien_immobilier']);

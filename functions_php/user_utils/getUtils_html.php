@@ -1,5 +1,6 @@
 <?php
 	
+	// si changement racine : définir ici
 	function getPathRoot(){
 		$dir_current_script_using = str_replace("\\", "/", (dirname($_SERVER['PHP_SELF'])) );
 		$dir_current_path = explode("/", $dir_current_script_using);
@@ -133,6 +134,42 @@ HTML;
 			</div>
 		</div>
 HTML;
+	}
+
+	function getFooter(){
+		return <<<HTML
+
+		<footer class="bg-blue">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-md-6">
+						<h1>FAKE AGENCY</h1>
+					</div>
+
+					<div class="col-md-3">
+						<div class="contact-footer">
+						<h4>Nous contacter</h4>
+							<p><a><i class="fa fa-phone"></i>01 45 38 49 02</a></p>
+							<p><a><i class="fa fa-envelope"></i>contact@agence.com</a></p>
+							<p><a><i class="fa fa-keyboard-o"></i>Prendre contact avec un conseiller</a></p>
+						</div>
+					</div>
+
+					<div class="col-md-3">
+						<div class="direct-links-footer">
+							<h4>Liens directs</h4>
+							<a href="">Proposer un bien</a><br>
+							<a href="">Rechercher un bien</a><br>
+							<a href="">Gérer mes biens</a>
+							</div>
+					</div>
+
+				</div>
+			</div>
+		</footer>
+HTML;
+
 	}
 
 	

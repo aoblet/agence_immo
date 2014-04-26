@@ -7,17 +7,17 @@
 		// par secu
 		if(isset($_SESSION['type_personne']) && !empty($_SESSION['type_personne'])){
 			if($_SESSION['type_personne'] == EMPLOYE){
-				header('Location: dashboard/employe.php');
+				header('Location: dashboard/employe/');
 				die();
 			}
 
 			if($_SESSION['type_personne'] == LOCATAIRE){
-				header('Location: dashboard/locataire.php');
+				header('Location: dashboard/locataire/');
 				die();
 			}
 
 			if($_SESSION['type_personne'] == PROPRIETAIRE){
-				header('Location: dashboard/proprietaire.php');
+				header('Location: dashboard/proprietaire/');
 				die();
 			}
 		}

@@ -34,12 +34,13 @@
 			$superficie = !empty($value['superficie']) ? $value['superficie']." m&sup2;": '';
 			$link_pic = getPathRoot().'img/plans/1.jpg';
 			$link_visu = getPathRoot().'visualisation_bien/bien.php?id_bien_immobilier='.trim($value['id_bien_immobilier']);
+
+			//bloc annonce
 			$html.= <<<HTML
 			<a href='$link_visu'>
 				<div class="col-md-3">
 					<div class="bg-white last-ann">
 						<div class="last-ann-pic" style="background:url($link_pic) top center no-repeat;">
-
 						</div>
 						<div class="last-ann-desc bg-blue">
 							$type $superficie
@@ -50,9 +51,10 @@
 HTML;
 		}
 
+		// pour assurer le css on remplie 4 colonnes en tout
 		$cpt=count($biens_array);
-		while($cpt<=4){
-			$html.= "<div class='col-md-3'></div>";
+		while($cpt<4){
+			$html.= "\n<div class='col-md-3'></div>";
 			$cpt++;
 		}
 		return $html;
