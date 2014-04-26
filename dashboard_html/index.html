@@ -24,6 +24,7 @@
 
 		<script type="text/javascript" src="../js/modernizr.custom.js"></script>
 		<script type="text/javascript" src='../js/main.js'></script>
+		<script type="text/javascript" src='../js/Chart.js'></script>
 	</head>
 
 	<body>
@@ -132,11 +133,58 @@
 							<div class="bien-spe-desc bg-white margin30">
 								<h4>Dépenses</h4>
 								
-								<div class="row">
-									<div class="col-md-12">
-										<p>Bientot le graph</p>
-									</div>
+								
+
+
+								<canvas id="canvas" height="400" width="800" style="margin-top:20px;"></canvas>
+								<div class="canvas-legende">
+								<span style="border-left:30px solid rgba(255,204,0,1)">Electricité</span>
+								<span style="border-left:30px solid rgba(220,220,220,1)">Gaz</span>
+								<span style="border-left:30px solid rgba(151,187,205,1)">Eau</span>
 								</div>
+
+
+	<script>
+
+		var lineChartData = {
+			labels : ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aout"],
+			datasets : [
+				{
+					fillColor : "rgba(255,204,0,0.2)",
+					strokeColor : "rgba(255,204,0,1)",
+					pointColor : "rgba(255,204,0,1)",
+					pointStrokeColor : "#fff",
+					data : [85,69,100,61,56,39,47,89]
+				},
+				{
+					fillColor : "rgba(220,220,220,0.5)",
+					strokeColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(220,220,220,1)",
+					pointStrokeColor : "#fff",
+					data : [65,59,90,81,56,55,40,53]
+				},
+				{
+					fillColor : "rgba(151,187,205,0.5)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					data : [28,48,40,19,96,27,100,64]
+				}
+				
+			]
+			
+		}
+
+	var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData);
+	
+	</script>
+
+
+
+
+
+
+									
 							</div>
 						
 					<!-- FIN A REPETER -->
