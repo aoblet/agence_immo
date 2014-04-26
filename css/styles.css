@@ -1175,7 +1175,7 @@ width: 100px;
 	position: absolute;
 	text-transform: uppercase;
 	bottom: calc(50% - 20px);
-	left: calc(50% + 20px);
+	left: calc(50% + 24px);
 	color: #fff;
 	background: rgba(44,62,80,0.9);
 	line-height: 40px;

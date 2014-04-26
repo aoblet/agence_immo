@@ -119,6 +119,7 @@ HTML;
 			$result_html.=<<<HTML
 			<article class="article-bien margin30">
 				<a href="$lien_bien_immobilier">
+				<div class="row">
 					<div class="col-md-4 article-bien-pic" style="background:url($photo_apercu) top center no-repeat;">
 						<div class="article-bien-pic-loc-achat">$type_achat_location</div>
 					</div>
@@ -143,6 +144,7 @@ HTML;
 						</div>
 						<div class="article-bien-contact-agency"><a href=""><i class="fa fa-envelope"></i></a></div>
 						<div class="article-bien-contact-agency2"><a href=""><i class="fa fa-bell"></i></a></div>
+					</div>
 					</div>
 				</a>
 			</article>
