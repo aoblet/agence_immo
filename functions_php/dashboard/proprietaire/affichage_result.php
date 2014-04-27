@@ -7,6 +7,7 @@
 	}
 
 	function getMenuOnBien($id_bien_immobilier){
+		//gérer quand le bien est loué : pas d'affichage dans le menu cf visu bien ?
 		return <<<HTML
 		<div class="col-md-3">
 			<div class="dash-menu bg-white">
