@@ -38,6 +38,7 @@
 
 	$is_for_lambda = true;
 	$affichage_result = affichage_base_visu($id_bien_immobilier,$is_for_lambda);
+	$script
 
 ?>
 
@@ -65,6 +66,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script src="../js/jquery-ui-1.10.4.min.js"></script>
 
+		<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
 
 		<script type="text/javascript" src="../js/modernizr.custom.js"></script>
 		<script type="text/javascript" src='../js/main.js'></script>
@@ -155,7 +157,7 @@ $(window).load(function(){
 			});
 		});
 </script>
-
+<?php echo generateMap() ?>
 
 </body>
 </html>

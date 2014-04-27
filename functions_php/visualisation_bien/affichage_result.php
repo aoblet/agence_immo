@@ -27,6 +27,96 @@
 HTML;
 	}
 
+	function generateMap(){
+		$js=<<<JAVASCRIPT
+			<script type='text/javascript'>
+				google.maps.event.addDomListener(window, 'load', function(){
+
+					var carte = null;
+
+					var styles = [
+						{
+							"featureType": "administrative.locality",
+							"stylers": [
+								{ "visibility": "off" }
+							]
+						},
+						{
+							"featureType": "landscape",
+							"stylers": [
+								{ "color": "#eaeaea" }
+							]
+						}
+
+					];
+
+
+					var styledMap = new google.maps.StyledMapType(styles, {name: "Gmap stylée"});
+					var myLatlng = new google.maps.LatLng(48, -1);
+
+					//init sur paris
+					carte = new google.maps.Map(
+						document.getElementById('map-canvas'),
+						{
+							zoom:7,
+							center: new google.maps.LatLng(48.855697, 2.347403),
+							mapTypeId: google.maps.MapTypeId.ROADMAP,
+							scrollwheel: false
+
+						}
+					);
+					//carte.mapTypes.set('map_style', styledMap);
+					//carte.setMapTypeId('map_style');
+
+					var address=document.getElementById('ville_map').innerHTML;
+					var geocoder = new google.maps.Geocoder();
+					
+					geocoder.geocode({'address':address},function(results,status){
+
+						if(status == google.maps.GeocoderStatus.OK){
+							var adr_latlng = results[0].geometry.location;
+
+							var marker = new google.maps.Marker({
+								position:adr_latlng,
+								map:carte,
+								title:address,
+								animation: google.maps.Animation.DROP
+							});
+
+							var content_info ="<div style='line-height:1.35;overflow:hidden;white-space:nowrap;'><div style='text-align:center'>"+ address +"</div>";
+							content_info += "<a target='_BLANK' href='http://en.wikipedia.org/w/index.php?title="+ address+"'>Informations sur "+ address +" </a></div>";
+							var info_window = new google.maps.InfoWindow({
+								content:content_info
+							});
+
+							google.maps.event.addDomListener(marker,'click',function(){
+								info_window.open(carte, marker);	
+							});
+
+							carte.setCenter(adr_latlng);
+							
+							setTimeout(function(){
+								info_window.open(carte, marker);
+							},1000);
+						}
+						else{
+							var info_window_echec = new google.maps.InfoWindow({
+								content:'Pas de renseignements sur la ville'
+							});
+
+							carte.setZoom(4);
+							info_window_echec.setPosition( new google.maps.LatLng(51.049087, 2.277611) );
+							info_window_echec.open(carte);
+						}
+					});
+
+				});
+			</script>
+JAVASCRIPT;
+
+		return $js;
+	}
+
 	function affichage_base_visu($id_bien_immobilier,$is_for_lambda){
 		$link_retour = getPathRoot().'result.php';
 		$res=array();
@@ -63,7 +153,7 @@ HTML;
 			$consommation_energetique=<<<HTML
 				<p><i class="fa fa-signal"></i>Indice energetique : <span class="$classe" >{$res['infos_conso_energetique']['nom_consommation_energetique']}</span></p>
 				<p class="padleft35"><span>Conso energ mini kilowatt :</span> {$res['infos_conso_energetique']['conso_kilowatt_an_mcarre_mini']}</p>
-				<p class="padleft35"></i><span>Conso energ maxi kilowatt:</span> {$res['infos_conso_energetique']['conso_kilowatt_an_mcarre_maxi']}</p>
+				<p class="padleft35"><span>Conso energ maxi kilowatt:</span> {$res['infos_conso_energetique']['conso_kilowatt_an_mcarre_maxi']}</p>
 HTML;
 		}
 
@@ -90,7 +180,7 @@ HTML;
 			$adresse_dep='';
 			$adresse_region='';
 			$adresse_code_postal='';
-			$addresse_ville='';
+			$adresse_ville='';
 
 			if(!empty($res['infos_adresse']['rue']))
 				$adresse_rue=$res['infos_adresse']['rue'];
@@ -114,7 +204,7 @@ HTML;
 			$adresse.=<<<HTML
 			
 				<p><i class="fa fa-map-marker"></i><span>Adresse :</span> $adresse_numero_rue $adresse_rue</p>
-				<p class="padleft35"><span>Ville :</span> $adresse_code_postal $adresse_ville</p>
+				<p class="padleft35"><span>Ville :</span> $adresse_code_postal <span id='ville_map'>$adresse_ville</span></p>
 				<p class="padleft35"><span>Département :</span> $adresse_dep</p>
 				<p class="padleft35"><span>Région :</span> $adresse_region</p>
 HTML;
@@ -201,6 +291,10 @@ HTML;
 						<div class="bien-spe-contact bg-white">
 							<div class="bien-spe-desc-mel">$date_parution</div>
 							<a href="mailto:contact@fakeagency.com">Contacter l'agence</a>
+						</div>
+
+						<div class="margin30 bg-white">
+							<div id="map-canvas" style='height:250px'></div>
 						</div>
 
 						<div class="bien-spe-pic bg-white margin30">
