@@ -59,7 +59,7 @@ HTML;
 						document.getElementById('map-canvas'),
 						{
 							zoom:7,
-							center: new google.maps.LatLng(48.855697, 2.347403),
+							//center: new google.maps.LatLng(48.855697, 2.347403),
 							mapTypeId: google.maps.MapTypeId.ROADMAP,
 							scrollwheel: false
 
@@ -78,22 +78,28 @@ HTML;
 
 							var marker = new google.maps.Marker({
 								position:adr_latlng,
-								map:carte,
+								//map:carte,
 								title:address,
 								animation: google.maps.Animation.DROP
 							});
+							
+							setTimeout(function(){
+								marker.setMap(carte);
+							},500);
+
 
 							var content_info ="<div style='line-height:1.35;overflow:hidden;white-space:nowrap;'><div style='text-align:center'>"+ address +"</div>";
 							content_info += "<a target='_BLANK' href='http://en.wikipedia.org/w/index.php?title="+ address+"'>Informations sur "+ address +" </a></div>";
 							var info_window = new google.maps.InfoWindow({
 								content:content_info
 							});
+							
+							carte.setCenter(adr_latlng);
 
 							google.maps.event.addDomListener(marker,'click',function(){
 								info_window.open(carte, marker);	
 							});
 
-							carte.setCenter(adr_latlng);
 							
 							setTimeout(function(){
 								info_window.open(carte, marker);
@@ -103,6 +109,8 @@ HTML;
 							var info_window_echec = new google.maps.InfoWindow({
 								content:'Pas de renseignements sur la ville'
 							});
+							
+							carte.setCenter(new google.maps.LatLng(48.855697, 2.347403));
 
 							carte.setZoom(4);
 							info_window_echec.setPosition( new google.maps.LatLng(51.049087, 2.277611) );
@@ -118,6 +126,7 @@ JAVASCRIPT;
 	}
 
 	function affichage_base_visu($id_bien_immobilier,$is_for_lambda){
+		//gérer les photos
 		$link_retour = getPathRoot().'result.php';
 		$res=array();
 

@@ -38,7 +38,8 @@
 	 
 	 opt array indices : 'id_bien_immobilier', 'types_bien','type_achat_location', 'budget_mini','budget_maxi','ville','region','departement','nb_pieces','superficie_mini',
 						  'superficie_maxi', 'gaz_effet_serre','type_chauffage','consos_energetiques', 'jardin', 'parking', 'nb_etages', 'ascenseur','order_by',is_for_lambda,
-						  limit
+						  limit,
+						  id_personne_proprio, id_personne_locataire, id_personne_gest => pour compléments d'info
 	 */
 	function searchBase($opt=NULL){
 		$limit = '';
@@ -75,6 +76,16 @@ SQL;
 			$query.=" AND bien_immobilier.id_bien_immobilier = {$opt['id_bien_immobilier']} ";
 			if(isset($opt['is_for_lambda']) && $opt['is_for_lambda'])
 				$query.=' AND bien_immobilier.id_personne_locataire IS NULL';
+		}
+		// recup les biens associés au personnes en fonction de leur type
+		elseif (isset($opt['id_personne_proprio']) && !empty($opt['id_personne_proprio'])) {
+			$query.=" AND id_personne_proprio = {$opt['id_personne_proprio']} ";
+		}
+		elseif (isset($opt['id_personne_locataire']) && !empty($opt['id_personne_locataire'])) {
+			$query.=" AND id_personne_locataire = {$opt['id_personne_locataire']} ";
+		}
+		elseif (isset($opt['id_personne_gest']) && !empty($opt['id_personne_gest'])) {
+			$query.=" AND id_personne_gest = {$opt['id_personne_gest']} ";
 		}
 		else{
 			$opt = secureArray($opt);
@@ -265,15 +276,33 @@ SQL;
 	}
 
 	// rajoute d'autres informations
+	function searchForProprioBase($id_personne_proprio, $id_bien_immobilier=NULL){
+		if($id_bien_immobilier == NULL){
+			$res = searchBase(array('id_personne_proprio' => $id_personne_proprio ));
+		}
+		return $res;
+	}
+
+	function searchForProprioAvance($id_bien_immobilier){
+		if($id_bien_immobilier != NULL){
+			$res = searchBase(array('id_bien_immobilier' => $id_bien_immobilier ));
+			foreach ($res as $key => $value) {
+				$value['infos_historiques_depense'] = getInfosHistoriqueDepense($value['id_bien_immobilier']);
+				$value['infos_historiques_rentree'] = getInfosHistoriqueRentree($value['id_bien_immobilier']);
+				$value['infos_locataire'] = getInfosLocataire($value['id_bien_immobilier']);
+			}
+		}
+
+		return $res;
+	}
+
 	function searchForLocataire($id_bien_immobilier = NULL){
 
 	}
 	function searchForEmployeGestionnaire($id_bien_immobilier = NULL){
 
 	}
-	function searchForProprio($id_bien_immobilier = NULL){
-
-	}
+	
 
 
 

@@ -17,25 +17,26 @@
 			</div>
 HTML;
 	}
-	//type personne : pour le lien
-	function affichage_base_liste_html($res, $type_user=''){
+	//gere l'affichage pour visualisation_bien/ et pour le dash
+	function affichage_base_liste_html($res){
 		$result_html='';
 		
 		foreach ($res as $value) {
 			//si photo absente : hardcoded ici
 			//$photo_apercu = empty($value['chemins_photos']) ? "img/plans/1.jpg" : $value['chemins_photos'][0];
 			$photo_apercu ='';
+			$racine = getPathRoot();
 			if($value['info_type_bien'] == MAISON){
-				$photo_apercu = 'img/plans/1.jpg';
+				$photo_apercu = $racine.'img/plans/1.jpg';
 			}
 			elseif($value['info_type_bien'] == IMMEUBLE){
-				$photo_apercu = 'img/plans/2.jpg';
+				$photo_apercu = $racine.'img/plans/2.jpg';
 			}
 			elseif($value['info_type_bien'] == APPARTEMENT){
-				$photo_apercu = 'img/plans/2.jpg';
+				$photo_apercu = $racine.'img/plans/2.jpg';
 			}
 			elseif($value['info_type_bien'] == GARAGE){
-				$photo_apercu = 'img/plans/4.jpg';
+				$photo_apercu = $racine.'img/plans/4.jpg';
 			}
 
 
@@ -90,26 +91,9 @@ HTML;
 
 				if($lien_bien_immobilier == "agence_immo")
 					$lien_bien_immobilier= dirname($_SERVER['PHP_SELF'])."/visualisation_bien/";
-				elseif (1) {
-					// to complete for dash
-					$lien_bien_immobilier="";
-				}
-
-
-				switch ($type_user) {
-					case EMPLOYE:
-						$lien_bien_immobilier.="employe/";
-						break;
-
-					case PROPRIETAIRE:
-						$lien_bien_immobilier.="proprietaire/";
-						break;
-
-					case LOCATAIRE:
-						$lien_bien_immobilier.="locataire/";
-						break;
-					default:
-						break;
+				else{
+					//for dash
+					$lien_bien_immobilier=dirname($_SERVER['PHP_SELF'])."/";
 				}
 
 				$lien_bien_immobilier = $lien_bien_immobilier."bien.php?id_bien_immobilier=".trim($value['id_bien_immobilier']);
@@ -119,7 +103,6 @@ HTML;
 			$result_html.=<<<HTML
 			<article class="article-bien margin30">
 				<a href="$lien_bien_immobilier">
-				<div class="row">
 					<div class="col-md-4 article-bien-pic" style="background:url($photo_apercu) top center no-repeat;">
 						<div class="article-bien-pic-loc-achat">$type_achat_location</div>
 					</div>
@@ -144,7 +127,6 @@ HTML;
 						</div>
 						<div class="article-bien-contact-agency"><a href=""><i class="fa fa-envelope"></i></a></div>
 						<div class="article-bien-contact-agency2"><a href=""><i class="fa fa-bell"></i></a></div>
-					</div>
 					</div>
 				</a>
 			</article>

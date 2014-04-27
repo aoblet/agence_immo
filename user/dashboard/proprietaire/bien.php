@@ -1,4 +1,5 @@
 <?php
+	require_once(dirname(__FILE__).'/../../../functions_php/settings/connexion.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils_html.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/proprietaire/affichage_result.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/getUtils_html.php');
@@ -9,6 +10,26 @@
 		header('Location: '.$link_home);
 		die();
 	}
+
+	//verif param bien présent
+	if(!isset($_GET['id_bien_immobilier']) || !is_numeric($_GET['id_bien_immobilier'])){
+		header('Location: ./index.php');
+		die();
+	}
+
+	//verif que le bien lui correspond sinon redirection
+	$id_personne_proprio = $_SESSION['id_personne'];
+	$id_bien_immobilier = $_GET['id_bien_immobilier'];
+
+	$stmt = myPDO::getSingletonPDO()->query("SELECT id_bien_immobilier FROM bien_immobilier WHERE id_bien_immobilier=$id_bien_immobilier AND id_personne_proprio=$id_personne_proprio");
+	$isOK = $stmt->fetch();
+	$stmt->closeCursor();
+
+	if(!$isOK){
+		header('Location: ./index.php');
+		die();
+	}
+
 
 ?>
 
@@ -54,12 +75,12 @@
 		<div class="container ">
 			<div class="row">
 
-				<?php echo getMenuAccueil() ?>
+				<?php echo getMenuOnBien(2) ?>
 			
 				<div class="col-md-9">
 					
 					<div class="titlepage bg-blue">
-						<h2>Mes biens</h2>
+						<h2>Etat du bien</h2>
 					</div>
 
 					<?php echo getListBiens($_SESSION['id_personne']) ?>
@@ -104,4 +125,3 @@ $( "#connect-mobile").click(function() {
 
 </body>
 </html>
-
