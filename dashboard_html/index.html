@@ -100,93 +100,94 @@
 					</div>
 
 
-							<div class="bien-spe-desc bg-white margin30">
-								<h4>Description du bien</h4>
-								<p class="desc-p-bien">Dans un bel immeuble de la rue du Docteur Heulin, aux portes des Batignolles, un très bel appartement en étage sur cour, calme et ensoleillé, comprenant : entrée, séjour, 2 chambres dont une avec vue dégagée sans vis à vis, et la seconde munie d'un dressing, cuisine séparée, salle d'eau et wc séparés (nous consulter pour plus de détails). </p>
-								<h4>Localisation</h4>
-								<p><i class="fa fa-map-marker"></i><span>Adresse :</span> 4 rue du php</p>
-								<p class="padleft35"><span>Ville :</span> 75002 Paris</p>
-								<p class="padleft35"><span>Département :</span> Ile de france</p>
-								<h4>Informations techniques</h4>
-								<div class="row">
-									<div class="col-md-6">
-										<p><i class="fa fa-expand"></i><span>Surface :</span> 47 m&sup2;</p>
-										<p><i class="fa fa-picture-o"></i><span>Jardin :</span> 9 m&sup2;</p>
-										<p><i class="fa fa-th-large"></i><span>Nb pièces :</span> 5</p>
-										<p><i class="fa fa-road"></i><span>Stationnement :</span> Garage (ou parking)</p>
-										<p><i class="fa fa-ellipsis-v"></i><span>Nb étages :</span> 4</p>
-										<p><i class="fa fa-arrows-v"></i><span>Num étages :</span> 3ème</p>
-										<p><i class="fa fa-sort"></i><span>Ascenseur :</span> non</p>
-									</div>
-									<div class="col-md-6">
-										<p><i class="fa fa-fire"></i><span>Chauffage :</span> Individuel</p>
-										<p><i class="fa fa-signal"></i><span>Indice energetique :</span> A</p>
-										<p class="padleft35"><span>Conso energ mini :</span> 100</p>
-										<p class="padleft35"><span>Conso energ maxi :</span> 200</p>
-										<p><i class="fa fa-globe"></i><span>Effet de serre :</span> B</p>
-										<p class="padleft35"><span>E.d.S mini :</span> 200</p>
-										<p class="padleft35"><span>E.d.S maxi :</span> 700</p>
-									</div>
-								</div>
+					<div class="bien-spe-desc bg-white margin30">
+						<h4>Description du bien</h4>
+						<p class="desc-p-bien">Dans un bel immeuble de la rue du Docteur Heulin, aux portes des Batignolles, un très bel appartement en étage sur cour, calme et ensoleillé, comprenant : entrée, séjour, 2 chambres dont une avec vue dégagée sans vis à vis, et la seconde munie d'un dressing, cuisine séparée, salle d'eau et wc séparés (nous consulter pour plus de détails). </p>
+						<h4>Localisation</h4>
+						<p><i class="fa fa-map-marker"></i><span>Adresse :</span> 4 rue du php</p>
+						<p class="padleft35"><span>Ville :</span> 75002 Paris</p>
+						<p class="padleft35"><span>Département :</span> Ile de france</p>
+						<h4>Informations techniques</h4>
+						<div class="row">
+							<div class="col-md-6">
+								<p><i class="fa fa-expand"></i><span>Surface :</span> 47 m&sup2;</p>
+								<p><i class="fa fa-picture-o"></i><span>Jardin :</span> 9 m&sup2;</p>
+								<p><i class="fa fa-th-large"></i><span>Nb pièces :</span> 5</p>
+								<p><i class="fa fa-road"></i><span>Stationnement :</span> Garage (ou parking)</p>
+								<p><i class="fa fa-ellipsis-v"></i><span>Nb étages :</span> 4</p>
+								<p><i class="fa fa-arrows-v"></i><span>Num étages :</span> 3ème</p>
+								<p><i class="fa fa-sort"></i><span>Ascenseur :</span> non</p>
 							</div>
-
-							<div class="bien-spe-desc bg-white margin30">
-								<h4>Dépenses</h4>
-								
-								
-
-
-								<canvas id="canvas" height="400" width="800" style="margin-top:20px;"></canvas>
-								<div class="canvas-legende">
-								<span style="border-left:30px solid rgba(255,204,0,1)">Electricité</span>
-								<span style="border-left:30px solid rgba(220,220,220,1)">Gaz</span>
-								<span style="border-left:30px solid rgba(151,187,205,1)">Eau</span>
-								</div>
-
-
-	<script>
-
-		var lineChartData = {
-			labels : ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aout"],
-			datasets : [
-				{
-					fillColor : "rgba(255,204,0,0.2)",
-					strokeColor : "rgba(255,204,0,1)",
-					pointColor : "rgba(255,204,0,1)",
-					pointStrokeColor : "#fff",
-					data : [85,69,100,61,56,39,47,89]
-				},
-				{
-					fillColor : "rgba(220,220,220,0.5)",
-					strokeColor : "rgba(220,220,220,1)",
-					pointColor : "rgba(220,220,220,1)",
-					pointStrokeColor : "#fff",
-					data : [65,59,90,81,56,55,40,53]
-				},
-				{
-					fillColor : "rgba(151,187,205,0.5)",
-					strokeColor : "rgba(151,187,205,1)",
-					pointColor : "rgba(151,187,205,1)",
-					pointStrokeColor : "#fff",
-					data : [28,48,40,19,96,27,100,64]
-				}
-				
-			]
-			
-		}
-
-	var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData);
-	
-	</script>
-
-
-
-
-
-
-									
+							<div class="col-md-6">
+								<p><i class="fa fa-fire"></i><span>Chauffage :</span> Individuel</p>
+								<p><i class="fa fa-signal"></i><span>Indice energetique :</span> A</p>
+								<p class="padleft35"><span>Conso energ mini :</span> 100</p>
+								<p class="padleft35"><span>Conso energ maxi :</span> 200</p>
+								<p><i class="fa fa-globe"></i><span>Effet de serre :</span> B</p>
+								<p class="padleft35"><span>E.d.S mini :</span> 200</p>
+								<p class="padleft35"><span>E.d.S maxi :</span> 700</p>
 							</div>
+						</div>
+					</div>
+
+					<div class="bien-spe-desc bg-white margin30">
+						<h4>Dépenses</h4>
 						
+						
+
+
+						<canvas id="canvas" height="400" width="800" style="margin-top:20px;"></canvas>
+
+						<div class="canvas-legende">
+							<span style="border-left:30px solid rgba(255,204,0,1)">Electricité</span>
+							<span style="border-left:30px solid rgba(220,220,220,1)">Gaz</span>
+							<span style="border-left:30px solid rgba(151,187,205,1)">Eau</span>
+						</div>
+
+
+						<script>
+
+						var lineChartData = {
+							labels : ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aout"],
+							datasets : [
+							{
+								fillColor : "rgba(255,204,0,0.2)",
+								strokeColor : "rgba(255,204,0,1)",
+								pointColor : "rgba(255,204,0,1)",
+								pointStrokeColor : "#fff",
+								data : [85,69,100,61,56,39,47,89]
+							},
+							{
+								fillColor : "rgba(220,220,220,0.5)",
+								strokeColor : "rgba(220,220,220,1)",
+								pointColor : "rgba(220,220,220,1)",
+								pointStrokeColor : "#fff",
+								data : [65,59,90,81,56,55,40,53]
+							},
+							{
+								fillColor : "rgba(151,187,205,0.5)",
+								strokeColor : "rgba(151,187,205,1)",
+								pointColor : "rgba(151,187,205,1)",
+								pointStrokeColor : "#fff",
+								data : [28,48,40,19,96,27,100,64]
+							}
+							
+							]
+							
+						}
+
+						var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData);
+						
+						</script>
+
+
+
+
+
+
+						
+					</div>
+					
 					<!-- FIN A REPETER -->
 
 				</div>

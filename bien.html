@@ -276,6 +276,17 @@
 						<a href="mailto:contact@fakeagency.com">Contacter l'agence</a>
 					</div>
 
+
+
+
+					<div class="margin30 bg-white">
+						<div id="map-canvas"></div>
+					</div>
+
+
+
+
+
 					<div class="bien-spe-pic bg-white margin30">
 						
 						<div class="flexslider">
@@ -412,6 +423,60 @@ $(window).load(function(){
 		});
 </script>
 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript">
 
+
+
+
+
+		function initialize() {
+
+			var styles = [
+			{
+				"featureType": "administrative.locality",
+				"stylers": [
+				{ "visibility": "off" }
+				]
+			},{
+				"featureType": "landscape",
+				"stylers": [
+				{ "color": "#eaeaea" }
+				]
+			}
+
+			];
+
+
+			var styledMap = new google.maps.StyledMapType(styles, {name: "Gmap stylée"});
+
+			var myLatlng = new google.maps.LatLng(48, -1);
+
+			var mapOptions = {
+				center: new google.maps.LatLng(48, -1),
+				zoom: 15,
+				mapTypeId: google.maps.MapTypeId.ROADMAP,
+				scrollwheel: false
+			};
+
+			var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+			map.mapTypes.set('map_style', styledMap);
+			map.setMapTypeId('map_style');
+
+
+
+			var marker = new google.maps.Marker({
+				position: myLatlng,
+				map: map,
+				title: 'Idéis'
+			});
+
+		}
+
+		google.maps.event.addDomListener(window, 'load', initialize);
+		</script>
+
+		
 </body>
 </html>
