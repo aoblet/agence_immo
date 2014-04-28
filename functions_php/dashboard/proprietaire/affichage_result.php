@@ -50,9 +50,7 @@ HTML;
 		$html=<<<HTML
 		<div class="bien-spe-desc bg-white margin30">
 			<h4>Dépenses</h4>
-
 			<canvas id="canvas-depenses" height="400" width="800" style="margin-top:20px;"></canvas>
-
 			<div class="canvas-legende">
 				<span style="border-left:30px solid rgba(255,204,0,1)">Dépenses</span>
 			</div>
@@ -82,8 +80,6 @@ HTML;
 		$depenses_js = json_encode($depenses_js);
 		$labels_js = json_encode($labels_js);
 
-
-
 		$js=<<<JAVASCRIPT
 			<script type='text/javascript'>
 			var lineChartData = {
@@ -96,13 +92,9 @@ HTML;
 						pointStrokeColor : "#fff",
 						data : $depenses_js
 					},
-
 				]
-				
 			}
-
 			var myLineDepenses = new Chart(document.getElementById("canvas-depenses").getContext("2d")).Line(lineChartData,$options_chart);
-			
 			</script>
 JAVASCRIPT;
 		
@@ -115,7 +107,6 @@ JAVASCRIPT;
 		if(empty($rentrees_array)){
 			return <<<HTML
 			<div class="bien-spe-desc-no-res bg-white margin30">
-
 				<h4>Recettes</h4>
 				<p>Il n'y a pas de recettes pour le moment</p>
 			</div>
@@ -124,15 +115,11 @@ HTML;
 		
 		$html=<<<HTML
 		<div class="bien-spe-desc bg-white margin30">
-
 			<h4>Recettes</h4>
 			<canvas id="canvas-recettes" height="400" width="800" style="margin-top:20px;"></canvas>
-
 			<div class="canvas-legende">
 				<span style="border-left:30px solid rgba(151,187,205,1)">Recettes</span>
 			</div>
-
-			
 HTML;
 	
 		$rentrees_js = array();
@@ -159,8 +146,6 @@ HTML;
 		$rentrees_js = json_encode($rentrees_js);
 		$labels_js = json_encode($labels_js);
 
-
-
 		$js=<<<JAVASCRIPT
 			<script type='text/javascript'>
 			var lineChartData = {
@@ -173,13 +158,9 @@ HTML;
 						pointStrokeColor : "#fff",
 						data : $rentrees_js
 					},
-
 				]
-				
 			}
-
 			var myLineRecettes = new Chart(document.getElementById("canvas-recettes").getContext("2d")).Line(lineChartData,$options_chart);
-			
 			</script>
 JAVASCRIPT;
 		
