@@ -1,15 +1,43 @@
 <?php
+	require_once(dirname(__FILE__).'/../../../functions_php/recherche_biens/search.php');
+	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils_html.php');
-	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/proprietaire/affichage_result.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/getUtils_html.php');
 	require_once(dirname(__FILE__).'/../../../enum/enum_type_user.php');
+
+	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/proprietaire/affichage_result.php');
+
 	session_start();
 
-	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne']) || $_SESSION['type_personne'] != PROPRIETAIRE){
+
+	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne'])){
 		$link_home = getPathRoot().'index.php';
 		header('Location: '.$link_home);
 		die();
 	}
+
+	//verif param bien présent
+	if(!isset($_GET['id_bien_immobilier']) || !is_numeric($_GET['id_bien_immobilier'])){
+		header('Location: ./index.php');
+		die();
+	}
+
+
+
+	//verif que le bien lui correspond sinon redirection
+	$isOK = getLegitimite($_SESSION,$_GET['id_bien_immobilier']);
+
+	if(!$isOK){
+		header('Location: ./index.php');
+		die();
+	}
+
+	$infos = searchForProprioAvance($_GET['id_bien_immobilier']);
+	$depenses = isset($infos['infos_historiques_depense']) ? $infos['infos_historiques_depense'] : array();
+	$rentrees = isset($infos['infos_historiques_rentree']) ? $infos['infos_historiques_rentree'] : array();
+
+	$graphiqueDepenses = getDepensesGraphique($depenses);
+	$graphiqueRentrees = getRentreesGraphique($rentrees);
 
 ?>
 
@@ -55,15 +83,15 @@
 		<div class="container ">
 			<div class="row">
 
-				<?php echo getMenuAccueil() ?>
+				<?php echo getMenuOnBien(2) ?>
 			
 				<div class="col-md-9">
 					
 					<div class="titlepage bg-blue">
-						<h2>Mes biens</h2>
+						<h2>Historiques financiers</h2>
 					</div>
-
-					<?php echo getListBiens($_SESSION['id_personne']) ?>
+					<?php echo $graphiqueDepenses ?>
+					<?php echo $graphiqueRentrees ?>
 
 				</div>
 			</div>
@@ -105,4 +133,3 @@ $( "#connect-mobile").click(function() {
 
 </body>
 </html>
-

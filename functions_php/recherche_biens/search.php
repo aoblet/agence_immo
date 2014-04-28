@@ -284,13 +284,14 @@ SQL;
 	}
 
 	function searchForProprioAvance($id_bien_immobilier){
+		$res = array();
 		if($id_bien_immobilier != NULL){
 			$res = searchBase(array('id_bien_immobilier' => $id_bien_immobilier ));
-			foreach ($res as $key => $value) {
-				$value['infos_historiques_depense'] = getInfosHistoriqueDepense($value['id_bien_immobilier']);
-				$value['infos_historiques_rentree'] = getInfosHistoriqueRentree($value['id_bien_immobilier']);
-				$value['infos_locataire'] = getInfosLocataire($value['id_bien_immobilier']);
-			}
+
+			$res['infos_historiques_depense'] = getInfosHistoriqueDepense($id_bien_immobilier);
+			$res['infos_historiques_rentree'] = getInfosHistoriqueRentree($id_bien_immobilier);
+			$res['infos_locataire'] = getInfosLocataire($id_bien_immobilier);
+			
 		}
 
 		return $res;

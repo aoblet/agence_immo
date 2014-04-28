@@ -1392,6 +1392,11 @@ width: 100px;
 	height: auto;
 }
 
+.bien-spe-desc-no-res{
+	min-height: 35px;
+	padding-bottom: 30px;
+	padding-top: 5px;
+}
 .bien-spe-desc{
 	min-height: 350px;
 	padding-bottom: 30px;
@@ -1419,7 +1424,7 @@ width: 100px;
 	
 }
 
-.bien-spe-desc h4{
+.bien-spe-desc h4, .bien-spe-desc-no-res h4{
 	text-align: left;
 	padding: 15px;
 	margin-left: 5px;
@@ -1432,7 +1437,7 @@ width: 100px;
 	margin-left: 5px;
 }
 
-.bien-spe-desc p{
+.bien-spe-desc p, .bien-spe-desc-no-res p{
 	text-align: left;
 	padding: 0px;
 	padding-left: 15px;

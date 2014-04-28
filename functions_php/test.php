@@ -22,3 +22,6 @@
 
 	//$var = file_get_contents('http://www.google.fr', 'r');
 	//echo $var;
+	
+	/*$date = new DateTime("2014-04-08 00:00:00");
+	var_dump($date->format('Y'));*/

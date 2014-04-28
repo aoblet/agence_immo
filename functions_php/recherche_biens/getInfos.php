@@ -230,7 +230,7 @@
 	function getInfosHistoriqueDepense($id_bien_immobilier){
 		$infos = array();
 		if($id_bien_immobilier != NULL){
-			$query = "SELECT * FROM historique hi, historique_depense hi_dep WHERE hi.id_historique = hi_dep.id_historique AND hi.id_bien_immobilier = $id_bien_immobilier";
+			$query = "SELECT * FROM historique hi, historique_depense hi_dep WHERE hi.id_historique = hi_dep.id_historique AND hi.id_bien_immobilier = $id_bien_immobilier ORDER BY date_historique DESC";
 			$stmt = myPDO::getSingletonPDO()->query($query);
 
 			while($ligne = $stmt->fetch()){
@@ -244,7 +244,7 @@
 	function getInfosHistoriqueRentree($id_bien_immobilier){
 		$infos = array();
 		if($id_bien_immobilier != NULL){
-			$query = "SELECT * FROM historique hi, historique_rentree hi_re WHERE hi.id_historique = hi_re.id_historique AND hi.id_bien_immobilier = $id_bien_immobilier";
+			$query = "SELECT * FROM historique hi, historique_entree hi_en WHERE hi.id_historique = hi_en.id_historique AND hi.id_bien_immobilier = $id_bien_immobilier ORDER BY date_historique DESC";
 			$stmt = myPDO::getSingletonPDO()->query($query);
 
 			while($ligne = $stmt->fetch()){

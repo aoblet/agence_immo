@@ -1,4 +1,8 @@
 <?php
+	/**
+	*	Partie commune aux dashs
+	**/
+	require_once(dirname(__FILE__).'/../getUtils_html.php');
 
 	function getBanniereDash(){
 		$link_home = getPathRoot();
@@ -36,4 +40,6 @@ HTML;
 
 HTML;
 	}
+
+	
 

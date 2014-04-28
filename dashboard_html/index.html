@@ -155,7 +155,7 @@
 								strokeColor : "rgba(255,204,0,1)",
 								pointColor : "rgba(255,204,0,1)",
 								pointStrokeColor : "#fff",
-								data : [85,69,100,61,56,39,47,89]
+								data : [85,69,100,61,56,39,47,90]
 							},
 							{
 								fillColor : "rgba(220,220,220,0.5)",
@@ -175,8 +175,10 @@
 							]
 							
 						}
-
-						var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData);
+						var options = {
+							bezierCurve : true
+						};
+						var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData,options);
 						
 						</script>
 

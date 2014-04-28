@@ -1,5 +1,8 @@
 <?php
 	require_once(dirname(__FILE__).'/../../../functions_php/settings/connexion.php');
+	require_once(dirname(__FILE__).'/../../../functions_php/recherche_biens/search.php');
+	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils.php');
+
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils_html.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/proprietaire/affichage_result.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/getUtils_html.php');
@@ -18,22 +21,16 @@
 	}
 
 	//verif que le bien lui correspond sinon redirection
-	$id_personne_proprio = $_SESSION['id_personne'];
-	$id_bien_immobilier = $_GET['id_bien_immobilier'];
-
-	$stmt = myPDO::getSingletonPDO()->query("SELECT id_bien_immobilier FROM bien_immobilier WHERE id_bien_immobilier=$id_bien_immobilier AND id_personne_proprio=$id_personne_proprio");
-	$isOK = $stmt->fetch();
-	$stmt->closeCursor();
+	$isOK = getLegitimite($_SESSION,$_GET['id_bien_immobilier']);
 
 	if(!$isOK){
 		header('Location: ./index.php');
 		die();
 	}
 
+	$informations_array = searchForProprioAvance($_GET['id_bien_immobilier']);
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -75,7 +72,7 @@
 		<div class="container ">
 			<div class="row">
 
-				<?php echo getMenuOnBien(2) ?>
+				<?php echo getMenuOnBien($_GET['id_bien_immobilier']) ?>
 			
 				<div class="col-md-9">
 					
@@ -83,8 +80,7 @@
 						<h2>Etat du bien</h2>
 					</div>
 
-					<?php echo getListBiens($_SESSION['id_personne']) ?>
-
+					<?php echo getEtatDuBien($informations_array) ?>
 				</div>
 			</div>
 		</div>
