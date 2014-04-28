@@ -49,17 +49,13 @@ HTML;
 
 		$html=<<<HTML
 		<div class="bien-spe-desc bg-white margin30">
-
 			<h4>Dépenses</h4>
-			
 
 			<canvas id="canvas-depenses" height="400" width="800" style="margin-top:20px;"></canvas>
 
 			<div class="canvas-legende">
 				<span style="border-left:30px solid rgba(255,204,0,1)">Dépenses</span>
 			</div>
-
-			
 HTML;
 	
 		$depenses_js = array();
@@ -114,9 +110,9 @@ JAVASCRIPT;
 		return $html;
 	}
 
-	function getRentreesGraphique($rentress_array){
+	function getRentreesGraphique($rentrees_array){
 
-		if(empty($rentress_array)){
+		if(empty($rentrees_array)){
 			return <<<HTML
 			<div class="bien-spe-desc-no-res bg-white margin30">
 
@@ -143,13 +139,13 @@ HTML;
 		$labels_js = array();
 		$options_chart="{}";
 
-		if(count($rentress_array) == 1){
+		if(count($rentrees_array) == 1){
 			$rentrees_js[]=0;
 			$labels_js[]='0';
 			$options_chart="{bezierCurve : false}";
 		}
 
-		foreach ($rentress_array as $value) {
+		foreach ($rentrees_array as $value) {
 			$rentrees_js[] = intval($value['prix_action']);
 			$date = 'Pas de date';
 			if(isset($value['date_historique']) && !empty($value['date_historique'])){
@@ -182,7 +178,7 @@ HTML;
 				
 			}
 
-			var myLineDepenses = new Chart(document.getElementById("canvas-recettes").getContext("2d")).Line(lineChartData,$options_chart);
+			var myLineRecettes = new Chart(document.getElementById("canvas-recettes").getContext("2d")).Line(lineChartData,$options_chart);
 			
 			</script>
 JAVASCRIPT;
