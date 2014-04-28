@@ -155,6 +155,11 @@ header h1{
 }
 }
 
+
+
+
+
+
 input[type="text"]{
 	float: left;
 	display: block;
@@ -235,6 +240,50 @@ input[type='reset'], input[type="submit"]{
 
 input[type='reset']:hover, input[type="submit"]:hover{
 	opacity: 0.8;
+}
+
+
+.form-champ{
+	max-width: 400px;
+	display: block;
+	margin-left: 20px;
+	margin-top: 5px;
+}
+
+.form-champ-sub{
+	max-width: 400px;
+	display: block;
+	margin-left: 20px;
+	margin-top: 50px;
+}
+
+.form-champ input{
+	margin-top: 5px;
+}
+
+.form-champ label{
+	margin-top: 15px;
+	text-align: left;
+	float: left;
+}
+
+
+.form-user{
+	min-height: 620px;
+	padding-bottom: 30px;
+	padding-top: 5px;
+}
+
+.form-user h4{
+	text-align: left;
+	padding: 15px;
+	margin-left: 5px;
+	padding-bottom: 10px;
+}
+
+.form-user p{
+	margin-top: 20px;
+	display: block;
 }
 
 /*fin modif Alex*/
@@ -1374,7 +1423,6 @@ width: 100px;
 	text-align: left;
 	padding: 15px;
 	margin-left: 5px;
-
 }
 
 .bien-spe-desc h4:last-of-type{
