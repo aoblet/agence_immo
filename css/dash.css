@@ -1550,4 +1550,23 @@ width: 100px;
 }
 
 
+.button-graphique{
+	padding:5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0;
+    margin-top: 20px;
+    background: #ECF0F1;
+    color:#888;
+    border:none;
+    outline:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    cursor:pointer;
+    border-radius: 4px;
+}
+
+
+
 
