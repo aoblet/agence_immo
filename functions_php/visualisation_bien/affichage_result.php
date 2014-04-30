@@ -234,6 +234,7 @@ HTML;
 		if(!empty($res['superficie']))
 			$phrase_type_bien_type_operation_superficie.=" <span>".$res['superficie']." m&sup2;</span>";
 
+		$date_parution='';
 		if(!empty($res['date_parution'])){
 			$date_formated_base = getDateFormatedVisuBase($res['date_parution']);
 			$date_formated_details = getDateFormatedVisuDetails($res['date_parution']);

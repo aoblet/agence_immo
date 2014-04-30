@@ -1,13 +1,12 @@
 <?php
+	session_start();
+
 	require_once(dirname(__FILE__).'/../../../functions_php/recherche_biens/search.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils_html.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/getUtils_html.php');
 	require_once(dirname(__FILE__).'/../../../enum/enum_type_user.php');
-
 	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/proprietaire/affichage_result.php');
-
-	session_start();
 
 
 	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne'])){
@@ -22,8 +21,6 @@
 		die();
 	}
 
-
-
 	//verif que le bien lui correspond sinon redirection
 	$isOK = getLegitimite($_SESSION,$_GET['id_bien_immobilier']);
 
@@ -33,15 +30,18 @@
 	}
 
 	$infos = searchForProprioAvance($_GET['id_bien_immobilier']);
+
 	$depenses = isset($infos['infos_historiques_depense']) ? $infos['infos_historiques_depense'] : array();
 	$rentrees = isset($infos['infos_historiques_rentree']) ? $infos['infos_historiques_rentree'] : array();
-
-	$graphiqueDepenses = getDepensesGraphique($depenses);
-	$graphiqueRentrees = getRentreesGraphique($rentrees);
-
+	
+	//rappel bien fait ici car pas de recherche d'infos dans affichage result
+	// getInfosAdresse minifie la recherche d'infos
+	$infos_adresse = getInfosAdresse($_GET['id_bien_immobilier']);
+	$adresse_rue = $infos_adresse['rue'];
+	$adresse_numero_rue = $infos_adresse['numero_rue'];
+	$adresse_ville = $infos_adresse['ville'];
+	$adresse = $adresse_numero_rue.' '.$adresse_rue.', '.$adresse_ville.' ( '.$infos_adresse['code_postal'].' )';
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -59,17 +59,17 @@
 		<link rel='stylesheet' href='../../../css/default.css' type='text/css' media='all' />
 		<link rel='stylesheet' href='../../../css/dash.css' type='text/css' media='all' />
 
-
-
 		<link rel='stylesheet' href='../../../css/fonts/font-awesome.css' type='text/css' media='all' />
 		<link rel='stylesheet' href='../../../css/fonts/font-awesome-animation.css' type='text/css' media='all' />
+		
+		<link rel='stylesheet' href='../../../css/tablesorter/theme.default.css' type='text/css' media='all' />
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
 
 		<script type="text/javascript" src="../../../js/modernizr.custom.js"></script>
 		<script type="text/javascript" src='../../../js/main.js'></script>
 		<script type="text/javascript" src='../../../js/Chart.js'></script>
+		<script type="text/javascript" src='../../../js/jquery.tablesorter.min.js'></script>
 	</head>
 
 	<body>
@@ -79,19 +79,22 @@
 
 
 	<section class="bg-grey first-section" style="padding-top:60px;">
-
 		<div class="container ">
 			<div class="row">
 
-				<?php echo getMenuOnBien(2) ?>
+				<?php echo getMenuOnBien($_GET['id_bien_immobilier']) ?>
 			
 				<div class="col-md-9">
-					
 					<div class="titlepage bg-blue">
-						<h2>Historiques financiers</h2>
+						<h2>Historiques financiers <span class='indication-bien-dash'><?php echo $adresse?></span> </h2>
 					</div>
-					<?php echo $graphiqueDepenses ?>
-					<?php echo $graphiqueRentrees ?>
+					<?php echo getChoiceButtonHTML() ?>
+					<?php echo getDepensesGraphiqueHTML($depenses) 	?>
+					<?php echo getRentreesGraphiqueHTML($rentrees) 	?>
+					<?php echo getDiagrammeProportionsHTML($depenses,$rentrees)	?>
+
+					<?php echo getArrayDepenses($depenses) ?>
+					<?php echo getArrayRecettes($rentrees) ?>
 
 				</div>
 			</div>
@@ -99,14 +102,7 @@
 
 	</section>
 
-
-
-
-
-
-
 	<section class="bg-grey" style="min-height:100px;">
-
 	</section>
 
 	<?php echo getFooter() ?>
@@ -114,10 +110,7 @@
 </div>
 
 
-
 <script type="text/javascript">
-
-
 var open_menu = 0;
 $( "#connect").click(function() {
 	$('#connect-form').slideToggle('fast');
@@ -127,6 +120,13 @@ $( "#connect-mobile").click(function() {
 	$('#connect-form').slideToggle('fast');
 });
 
+<?php echo getChoiceButtonJS()?>
+<?php echo getDepensesGraphiqueJS($depenses) ?>
+<?php echo getRecettesGraphiqueJS($rentrees) ?>
+<?php echo getDiagrammeProportionsJS($depenses,$rentrees) ?>
+
+<?php echo addSortArrayDepensesJS(); ?>
+<?php echo addSortArrayRecettesJS(); ?>
 
 </script>
 

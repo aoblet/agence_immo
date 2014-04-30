@@ -33,3 +33,9 @@
 
 		return ($res ? true : false);
 	}
+
+	function getInformationsIdentitePersonne($id_personne){
+		if($id_personne == NULL)
+			return NULL;
+
+	}

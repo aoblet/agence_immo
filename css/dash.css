@@ -1844,4 +1844,31 @@ width: 100px;
 	padding-right: 20px;
 }
 
+.choice-button{
+	background-color: white;
+}
+
+.table-historique-dash{
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.table-historique-dash tr{
+	text-align: left;
+}
+
+.table-center{
+ 	 float: none !important;
+ 	 text-align: center;
+ 	 padding-left: 50px;
+ 	 padding-right: 50px;
+}
+.width40{
+	width: 40px;
+}
+
+#depenses_array td, #recettes_array td{
+	vertical-align: middle;
+
+}
 

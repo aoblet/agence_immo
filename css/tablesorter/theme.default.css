@@ -1,0 +1,50 @@
+.tablesorter{
+	width: 100%;
+}
+
+.tablesorter-default .header,
+.tablesorter-default .tablesorter-header {
+	background-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+	background-position: center right;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	white-space: normal;
+	padding: 10px;
+	border-radius:0px;
+}
+/* thead */
+.tablesorter-default thead .headerSortUp,
+.tablesorter-default thead .tablesorter-headerSortUp,
+.tablesorter-default thead .tablesorter-headerAsc {
+	background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
+	border-bottom:  rgba(44, 62, 80, 0.9) 1px solid;
+	border-radius: 5px;
+}
+
+.tablesorter-default thead .headerSortDown,
+.tablesorter-default thead .tablesorter-headerSortDown,
+.tablesorter-default thead .tablesorter-headerDesc {
+	background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+	border-bottom:  rgba(44, 62, 80, 0.9) 1px solid;
+	border-radius: 5px;
+
+}
+
+/* tbody */
+.tablesorter td {
+	background-color: #fff;
+	padding: 5px;
+	vertical-align: middle;
+}
+
+
+/* hovered row colors */
+.tablesorter-default tbody > tr:hover > td{
+	background: rgba(44, 62, 80, 0.15);
+	cursor: default;
+}
+.tablesorter-default thead th:hover{
+	background-color: #ECF0F1
+}
+
+

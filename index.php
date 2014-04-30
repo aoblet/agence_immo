@@ -266,7 +266,7 @@
 						<div class="bg-white home-contact">
 							<h4>Nous contacter</h4>
 							<p><a><i class="fa fa-phone"></i>01 45 38 49 02</a></p>
-							<p><a><i class="fa fa-envelope"></i>contact@agence.com</a></p>
+							<p><a href='mailto:contact@agence.com'><i class="fa fa-envelope"></i>contact@agence.com</a></p>
 						</div>
 
 
@@ -376,7 +376,7 @@
 			{
 				"featureType": "administrative.locality",
 				"stylers": [
-				{ "visibility": "off" }
+				{ "visibility": "on" }
 				]
 			},{
 				"featureType": "landscape",
@@ -390,11 +390,11 @@
 
 			var styledMap = new google.maps.StyledMapType(styles, {name: "Gmap stylée"});
 
-			var myLatlng = new google.maps.LatLng(48, -1);
+			var myLatlng = new google.maps.LatLng(48.868962, 2.286058);
 
 			var mapOptions = {
-				center: new google.maps.LatLng(48, -1),
-				zoom: 15,
+				center: new google.maps.LatLng(48.868962, 2.286058),
+				zoom: 11,
 				mapTypeId: google.maps.MapTypeId.ROADMAP,
 				scrollwheel: false
 			};
@@ -409,7 +409,15 @@
 			var marker = new google.maps.Marker({
 				position: myLatlng,
 				map: map,
-				title: 'Idéis'
+				title: 'Fake Agency	'
+			});
+
+			var info_window = new google.maps.InfoWindow({
+				content:"<div style='text-align:center;'> Siège social Fake Agency </div>"
+			});
+
+			google.maps.event.addDomListener(marker,'click',function(){
+				info_window.open(map,marker);
 			});
 
 		}

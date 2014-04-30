@@ -57,6 +57,7 @@
 						bien_immobilier.parking,
 						bien_immobilier.nb_etages,
  						bien_immobilier.date_parution,
+ 						bien_immobilier.id_personne_locataire,
 						appartement.etage,
 						appartement.ascenseur,
 						appartement.numero_appartement,

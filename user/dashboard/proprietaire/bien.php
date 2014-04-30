@@ -28,7 +28,6 @@
 		die();
 	}
 
-	$informations_array = searchForProprioAvance($_GET['id_bien_immobilier']);
 
 ?>
 
@@ -75,12 +74,7 @@
 				<?php echo getMenuOnBien($_GET['id_bien_immobilier']) ?>
 			
 				<div class="col-md-9">
-					
-					<div class="titlepage bg-blue">
-						<h2>Etat du bien</h2>
-					</div>
-
-					<?php echo getEtatDuBien($informations_array) ?>
+					<?php echo getEtatDuBien($_GET['id_bien_immobilier']) ?>
 				</div>
 			</div>
 		</div>
