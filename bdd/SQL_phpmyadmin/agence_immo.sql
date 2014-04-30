@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Ven 25 Avril 2014 à 16:32
+-- Généré le: Mer 30 Avril 2014 à 20:33
 -- Version du serveur: 5.6.12-log
--- Version de PHP: 5.4.16
+-- Version de PHP: 5.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `bien_immobilier` (
 --
 
 INSERT INTO `bien_immobilier` (`id_bien_immobilier`, `prix`, `superficie`, `nb_pieces`, `descriptif`, `parking`, `nb_etages`, `id_personne_locataire`, `id_personne_proprio`, `id_personne_gest`, `id_agence_vendeur`, `id_agence_loueur`, `id_type_chauffage`, `id_adresse`, `id_gaz`, `id_consommation_energetique`, `date_parution`) VALUES
-(1, 450000, 450, 6, 'Belle demeure :)', 0, 6, 9, 8, 8, NULL, NULL, 3, 1, 3, 5, '2014-04-07 22:00:00'),
+(1, 450000, 450, 6, 'Belle demeure :)', 0, 6, 9, 11, 8, NULL, NULL, 3, 1, 3, 5, '2014-04-07 22:00:00'),
 (2, 850, 26, 2, 'Location donnant sur un jardin. Proche du métro barbès et de salles de sports. Voisins conviviaux. Bien non fumeurs. Résidence très propre et protégé par vidéo surveillance.', 0, 0, NULL, 11, 12, NULL, NULL, 3, 3, 4, 2, '2014-04-24 22:49:44'),
 (3, 3000, 120, 8, 'Petite maison situé dans l''Aisne, elle vous apportera tout le bonheur qu''il vous faut. Idéal pour une petite famille.', 1, 1, NULL, NULL, 12, NULL, 1, 3, 4, 2, 2, '2014-04-01 18:34:11'),
 (4, 200000, 1500, 23, 'Immeuble idéal pour l''implentation d''une petite entreprise.', 1, 4, NULL, NULL, 12, 1, NULL, 2, 5, 6, 4, '2014-04-01 18:38:03'),
@@ -391,17 +391,20 @@ CREATE TABLE IF NOT EXISTS `historique` (
   `date_historique` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_historique`),
   KEY `FK_Historique_id_bien_immobilier` (`id_bien_immobilier`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `historique`
 --
 
 INSERT INTO `historique` (`id_historique`, `nom_action`, `prix_action`, `descriptif_action`, `id_bien_immobilier`, `date_historique`) VALUES
-(1, 'achat fournitures peintures', 3000, 'couches d''impressions satinées pour le salon', 1, '2014-04-25 16:17:12'),
-(2, 'achat ciment pour la terrasse', 500, 'remise à neuf des joints pour la terasse', 1, '2014-04-25 16:17:12'),
-(3, 'paiement intervention chauffagiste', 1000, 'remise à jour de la chaudière', 1, '2014-04-25 16:31:16'),
-(4, 'changement de fenêtre', 150, 'suite à une fusillade avec la police, la fenêtre du salon a été détruite', 1, '2014-04-25 16:31:16');
+(1, 'achat fournitures peintures', 3000, 'couches d''impressions satinées pour le salon', 2, '2014-04-29 22:00:00'),
+(2, 'achat ciment pour la terrasse', 460, 'remise à neuf des joints pour la terasse', 2, '2014-04-25 16:17:12'),
+(3, 'paiement intervention chauffagiste', 1000, 'remise à jour de la chaudière', 2, '2014-04-25 16:31:16'),
+(4, 'changement de fenêtre', 150, 'suite à une fusillade avec la police, la fenêtre du salon a été détruite', 2, '2014-04-25 16:31:16'),
+(5, 'aide au logement', 500, 'bourse versée par l''état', 2, '2014-04-28 22:55:24'),
+(6, 'aide régional', 6000, 'aide aux nouveaux proprietaires', 2, '2014-04-29 16:50:09'),
+(7, 'assurance de la mairie', 700, 'accident causé par le mairie', 2, '2014-04-18 22:00:00');
 
 -- --------------------------------------------------------
 
@@ -423,6 +426,7 @@ CREATE TABLE IF NOT EXISTS `historique_depense` (
 INSERT INTO `historique_depense` (`id_historique`, `id_personne_impute`) VALUES
 (1, NULL),
 (3, NULL),
+(5, NULL),
 (2, 9),
 (4, 9);
 
@@ -438,6 +442,15 @@ CREATE TABLE IF NOT EXISTS `historique_entree` (
   PRIMARY KEY (`id_historique`),
   KEY `FK_Historique_entree_id_paiement` (`id_paiement`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `historique_entree`
+--
+
+INSERT INTO `historique_entree` (`id_historique`, `id_paiement`) VALUES
+(2, NULL),
+(6, NULL),
+(7, NULL);
 
 -- --------------------------------------------------------
 
@@ -575,7 +588,7 @@ INSERT INTO `personne` (`id_personne`, `nom_personne`, `prenom_personne`, `login
 (8, 'Oblet', 'Alexis', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'alexdeoiny@gmail.com', 1),
 (9, 'Biteau', 'Armand', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'armandbiteau@gmail.com', 1),
 (10, 'Locataire_nom', 'Locataire_prenom', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'locataire@gmail.com', 1),
-(11, 'Proprietaire_nom', 'Proprietaire_prenom', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'proprietaire@gmail.com', 1),
+(11, 'Proprietaire_nom', 'Proprietaire_prenom', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'proprietaire@gmail.com', 2),
 (12, 'Employe_gestionnaire_nom', 'Employe_gestionnaire_prenom', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'employe@gmail.com', 1);
 
 -- --------------------------------------------------------
@@ -588,14 +601,15 @@ CREATE TABLE IF NOT EXISTS `photo` (
   `id_photo` int(11) NOT NULL AUTO_INCREMENT,
   `chemin_photo` varchar(255) NOT NULL,
   PRIMARY KEY (`id_photo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `photo`
 --
 
 INSERT INTO `photo` (`id_photo`, `chemin_photo`) VALUES
-(1, 'img/avatar.png');
+(1, 'img/avatar.png'),
+(2, 'img/11/cowboy.jpg');
 
 -- --------------------------------------------------------
 
