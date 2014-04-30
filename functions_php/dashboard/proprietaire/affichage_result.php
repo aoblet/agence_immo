@@ -27,18 +27,18 @@
 HTML;
 	}
 
-	function getMessageDepensesVide(){
+	function getMessageDepensesVide($id_div){
 		return <<<HTML
-			<div class="bien-spe-desc-no-res bg-white margin30">
+			<div id='$id_div' class="bien-spe-desc-no-res bg-white margin30">
 				<h4>Dépenses</h4>
 				<p>Bonne nouvelle: Il n'y a pas de dépenses pour le moment</p>
 			</div>
 HTML;
 	}
 
-	function getMessageRecettesVide(){
+	function getMessageRecettesVide($id_div){
 		return <<<HTML
-			<div class="bien-spe-desc-no-res bg-white margin30">
+			<div id='$id_div' class="bien-spe-desc-no-res bg-white margin30">
 				<h4>Recettes</h4>
 				<p>Patience, il n'y a pas de recettes pour le moment</p>
 			</div>
@@ -48,7 +48,7 @@ HTML;
 	function getDepensesGraphiqueHTML($depenses_array){
 
 		if(empty($depenses_array)){
-			return getMessageDepensesVide();
+			return getMessageDepensesVide('div-depenses-graphic');
 		}
 
 		$button_radar = "<input type='button' id='Radar_button_depenses' class='button-graphique' value='Graphique en toile' onClick=\"setTypeGraphique_Depenses('Radar')\">";
@@ -154,7 +154,7 @@ JAVASCRIPT;
 	function getRentreesGraphiqueHTML($rentrees_array){
 
 		if(empty($rentrees_array)){
-			return getMessageRecettesVide();
+			return getMessageRecettesVide('div-recettes-graphic');
 		}
 
 		$button_radar = "<input type='button' id='Radar_button_recettes' class='button-graphique' value='Graphique en toile' onClick=\"setTypeGraphique_Recettes('Radar')\">";
@@ -260,7 +260,7 @@ JAVASCRIPT;
 
 		if(empty($rentrees_array) && empty($depenses_array)){
 			return <<<HTML
-			<div class="bien-spe-desc-no-res bg-white margin30">
+			<div id='div-diagramme-graphic' class="bien-spe-desc-no-res bg-white margin30">
 				<h4>Diagramme total des transactions financières</h4>
 				<p>Il n'y a actuellement aucune transactions financières</p>
 			</div>
@@ -282,6 +282,8 @@ HTML;
 	function getDiagrammeProportionsJS($depenses_array,$recettes_array){
 		$total_depenses = 0;
 		$total_recettes = 0;
+		$depenses_prorata=0;
+		$recettes_prorata=0;
 
 		foreach ($depenses_array as $value) {
 			$total_depenses += $value['prix_action'];
@@ -291,8 +293,10 @@ HTML;
 			$total_recettes += $value['prix_action'];
 		}
 
-		$depenses_prorata = substr( $total_depenses/($total_depenses+$total_recettes) *100, 0,5);
-		$recettes_prorata = substr( $total_recettes/($total_depenses+$total_recettes) *100, 0,5);
+		if($total_recettes !=0 || $total_depenses){
+			$depenses_prorata = substr( $total_depenses/($total_depenses+$total_recettes) *100, 0,5);
+			$recettes_prorata = substr( $total_recettes/($total_depenses+$total_recettes) *100, 0,5);
+		}
 
 		$js=<<<JAVASCRIPT
 				if(document.getElementById('canvas-diagramme') != null){
@@ -366,7 +370,7 @@ JAVASCRIPT;
 
 	function getArrayDepenses($depenses_array){
 		if(empty($depenses_array))
-			return getMessageDepensesVide();
+			return getMessageDepensesVide('div-depenses-array');
 
 		$array=<<<HTML
 		<table id='depenses_array' class="tablesorter table table-striped table-historique-dash ">
@@ -460,7 +464,7 @@ JAVASCRIPT;
 
 	function getArrayRecettes($recettes_array){
 		if(empty($recettes_array))
-			return getMessageDepensesVide();
+			return getMessageDepensesVide('div-recettes-array');
 
 		$array=<<<HTML
 		<table id='recettes_array' class="tablesorter table table-striped table-historique-dash ">
