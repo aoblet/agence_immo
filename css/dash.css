@@ -1831,6 +1831,10 @@ width: 100px;
     border-radius: 4px;
 }
 
-
+.indication-bien-dash{
+	text-transform: none;
+	float:right;
+	padding-right: 20px;
+}
 
 
