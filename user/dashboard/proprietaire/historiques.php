@@ -120,10 +120,13 @@ $( "#connect-mobile").click(function() {
 	$('#connect-form').slideToggle('fast');
 });
 
-<?php echo getChoiceButtonJS()?>
+
 <?php echo getDepensesGraphiqueJS($depenses) ?>
 <?php echo getRecettesGraphiqueJS($rentrees) ?>
 <?php echo getDiagrammeProportionsJS($depenses,$rentrees) ?>
+
+<?php echo getChoiceButtonJS()?>
+
 
 <?php echo addSortArrayDepensesJS(); ?>
 <?php echo addSortArrayRecettesJS(); ?>

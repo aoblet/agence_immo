@@ -40,7 +40,7 @@ HTML;
 		return <<<HTML
 			<div id='$id_div' class="bien-spe-desc-no-res bg-white margin30">
 				<h4>Recettes</h4>
-				<p>Patience, il n'y a pas de recettes pour le moment</p>
+				<p>Il n'y a pas de recettes pour le moment, patience </p>
 			</div>
 HTML;
 	}
@@ -52,9 +52,12 @@ HTML;
 		}
 
 		$button_radar = "<input type='button' id='Radar_button_depenses' class='button-graphique' value='Graphique en toile' onClick=\"setTypeGraphique_Depenses('Radar')\">";
-		
-		if(count($depenses_array) <= 2)
+					
+		$button_bezier_off= "<input type='button' class='button-graphique' id='Line_bezier_off_button_depenses' value='Graphique classique linéaire' onClick=\"setTypeGraphique_Depenses('Line_bezier_off')\">";
+		if(count($depenses_array) <= 2){
+			$button_bezier_off ='';
 			$button_radar='';
+		}
 
 		$html=<<<HTML
 		<div id='div-depenses-graphic' class="bien-spe-desc bg-white margin30">
@@ -64,6 +67,7 @@ HTML;
 				<span style="border-left:30px solid rgba(255,204,0,1)">Dépenses</span>
 				<div id='buttons-graphique-depenses'>
 					<input type='button' class='button-graphique' id='Line_button_depenses' value='Graphique classique' onClick="setTypeGraphique_Depenses('Line')">
+					$button_bezier_off
 					<input type='button' class='button-graphique' id='Bar_button_depenses' value='Graphique en bâton' onClick="setTypeGraphique_Depenses('Bar')">
 					$button_radar
 				</div>
@@ -135,14 +139,17 @@ HTML;
 
 				if(type_graphique == 'Line')
 					graphique_depenses = new Chart(document.getElementById("canvas-depenses").getContext("2d")).Line(lineChartData,$options_chart);
+				else if(type_graphique == 'Line_bezier_off')
+					graphique_depenses = new Chart(document.getElementById("canvas-depenses").getContext("2d")).Line(lineChartData,{bezierCurve : false});
 				else if(type_graphique == 'Radar')
 					graphique_depenses = new Chart(document.getElementById("canvas-depenses").getContext("2d")).Radar(lineChartData,$options_chart);
 				else if(type_graphique == 'Bar')
 					graphique_depenses = new Chart(document.getElementById("canvas-depenses").getContext("2d")).Bar(lineChartData,$options_chart);
+
 			}
 
 			//par défaut
-			if(document.getElementById('canvas-recettes') != null)
+			if(document.getElementById('canvas-depenses') != null)
 				setTypeGraphique_Depenses('Line');
 JAVASCRIPT;
 
@@ -159,8 +166,11 @@ JAVASCRIPT;
 
 		$button_radar = "<input type='button' id='Radar_button_recettes' class='button-graphique' value='Graphique en toile' onClick=\"setTypeGraphique_Recettes('Radar')\">";
 
-		if(count($rentrees_array) <= 2)
+		$button_bezier_off= "<input type='button' class='button-graphique' id='Line_bezier_off_button_depenses' value='Graphique classique linéaire' onClick=\"setTypeGraphique_Recettes('Line_bezier_off')\">";
+		if(count($rentrees_array) <= 2){
+			$button_bezier_off ='';
 			$button_radar='';
+		}
 
 		$html=<<<HTML
 		<div id='div-recettes-graphic' class="bien-spe-desc bg-white margin30">
@@ -170,6 +180,7 @@ JAVASCRIPT;
 				<span style="border-left:30px solid rgba(151,187,205,1)">Recettes</span>
 				<div id='buttons-graphique-recettes'>
 					<input type='button' class='button-graphique' id='Line_button_recettes' value='Graphique classique' onClick="setTypeGraphique_Recettes('Line')">
+					$button_bezier_off
 					<input type='button' class='button-graphique' id='Bar_button_recettes' value='Graphique en bâton' onClick="setTypeGraphique_Recettes('Bar')">
 					$button_radar
 				</div>
@@ -241,6 +252,8 @@ HTML;
 
 				if(type_graphique == 'Line')
 					graphique_recettes = new Chart(document.getElementById("canvas-recettes").getContext("2d")).Line(lineChartData,$options_chart);
+				else if(type_graphique == 'Line_bezier_off')
+					graphique_depenses = new Chart(document.getElementById("canvas-recettes").getContext("2d")).Line(lineChartData,{bezierCurve : false});
 				else if(type_graphique == 'Radar')
 					graphique_recettes = new Chart(document.getElementById("canvas-recettes").getContext("2d")).Radar(lineChartData,$options_chart);
 				else if(type_graphique == 'Bar')
@@ -358,9 +371,8 @@ HTML;
 				}
 			}
 			//defaut
-			window.onload=function(){
-				setChoiceHistorique('choice_graphic');
-			};
+			setChoiceHistorique('choice_graphic');
+			
 			
 
 JAVASCRIPT;
@@ -464,7 +476,7 @@ JAVASCRIPT;
 
 	function getArrayRecettes($recettes_array){
 		if(empty($recettes_array))
-			return getMessageDepensesVide('div-recettes-array');
+			return getMessageRecettesVide('div-recettes-array');
 
 		$array=<<<HTML
 		<table id='recettes_array' class="tablesorter table table-striped table-historique-dash ">
