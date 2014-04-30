@@ -293,7 +293,7 @@ HTML;
 			$total_recettes += $value['prix_action'];
 		}
 
-		if($total_recettes !=0 || $total_depenses){
+		if($total_recettes !=0 || $total_depenses !=0){
 			$depenses_prorata = substr( $total_depenses/($total_depenses+$total_recettes) *100, 0,5);
 			$recettes_prorata = substr( $total_recettes/($total_depenses+$total_recettes) *100, 0,5);
 		}
