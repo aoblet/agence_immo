@@ -31,7 +31,7 @@ HTML;
 		return <<<HTML
 			<div id='$id_div' class="bien-spe-desc-no-res bg-white margin30">
 				<h4>Dépenses</h4>
-				<p>Bonne nouvelle: Il n'y a pas de dépenses pour le moment</p>
+				<p>Bonne nouvelle: Il n'y a pas de dépenses pour le moment !</p>
 			</div>
 HTML;
 	}
@@ -312,22 +312,24 @@ HTML;
 		}
 
 		$js=<<<JAVASCRIPT
-				if(document.getElementById('canvas-diagramme') != null){
-					var data_pie = [
-						{
-							value:$total_recettes,
-							color:"rgba(151,187,205,0.7)"
-						},
-						{
-							value:$total_depenses,
-							color:"rgba(255,204,0,0.7)"
-						}
-					]
-					//maj totaux
-					document.getElementById('diagramme_recettes_legende').innerHTML += ' ($total_recettes € | $recettes_prorata %)';
-					document.getElementById('diagramme_depenses_legende').innerHTML += ' ($total_depenses € | $depenses_prorata %)';
-					var diagramme_pie = new Chart(document.getElementById("canvas-diagramme").getContext("2d")).Pie(data_pie);
-				}
+
+		
+			if(document.getElementById('canvas-diagramme') != null){
+				var data_pie = [
+					{
+						value:$total_recettes,
+						color:"rgba(151,187,205,0.7)"
+					},
+					{
+						value:$total_depenses,
+						color:"rgba(255,204,0,0.7)"
+					}
+				]
+				//maj totaux
+				document.getElementById('diagramme_recettes_legende').innerHTML += ' ($total_recettes € | $recettes_prorata %)';
+				document.getElementById('diagramme_depenses_legende').innerHTML += ' ($total_depenses € | $depenses_prorata %)';
+				var diagramme_pie = new Chart(document.getElementById("canvas-diagramme").getContext("2d")).Pie(data_pie);
+			}
 
 JAVASCRIPT;
 
