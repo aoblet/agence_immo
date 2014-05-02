@@ -32,7 +32,7 @@
 						<form action="$link_deco" method='POST' name='send_to_deconnexion'>
 							<p>
 								<span>{$session['prenom_personne']} {$session['nom_personne']}</span>
-								<img src="$link_photo">
+								<img src="$link_photo" alt='photo_personne'>
 								<input type='hidden' name='come_from' value="{$file_come_from}" />
 								<a href='#' onclick='document.send_to_deconnexion.submit()' class="fa-deconnect" title='Déconnexion'><i class="deco-moove fa fa-unlock"></i></a>
 							</p>

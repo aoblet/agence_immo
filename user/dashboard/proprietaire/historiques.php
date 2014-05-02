@@ -107,32 +107,32 @@
 
 	<?php echo getFooter() ?>
 
-</div>
 
 
-<script type="text/javascript">
-var open_menu = 0;
-$( "#connect").click(function() {
-	$('#connect-form').slideToggle('fast');
-});
+	<script type="text/javascript">
+		//<![CDATA[
+		var open_menu = 0;
+		$( "#connect").click(function() {
+			$('#connect-form').slideToggle('fast');
+		});
 
-$( "#connect-mobile").click(function() {
-	$('#connect-form').slideToggle('fast');
-});
-
-
-<?php echo getDepensesGraphiqueJS($depenses) ?>
-<?php echo getRecettesGraphiqueJS($rentrees) ?>
-<?php echo getDiagrammeProportionsJS($depenses,$rentrees) ?>
-
-<?php echo getChoiceButtonJS()?>
+		$( "#connect-mobile").click(function() {
+			$('#connect-form').slideToggle('fast');
+		});
 
 
-<?php echo addSortArrayDepensesJS(); ?>
-<?php echo addSortArrayRecettesJS(); ?>
+		<?php echo getDepensesGraphiqueJS($depenses) ?>
+		<?php echo getRecettesGraphiqueJS($rentrees) ?>
+		<?php echo getDiagrammeProportionsJS($depenses,$rentrees) ?>
 
-</script>
+		<?php echo getChoiceButtonJS()?>
 
 
-</body>
+		<?php echo addSortArrayDepensesJS(); ?>
+		<?php echo addSortArrayRecettesJS(); ?>
+		// ]]>
+	</script>
+
+
+	</body>
 </html>

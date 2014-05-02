@@ -30,14 +30,13 @@
 
 
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link rel="apple-touch-icon" href="icon.png" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="apple-touch-icon" href="icon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
 		<title>Agence Immo</title>
 
@@ -61,57 +60,40 @@
 	</head>
 
 	<body>
+		<?php echo getBanniereConnexion($_SESSION) ?>
+		<?php echo getBanniereDash() ?>
 
-	<?php echo getBanniereConnexion($_SESSION) ?>
-	<?php echo getBanniereDash() ?>
+		<section class="bg-grey first-section" style="padding-top:60px;">
+			<div class="container ">
+				<div class="row">
 
+					<?php echo getMenuOnBien($_GET['id_bien_immobilier']) ?>
 
-	<section class="bg-grey first-section" style="padding-top:60px;">
+					<div class="col-md-9">
 
-		<div class="container ">
-			<div class="row">
+						<?php echo getEtatDuBien($_GET['id_bien_immobilier']) ?>
 
-				<?php echo getMenuOnBien($_GET['id_bien_immobilier']) ?>
-			
-				<div class="col-md-9">
-					<?php echo getEtatDuBien($_GET['id_bien_immobilier']) ?>
+					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 
-	</section>
+		<section class="bg-grey" style="min-height:100px;">
+		</section>
 
+		<?php echo getFooter() ?>
 
+		<script type="text/javascript">
+			//<![CDATA[
+			var open_menu = 0;
+			$( "#connect").click(function() {
+				$('#connect-form').slideToggle('fast');
+			});
 
-
-
-
-
-	<section class="bg-grey" style="min-height:100px;">
-
-	</section>
-
-	<?php echo getFooter() ?>
-
-</div>
-
-
-
-<script type="text/javascript">
-
-
-var open_menu = 0;
-$( "#connect").click(function() {
-	$('#connect-form').slideToggle('fast');
-});
-
-$( "#connect-mobile").click(function() {
-	$('#connect-form').slideToggle('fast');
-});
-
-
-</script>
-
-
-</body>
+			$( "#connect-mobile").click(function() {
+				$('#connect-form').slideToggle('fast');
+			});
+			// ]]>
+		</script>
+	</body>
 </html>
