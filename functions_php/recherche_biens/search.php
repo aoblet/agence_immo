@@ -37,16 +37,12 @@
 	 CF LES DEP REGIONS: CODE OU NOM??
 	 
 	 opt array indices : 'id_bien_immobilier', 'types_bien','type_achat_location', 'budget_mini','budget_maxi','ville','region','departement','nb_pieces','superficie_mini',
-						  'superficie_maxi', 'gaz_effet_serre','type_chauffage','consos_energetiques', 'jardin', 'parking', 'nb_etages', 'ascenseur','order_by',is_for_lambda,
-						  limit,
+						  'superficie_maxi', 'gaz_effet_serre','type_chauffage','consos_energetiques', 'jardin', 'parking', 'nb_etages', 'ascenseur',is_for_lambda, limit,
 						  id_personne_proprio, id_personne_locataire, id_personne_gest => pour compléments d'info
+						  'order_by',
 	 */
 	function searchBase($opt=NULL){
-		$limit = '';
-		if(isset($opt['limit']) && !empty($opt['limit']) && is_numeric($opt['limit']))
-			$limit = " LIMIT {$opt['limit']} ";
-
-
+		
 		$query = <<<SQL
 				SELECT DISTINCT 
 						bien_immobilier.id_bien_immobilier,
@@ -71,7 +67,7 @@
 SQL;
 
 		if(empty($opt)){
-			$query.=" AND bien_immobilier.id_personne_locataire IS NULL ";
+			$query.=" AND bien_immobilier.id_personne_locataire IS NULL "; //cas result.php sans critères
 		}
 		elseif(!empty($opt['id_bien_immobilier']) && is_numeric($opt['id_bien_immobilier'])){
 			$query.=" AND bien_immobilier.id_bien_immobilier = {$opt['id_bien_immobilier']} ";
@@ -80,7 +76,7 @@ SQL;
 		}
 		// recup les biens associés au personnes en fonction de leur type
 		elseif (isset($opt['id_personne_proprio']) && !empty($opt['id_personne_proprio'])) {
-			$query.=" AND id_personne_proprio = {$opt['id_personne_proprio']} ";
+			$query.=" AND id_personne_proprio = {$opt['id_personne_proprio']} ORDER BY date_parution DESC";
 		}
 		elseif (isset($opt['id_personne_locataire']) && !empty($opt['id_personne_locataire'])) {
 			$query.=" AND id_personne_locataire = {$opt['id_personne_locataire']} ";
@@ -89,6 +85,7 @@ SQL;
 			$query.=" AND id_personne_gest = {$opt['id_personne_gest']} ";
 		}
 		else{
+			// cas result.php
 			$opt = secureArray($opt);
 			//recupere tous les id des types de biens		
 			$clause_types_bien='';
@@ -230,7 +227,7 @@ SQL;
 			if(!empty($opt['order_by'])){
 				if( $opt['order_by'] == 'prix_croissant' || $opt['order_by'] == 'prix_decroissant' || 
 					$opt['order_by'] == 'superficie_croissant' || $opt['order_by'] == 'superficie_decroissant' || 
-					$opt['order_by'] =='nb_pieces' || $opt['order_by'] =='date_parution'){
+					$opt['order_by'] =='nb_pieces' || $opt['order_by'] =='date_parution' || $opt['order_by'] == 'date_parution_croissant	'){
 
 					if($opt['order_by'] == 'prix_croissant')
 						$clause_order_by = " ORDER BY prix";
@@ -247,6 +244,9 @@ SQL;
 				}
 			}
 			
+			$limit = ''; // annonces index.php
+			if(isset($opt['limit']) && !empty($opt['limit']) && is_numeric($opt['limit']))
+				$limit = " LIMIT {$opt['limit']} ";
 			
 			$query.= $clause_types_bien.$clause_type_achat_location.$clause_budget.$clause_superficie;
 			$query.= $clause_departement.$clause_region.$clause_ville.$clause_nb_pieces;
@@ -256,7 +256,7 @@ SQL;
 		
 		//echo $query;
 		$stmt = myPDO::getSingletonPDO()->query($query); 
-
+		
 		$resultas = array();
 		while($ligne = $stmt->fetch()){
 			$ligne['infos_conso_energetique'] 	= getInfosConsoEnergetique($ligne['id_bien_immobilier']);
@@ -277,9 +277,9 @@ SQL;
 	}
 
 	// rajoute d'autres informations
-	function searchForProprioBase($id_personne_proprio, $id_bien_immobilier=NULL){
-		if($id_bien_immobilier == NULL){
-			$res = searchBase(array('id_personne_proprio' => $id_personne_proprio ));
+	function searchForProprioBase($id_personne_proprio){
+		if($id_personne_proprio != NULL){
+			$res = searchBase(array('id_personne_proprio' => $id_personne_proprio));
 		}
 		return $res;
 	}

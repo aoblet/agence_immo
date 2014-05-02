@@ -27,6 +27,7 @@
 HTML;
 	}
 
+	//id_div -> cacher en js
 	function getMessageDepensesVide($id_div){
 		return <<<HTML
 			<div id='$id_div' class="bien-spe-desc-no-res bg-white margin30">
@@ -114,10 +115,10 @@ HTML;
 					buttons[i].removeAttribute('disabled');
 				}
 				
-				var btn_to_hide = document.getElementById(type_button+'_button_depenses');
-				if( btn_to_hide ){
-					btn_to_hide.setAttribute('disabled','true');
-					btn_to_hide.style.opacity='1';
+				var btn_to_show = document.getElementById(type_button+'_button_depenses');
+				if( btn_to_show ){
+					btn_to_show.setAttribute('disabled','true');
+					btn_to_show.style.opacity='1';
 				}
 			}
 
@@ -166,7 +167,7 @@ JAVASCRIPT;
 
 		$button_radar = "<input type='button' id='Radar_button_recettes' class='button-graphique' value='Graphique en toile' onClick=\"setTypeGraphique_Recettes('Radar')\">";
 
-		$button_bezier_off= "<input type='button' class='button-graphique' id='Line_bezier_off_button_depenses' value='Graphique classique linéaire' onClick=\"setTypeGraphique_Recettes('Line_bezier_off')\">";
+		$button_bezier_off= "<input type='button' class='button-graphique' id='Line_bezier_off_button_recettes' value='Graphique classique linéaire' onClick=\"setTypeGraphique_Recettes('Line_bezier_off')\">";
 		if(count($rentrees_array) <= 2){
 			$button_bezier_off ='';
 			$button_radar='';
@@ -227,10 +228,10 @@ HTML;
 					buttons[i].removeAttribute('disabled');
 				}
 				
-				var btn_to_hide = document.getElementById(type_button+'_button_recettes');
-				if( btn_to_hide ){
-					btn_to_hide.setAttribute('disabled','true');
-					btn_to_hide.style.opacity='1';
+				var btn_to_show = document.getElementById(type_button+'_button_recettes');
+				if( btn_to_show ){
+					btn_to_show.setAttribute('disabled','true');
+					btn_to_show.style.opacity='1';
 				}
 			}
 
@@ -308,7 +309,9 @@ HTML;
 
 		if($total_recettes !=0 || $total_depenses !=0){
 			$depenses_prorata = substr( $total_depenses/($total_depenses+$total_recettes) *100, 0,6);
-			$recettes_prorata = substr( $total_recettes/($total_depenses+$total_recettes) *100, 0,6);
+
+			// on peut déduire l'autre sans opérations => précision assurrée au niveau de l'arrondie
+			$recettes_prorata = substr( 100 - floatval($depenses_prorata), 0,6);
 		}
 
 		$js=<<<JAVASCRIPT
@@ -540,14 +543,13 @@ HTML;
 		$res=array();
 		if($id_bien_immobilier=='')
 			return getMessageNotFoundVisu();
-		$res=searchForProprioAvance($id_bien_immobilier); 
 
+		$res=searchForProprioAvance($id_bien_immobilier); 
 		if(empty($res))
 			return getMessageNotFoundVisu();
 
 		$html = getInformationsBaseEtatDuBien($res);
 		return $html;
-		
 	}
 
 
