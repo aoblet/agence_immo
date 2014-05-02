@@ -29,6 +29,11 @@
 
 
 
+#bar-connected{
+	position: fixed;
+	top: 0px;
+	z-index: 20000;
+}
 
 
 
@@ -42,13 +47,16 @@ header {
     border-color: #e5e6e9 #dfe0e4 #d0d1d5;
 }
 
+
 header h1{
+	margin-top: 60px;
     background: #2C3E50; 
     padding: 15px;
 	color: #FFF;
 	line-height: 2;
 	font-weight: 300;
 }
+
 
 .dash-nav {
 	display: block;
@@ -58,9 +66,7 @@ header h1{
 
 
 .dash-nav ul{
-
 	list-style: none;
-	
 }
 
 .dash-nav ul li a{
