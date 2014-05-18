@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 30 Avril 2014 à 20:33
+-- Généré le: Dim 18 Mai 2014 à 20:37
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
@@ -150,7 +150,7 @@ INSERT INTO `bien_immobilier` (`id_bien_immobilier`, `prix`, `superficie`, `nb_p
 (6, 450, 21, 3, 'Petit studio lumineux, très agréable pour les étudiants', 0, 0, NULL, 11, 12, NULL, NULL, 4, 6, 6, 7, '2014-04-22 18:40:20'),
 (7, 1600, 162, 9, 'Maison très agréable à vivre en communauté.', 1, 2, NULL, 11, 12, NULL, NULL, 1, 7, 4, 1, '2014-02-22 19:45:31'),
 (8, 5000, 500, 12, 'Immeuble en location parfait pour le début d''une TPE en région parisienne.', 1, 3, NULL, NULL, 12, NULL, 1, 1, 8, 5, 5, '2014-04-22 18:47:45'),
-(9, 7000, 22, 1, 'Grand garage utile pour tout le monde. Pratique pour stocker de la drogue.', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, 9, 7, 1, '2013-09-22 18:49:54');
+(9, 7000, 22, 1, 'Grand garage utile pour tout le monde. Pratique pour stocker de la drogue.', 0, 0, NULL, NULL, 12, 1, NULL, NULL, 9, 7, 1, '2013-09-22 18:49:54');
 
 -- --------------------------------------------------------
 
@@ -366,19 +366,6 @@ INSERT INTO `gaz_a_effet_de_serre_classe` (`id_gaz`, `nom_gaz`, `emission_kilo_c
 -- --------------------------------------------------------
 
 --
--- Structure de la table `habiter`
---
-
-CREATE TABLE IF NOT EXISTS `habiter` (
-  `id_personne` int(11) NOT NULL,
-  `id_adresse` int(11) NOT NULL,
-  PRIMARY KEY (`id_personne`,`id_adresse`),
-  KEY `FK_habiter_id_adresse` (`id_adresse`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `historique`
 --
 
@@ -391,7 +378,7 @@ CREATE TABLE IF NOT EXISTS `historique` (
   `date_historique` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_historique`),
   KEY `FK_Historique_id_bien_immobilier` (`id_bien_immobilier`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Contenu de la table `historique`
@@ -404,7 +391,11 @@ INSERT INTO `historique` (`id_historique`, `nom_action`, `prix_action`, `descrip
 (4, 'changement de fenêtre', 150, 'suite à une fusillade avec la police, la fenêtre du salon a été détruite', 2, '2014-04-25 16:31:16'),
 (5, 'aide au logement', 500, 'bourse versée par l''état', 2, '2014-04-28 22:55:24'),
 (6, 'aide régional', 6000, 'aide aux nouveaux proprietaires', 2, '2014-04-29 16:50:09'),
-(7, 'assurance de la mairie', 700, 'accident causé par le mairie', 2, '2014-04-18 22:00:00');
+(7, 'assurance de la mairie', 700, 'accident causé par le mairie', 2, '2014-04-18 22:00:00'),
+(8, 'achat fourniture papier peint', 150, 'rafraichissement salon ', 2, '2014-05-01 21:50:12'),
+(9, 'achat parquet', 2000, 'parquet pour le salon', 2, '2014-05-01 21:50:12'),
+(10, 'achat luminaire', 160, 'luminaires pour la cuisine', 2, '2014-05-01 21:51:18'),
+(11, 'achat mobilier', 6000, 'mobilier pour la cuisine', NULL, '2014-05-01 21:51:18');
 
 -- --------------------------------------------------------
 
@@ -425,10 +416,13 @@ CREATE TABLE IF NOT EXISTS `historique_depense` (
 
 INSERT INTO `historique_depense` (`id_historique`, `id_personne_impute`) VALUES
 (1, NULL),
+(2, NULL),
 (3, NULL),
-(5, NULL),
-(2, 9),
-(4, 9);
+(4, NULL),
+(8, NULL),
+(9, NULL),
+(10, NULL),
+(11, NULL);
 
 -- --------------------------------------------------------
 
@@ -448,7 +442,7 @@ CREATE TABLE IF NOT EXISTS `historique_entree` (
 --
 
 INSERT INTO `historique_entree` (`id_historique`, `id_paiement`) VALUES
-(2, NULL),
+(5, NULL),
 (6, NULL),
 (7, NULL);
 
@@ -531,15 +525,28 @@ INSERT INTO `maison` (`superficie_jardin`, `id_bien_immobilier`) VALUES
 
 CREATE TABLE IF NOT EXISTS `message` (
   `id_message` int(11) NOT NULL AUTO_INCREMENT,
-  `date_message` date DEFAULT NULL,
-  `contenu_message` varchar(255) DEFAULT NULL,
+  `date_message` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `contenu_message` varchar(5000) DEFAULT NULL,
   `traite` tinyint(1) DEFAULT NULL,
   `id_auteur` int(11) DEFAULT NULL,
   `id_destinataire` int(11) DEFAULT NULL,
+  `id_bien_immobilier` int(11) NOT NULL,
   PRIMARY KEY (`id_message`),
   KEY `FK_Message_id_auteur` (`id_auteur`),
-  KEY `FK_Message_id_destinataire` (`id_destinataire`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `FK_Message_id_destinataire` (`id_destinataire`),
+  KEY `FK_Message_id_bien_immobilier` (`id_bien_immobilier`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Contenu de la table `message`
+--
+
+INSERT INTO `message` (`id_message`, `date_message`, `contenu_message`, `traite`, `id_auteur`, `id_destinataire`, `id_bien_immobilier`) VALUES
+(1, '2014-05-18 01:10:47', 'Test bonjour!', 0, 12, 11, 2),
+(2, '2014-05-18 17:36:37', 'Réponse du test bonjour :)', 1, 11, 12, 2),
+(4, '2014-05-15 18:12:49', 'Bonjour Bill, pour visualiser tes dépenses, il te suffit de cliquer sur le lien prévu à cet effet, dans le menu situé à gauche de la page : "historiques des dépenses". Pour toutes informations supplémentaires, n''hésite pas à me recontacter ;)', 1, 12, 11, 2),
+(5, '2014-05-18 20:22:07', 'Hey je teste pour la première fois l''interface de message avec toi Matthieu :)', 0, 11, 12, 2),
+(6, '2014-05-18 20:22:31', 'C''est cool ça marche du tonnerre :)', 0, 11, 12, 2);
 
 -- --------------------------------------------------------
 
@@ -549,7 +556,7 @@ CREATE TABLE IF NOT EXISTS `message` (
 
 CREATE TABLE IF NOT EXISTS `paiement` (
   `id_paiement` int(11) NOT NULL AUTO_INCREMENT,
-  `date_paiement` date DEFAULT NULL,
+  `date_paiement` timestamp NULL DEFAULT NULL,
   `montant_paiement` double DEFAULT NULL,
   `motif_paiement` char(255) DEFAULT NULL,
   `id_personne_payeur` int(11) DEFAULT NULL,
@@ -573,23 +580,25 @@ CREATE TABLE IF NOT EXISTS `personne` (
   `password` varchar(255) DEFAULT NULL,
   `mail` varchar(25) DEFAULT NULL,
   `id_photo` int(11) DEFAULT NULL,
+  `id_adresse` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_personne`),
-  KEY `FK_Personne_id_photo` (`id_photo`)
+  KEY `FK_Personne_id_photo` (`id_photo`),
+  KEY `FK_Personne_id_adresse` (`id_adresse`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Contenu de la table `personne`
 --
 
-INSERT INTO `personne` (`id_personne`, `nom_personne`, `prenom_personne`, `login`, `password`, `mail`, `id_photo`) VALUES
-(1, 'test', 'test', 'test', 'test', 'test', NULL),
-(2, 'alexis', 'admin', 'admin', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', NULL, NULL),
-(7, 'alexis', 'admin', 'admin2', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', NULL, 1),
-(8, 'Oblet', 'Alexis', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'alexdeoiny@gmail.com', 1),
-(9, 'Biteau', 'Armand', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'armandbiteau@gmail.com', 1),
-(10, 'Locataire_nom', 'Locataire_prenom', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'locataire@gmail.com', 1),
-(11, 'Proprietaire_nom', 'Proprietaire_prenom', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'proprietaire@gmail.com', 2),
-(12, 'Employe_gestionnaire_nom', 'Employe_gestionnaire_prenom', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'employe@gmail.com', 1);
+INSERT INTO `personne` (`id_personne`, `nom_personne`, `prenom_personne`, `login`, `password`, `mail`, `id_photo`, `id_adresse`) VALUES
+(1, 'test', 'test', 'test', 'test', 'test', NULL, NULL),
+(2, 'alexis', 'admin', 'admin', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', NULL, NULL, NULL),
+(7, 'alexis', 'admin', 'admin2', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', NULL, 1, NULL),
+(8, 'Oblet', 'Alexis', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'alexdeoiny@gmail.com', 1, NULL),
+(9, 'Biteau', 'Armand', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'armandbiteau@gmail.com', 1, NULL),
+(10, 'Locataire_nom', 'Locataire_prenom', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'locataire@gmail.com', 1, NULL),
+(11, 'Gates', 'Bill', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'proprietaire@gmail.com', 2, 7),
+(12, 'Constant', 'Matthieu', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'employe@gmail.com', 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -601,7 +610,7 @@ CREATE TABLE IF NOT EXISTS `photo` (
   `id_photo` int(11) NOT NULL AUTO_INCREMENT,
   `chemin_photo` varchar(255) NOT NULL,
   PRIMARY KEY (`id_photo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `photo`
@@ -609,7 +618,8 @@ CREATE TABLE IF NOT EXISTS `photo` (
 
 INSERT INTO `photo` (`id_photo`, `chemin_photo`) VALUES
 (1, 'img/avatar.png'),
-(2, 'img/11/cowboy.jpg');
+(2, 'img/11/gates.jpg'),
+(3, 'img/12/constant.jpg');
 
 -- --------------------------------------------------------
 
@@ -750,13 +760,6 @@ ALTER TABLE `garage`
   ADD CONSTRAINT `FK_Garage_id_bien_immobilier` FOREIGN KEY (`id_bien_immobilier`) REFERENCES `bien_immobilier` (`id_bien_immobilier`);
 
 --
--- Contraintes pour la table `habiter`
---
-ALTER TABLE `habiter`
-  ADD CONSTRAINT `FK_habiter_id_adresse` FOREIGN KEY (`id_adresse`) REFERENCES `adresse` (`id_adresse`),
-  ADD CONSTRAINT `FK_habiter_id_personne` FOREIGN KEY (`id_personne`) REFERENCES `personne` (`id_personne`);
-
---
 -- Contraintes pour la table `historique`
 --
 ALTER TABLE `historique`
@@ -806,6 +809,7 @@ ALTER TABLE `maison`
 --
 ALTER TABLE `message`
   ADD CONSTRAINT `FK_Message_id_auteur` FOREIGN KEY (`id_auteur`) REFERENCES `personne` (`id_personne`),
+  ADD CONSTRAINT `FK_Message_id_bien_immobilier` FOREIGN KEY (`id_bien_immobilier`) REFERENCES `bien_immobilier` (`id_bien_immobilier`),
   ADD CONSTRAINT `FK_Message_id_destinataire` FOREIGN KEY (`id_destinataire`) REFERENCES `personne` (`id_personne`);
 
 --
@@ -819,6 +823,7 @@ ALTER TABLE `paiement`
 -- Contraintes pour la table `personne`
 --
 ALTER TABLE `personne`
+  ADD CONSTRAINT `FK_Personne_id_adresse` FOREIGN KEY (`id_adresse`) REFERENCES `adresse` (`id_adresse`),
   ADD CONSTRAINT `FK_Personne_id_photo` FOREIGN KEY (`id_photo`) REFERENCES `photo` (`id_photo`);
 
 --
