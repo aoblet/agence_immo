@@ -66,6 +66,7 @@ HTML;
 					</div>";
 		}
 		else{
+			$cpt=1;
 			foreach ($conversation as $value) {
 				if($value['id_auteur'] != $id_personne_auteur)	//on met a droite l'autre interlocuteur, clase AGENCE
 					//message provenant de l'agence
@@ -78,6 +79,11 @@ HTML;
 				$date_formated = getDateFormatedConversation($value['date_message']);
 				$contenu_message=$value['contenu_message'];
 
+				$ancre='';
+				if($cpt == sizeof($conversation))
+					$ancre = "id='last_message_ancre'";
+				$cpt++;
+
 				$html.=<<<HTML
 					<div class="$classe">
 						<div class="contact-direct-pic">
@@ -89,7 +95,7 @@ HTML;
 								
 							</div>
 							<div class="contact-direct-message bg-white">
-								<div class="contact-direct-message-triangle"></div>
+								<div class="contact-direct-message-triangle" $ancre></div>
 								<p>$contenu_message
 							</p>
 							</div>
@@ -103,12 +109,12 @@ HTML;
 		$traitement_formulaire=getPathRoot().'user/dashboard/commun/send_message.php';
 		$come_from = $_SERVER['PHP_SELF'].'?';
 		foreach ($_GET as $key => $value) {
-			$come_from.=$key.'='.$value.'&#send_message_ancre';
+			$come_from.=$key.'='.$value.'&#last_message_ancre';
 		}
 
 		$html.=<<<HTML
-				<div class="send-mess-user" id='send_message_ancre'>
-					<form action='$traitement_formulaire' method='POST'>
+				<div class="send-mess-user">
+					<form name="form_send_message" action='$traitement_formulaire' method='POST'>
 						<div class="send-mess-user-triangle"></div>
 						<textarea name='contenu_message' required placeholder="Envoyer un message..."></textarea>
 						<input type='hidden' name='come_from' value='$come_from'>
@@ -119,4 +125,29 @@ HTML;
 HTML;
 
 		return $html;
+	}
+
+	function raccourciSendMessageJquery(){
+		return <<<JAVASCRIPT
+		function listenerRaccourciSend(){
+			$(function(){
+				var isCtrlFormMessage = false;
+				$("textarea[name='contenu_message']").keydown(function(e){
+					if(e.keyCode == 17)//ctrl
+						isCtrlFormMessage=true;
+
+					if(isCtrlFormMessage && e.keyCode == 13 && $("textarea[name=contenu_message]").val() != '')//enter
+						$("form[name=form_send_message]").submit();
+				});
+
+				$("textarea[name='contenu_message']").keyup(function(e){
+					if(e.keyCode == 17)
+						isCtrlFormMessage = false;
+				});
+			});
+		}
+
+		listenerRaccourciSend();
+
+JAVASCRIPT;
 	}

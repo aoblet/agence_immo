@@ -14,7 +14,7 @@
 		header('Location: '.$link_home);
 		die();
 	}
-
+	
 	if(!isset($_GET['id_bien_immobilier']) || empty($_GET['id_bien_immobilier']) || !getLegitimite($_SESSION, $_GET['id_bien_immobilier']) ){
 		header('Location: ../../dashboardGateway.php');
 		die();
@@ -87,6 +87,7 @@
 <script type="text/javascript">
 
 <?php echo raccourciSendMessageJquery();?>
+
 var open_menu = 0;
 $( "#connect").click(function() {
 	$('#connect-form').slideToggle('fast');

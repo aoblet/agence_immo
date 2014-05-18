@@ -140,9 +140,9 @@
 						<div id="avanced-search-infos" class="bg-white">
 							<h1>FAKE AGENCY</h1>
 							<h4>Nous contacter</h4>
-							<p><a><i class="fa fa-phone"></i>01 45 38 49 02</a></p>
-							<p><a><i class="fa fa-envelope"></i>contact@agence.com</a></p>
-							<p><a><i class="fa fa-keyboard-o"></i>Joindre un conseiller</a></p>
+							<p><a href='tel:+33145384902'><i class="fa fa-phone"></i>01 45 38 49 02</a></p>
+							<p><a href='mailto:contact@agence.com'><i class="fa fa-envelope"></i>contact@agence.com</a></p>
+							<!-- <p><a><i class="fa fa-keyboard-o"></i>Joindre un conseiller</a></p> -->
 						</div>
 
 						<div id="avanced-search" class="bg-white margin30">
