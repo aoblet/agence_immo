@@ -5,12 +5,15 @@
 	require_once(dirname(__FILE__).'/../../../enum/enum_type_user.php');
 	session_start();
 
-	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne']) || $_SESSION['type_personne'] != PROPRIETAIRE){
+	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne'])){
 		$link_home = getPathRoot().'index.php';
 		header('Location: '.$link_home);
 		die();
 	}
-
+	if(!isset($_GET['id_bien_immobilier']) || empty($_GET['id_bien_immobilier'])){
+		header('Location: ../../dashboardGateway.php');
+		die();
+	}
 ?>
 
 

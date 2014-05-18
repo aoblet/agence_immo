@@ -73,9 +73,10 @@
 	</head>
 
 	<body>
-
-	<?php echo getBanniereConnexion($_SESSION) ?>
-	<?php echo getBanniereDash() ?>
+	<header>
+		<?php echo getBanniereConnexion($_SESSION) ?>
+		<?php echo getBanniereDash() ?>
+	</header>
 
 
 	<section class="bg-grey first-section" style="padding-top:60px;">

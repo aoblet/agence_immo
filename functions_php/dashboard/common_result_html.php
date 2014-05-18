@@ -1,5 +1,6 @@
 <?php
 	require_once(dirname(__FILE__).'/../visualisation_bien/getUtils.php');
+	require_once(dirname(__FILE__).'/../user_utils/dashboard/getUtils.php');
 
 	function getInformationsBaseEtatDuBien($infos_array){
 		$res=$infos_array; 
@@ -169,3 +170,65 @@ HTML;
 HTML;
 	return $result_html;
 	}
+
+
+	function getInfosIdentiteForm($id_personne,$absolute_path_to_handle_form){
+		if($id_personne == NULL)
+			return '';
+		$html="";
+
+		$infos = getIdentitePersonne($id_personne);
+		if(empty($infos)){
+			return <<<HTML
+			<div class="form-user bg-white margin30">
+				<h4> Il y'a une petite erreur, nous ne vous connaissons pas au sein de notre agence, veuillez nous contacter par téléphone, s'il vous plaît.</h4>
+			</div>
+HTML;
+		}
+		$rue 			= !empty($infos['rue']) ? $infos['rue'] : "rue";
+		$ville 			= !empty($infos['ville']) ? $infos['ville'] : "ville";
+		$code_postal 	= !empty($infos['code_postal']) ? $infos['code_postal'] : "code postal";
+		$numero_rue 	= !empty($infos['numero_rue']) ? $infos['numero_rue'] : "numero rue";
+
+
+		return <<<HTML
+			<div class="form-user bg-white margin30">
+				<form method='POST' action ='#'>
+					<h4>Pour un éventuel changement d'adresse email, veuillez contacter l'agence par téléphone.</h4>
+					
+					<div class="form-champ">
+						<label>Nom</label>
+						<input type="text" name="nom" value="" required="required" disabled placeholder="{$infos['prenom_personne']}"/>
+					</div>
+
+					<div class="form-champ">
+						<label>Prénom</label>
+						<input type="text" name="prenom" value="" required="required" disabled placeholder="{$infos['nom_personne']}"/>
+					</div>
+
+					<div class="form-champ">
+						<label>Adresse</label>
+						<input type="text" name="rue" value="" required="required" placeholder="$rue"/>
+						<input type="text" name="numero_rue" value="" required="required" placeholder="$numero_rue"/>
+					</div>
+
+					<div class="form-champ">
+						<label>Code Postal</label>
+						<input type="text" name="code_postal" value="" required="required" placeholder="$code_postal"/>
+					</div>
+
+					<div class="form-champ">
+						<label>Ville</label>
+						<input type="text" name="ville" value="" required="required" placeholder="$ville"/>
+					</div>
+
+					
+					<div class="form-champ-sub">
+						<input type="submit" name="connexion" value="Mettre à jour mes données" onclick='return false' />
+						<!-- fonction js à implementer-->
+					</div>
+				</form>
+			</div>
+HTML;
+		
+}

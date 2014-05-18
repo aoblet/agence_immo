@@ -1,20 +1,25 @@
 <?php
+	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/getUtils_html.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils_html.php');
+	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/proprietaire/affichage_result.php');
+	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/message_html.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/getUtils_html.php');
 	require_once(dirname(__FILE__).'/../../../enum/enum_type_user.php');
 	session_start();
 
-	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne']) || $_SESSION['type_personne'] != PROPRIETAIRE){
+	//verif securité
+	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne'])){
 		$link_home = getPathRoot().'index.php';
 		header('Location: '.$link_home);
 		die();
 	}
 
+	if(!isset($_GET['id_bien_immobilier']) || empty($_GET['id_bien_immobilier']) || !getLegitimite($_SESSION, $_GET['id_bien_immobilier']) ){
+		header('Location: ../../dashboardGateway.php');
+		die();
+	}
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -60,11 +65,9 @@
 				<div class="col-md-9">
 					
 					<div class="titlepage bg-blue">
-						<h2>Mes biens</h2>
+						<h2>Contact direct</h2>
 					</div>
-
-					<?php echo getListBiens($_SESSION['id_personne']) ?>
-
+					<?php echo getMessageHTML($_GET['id_bien_immobilier'], $_SESSION['id_personne'])?>
 				</div>
 			</div>
 		</div>

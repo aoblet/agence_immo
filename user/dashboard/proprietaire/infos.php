@@ -1,27 +1,26 @@
 <?php
+	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils_html.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/proprietaire/affichage_result.php');
+	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/common_result_html.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/getUtils_html.php');
 	require_once(dirname(__FILE__).'/../../../enum/enum_type_user.php');
 	session_start();
 
 	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne']) || $_SESSION['type_personne'] != PROPRIETAIRE){
 		$link_home = getPathRoot().'index.php';
-		header('Location: '.$link_home);
+		header('Location: '.$link_home,false,301);
 		die();
 	}
 
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link rel="apple-touch-icon" href="icon.png" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="apple-touch-icon" href="icon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
 		<title>Agence Immo</title>
 
@@ -45,58 +44,46 @@
 	</head>
 
 	<body>
-	<header>
-		<?php echo getBanniereConnexion($_SESSION) ?>
-		<?php echo getBanniereDash() ?>
-	</header>
+		<header>
+			<?php echo getBanniereConnexion($_SESSION) ?>
+			<?php echo getBanniereDash() ?>
+		</header>
+		
+		<section class="bg-grey first-section" style="padding-top:60px;">
 
-	<section class="bg-grey first-section" style="padding-top:60px;">
-
-		<div class="container ">
-			<div class="row">
-
-				<?php echo getMenuAccueil($_SESSION['type_personne']) ?>
-			
-				<div class="col-md-9">
+			<div class="container ">
+				<div class="row">
+					<?php echo getMenuAccueil($_SESSION['type_personne']) ?>
+					<div class="col-md-9">
 					
 					<div class="titlepage bg-blue">
-						<h2>Mes biens</h2>
+						<h2>Modifier mes informations personnelles</h2>
 					</div>
-
-					<?php echo getListBiens($_SESSION['id_personne']) ?>
-
+		
+					<?php echo getInfosIdentiteForm($_SESSION['id_personne'],"lol.php") ?>
+								
 				</div>
 			</div>
-		</div>
+		</section>
 
-	</section>
-
-	<section class="bg-grey" style="min-height:100px;">
-
-	</section>
-
-	<?php echo getFooter() ?>
-
-</div>
+		<section class="bg-grey" style="min-height:100px;">
+		</section>
 
 
-
-<script type="text/javascript">
-
-
-var open_menu = 0;
-$( "#connect").click(function() {
-	$('#connect-form').slideToggle('fast');
-});
-
-$( "#connect-mobile").click(function() {
-	$('#connect-form').slideToggle('fast');
-});
+		<?php echo getFooter() ?>
 
 
-</script>
+		<script type="text/javascript">
+			//<![CDATA[
+			var open_menu = 0;
+			$( "#connect").click(function() {
+				$('#connect-form').slideToggle('fast');
+			});
 
-
-</body>
+			$( "#connect-mobile").click(function() {
+				$('#connect-form').slideToggle('fast');
+			});
+			// ]]>
+		</script>
+	</body>
 </html>
-

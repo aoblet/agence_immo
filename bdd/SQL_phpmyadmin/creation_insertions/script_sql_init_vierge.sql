@@ -12,6 +12,7 @@ CREATE TABLE Personne(
         password        Varchar (255) ,
         mail            Varchar (25) ,
         id_photo        Int ,
+        id_adresse      Int,
         PRIMARY KEY (id_personne )
 )ENGINE=InnoDB;
 
@@ -128,11 +129,12 @@ CREATE TABLE Region(
 
 CREATE TABLE Message(
         id_message           int (11) Auto_increment  NOT NULL ,
-        date_message         Date ,
+        date_message         TimeStamp ,
         contenu_message      Varchar (255) ,
         traite               Bool ,
         id_auteur            Int ,
         id_destinataire      Int ,
+        id_bien_immobilier   Int,
         PRIMARY KEY (id_message )
 )ENGINE=InnoDB;
 
@@ -181,7 +183,7 @@ CREATE TABLE Historique_entree(
 
 CREATE TABLE Paiement(
         id_paiement      int (11) Auto_increment  NOT NULL ,
-        date_paiement    Date ,
+        date_paiement    TimeStamp ,
         montant_paiement Double ,
         motif_paiement   Char (255) ,
         id_personne      Int ,
@@ -202,19 +204,14 @@ CREATE TABLE Garage(
 )ENGINE=InnoDB;
 
 
-CREATE TABLE habiter(
-        id_personne Int NOT NULL ,
-        id_adresse  Int NOT NULL ,
-        PRIMARY KEY (id_personne ,id_adresse )
-)ENGINE=InnoDB;
-
-
 CREATE TABLE illustrer(
         id_bien_immobilier Int NOT NULL ,
         id_photo           Int NOT NULL ,
         PRIMARY KEY (id_bien_immobilier ,id_photo )
 )ENGINE=InnoDB;
 ALTER TABLE Personne ADD CONSTRAINT FK_Personne_id_photo FOREIGN KEY (id_photo) REFERENCES Photo(id_photo);
+ALTER TABLE Personne ADD CONSTRAINT FK_Personne_id_adresse FOREIGN KEY (id_adresse) REFERENCES Adresse(id_adresse);
+
 ALTER TABLE Proprietaire ADD CONSTRAINT FK_Proprietaire_id_personne FOREIGN KEY (id_personne) REFERENCES Personne(id_personne) ON DELETE CASCADE ON UPDATE RESTRICT;
 ALTER TABLE Locataire ADD CONSTRAINT FK_Locataire_id_personne FOREIGN KEY (id_personne) REFERENCES Personne(id_personne) ON DELETE CASCADE ON UPDATE RESTRICT;
 ALTER TABLE Employe ADD CONSTRAINT FK_Employe_id_personne FOREIGN KEY (id_personne) REFERENCES Personne(id_personne) ON DELETE CASCADE ON UPDATE RESTRICT;
@@ -240,6 +237,7 @@ ALTER TABLE Departement ADD CONSTRAINT FK_Departement_id_region FOREIGN KEY (id_
 
 ALTER TABLE Message ADD CONSTRAINT FK_Message_id_auteur FOREIGN KEY (id_auteur) REFERENCES Personne(id_personne);
 ALTER TABLE Message ADD CONSTRAINT FK_Message_id_destinataire FOREIGN KEY (id_destinataire) REFERENCES Personne(id_personne);
+ALTER TABLE Message ADD CONSTRAINT FK_Message_id_bien_immobilier FOREIGN KEY (id_bien_immobilier) REFERENCES Bien_immobilier(id_bien_immobilier);
 
 ALTER TABLE Historique_depense ADD CONSTRAINT FK_Historique_depense_id_historique FOREIGN KEY (id_historique) REFERENCES Historique(id_historique);
 ALTER TABLE Historique_depense ADD CONSTRAINT FK_Historique_depense_id_personne FOREIGN KEY (id_personne) REFERENCES Personne(id_personne);
@@ -249,9 +247,6 @@ ALTER TABLE Historique_entree ADD CONSTRAINT FK_Historique_entree_id_paiement FO
 
 ALTER TABLE Paiement ADD CONSTRAINT FK_Paiement_id_personne FOREIGN KEY (id_personne) REFERENCES Personne(id_personne);
 ALTER TABLE Paiement ADD CONSTRAINT FK_Paiement_id_historique FOREIGN KEY (id_historique) REFERENCES Historique(id_historique);
-
-ALTER TABLE habiter ADD CONSTRAINT FK_habiter_id_personne FOREIGN KEY (id_personne) REFERENCES Personne(id_personne);
-ALTER TABLE habiter ADD CONSTRAINT FK_habiter_id_adresse FOREIGN KEY (id_adresse) REFERENCES Adresse(id_adresse);
 
 ALTER TABLE illustrer ADD CONSTRAINT FK_illustrer_id_bien_immobilier FOREIGN KEY (id_bien_immobilier) REFERENCES Bien_immobilier(id_bien_immobilier);
 ALTER TABLE illustrer ADD CONSTRAINT FK_illustrer_id_photo FOREIGN KEY (id_photo) REFERENCES Photo(id_photo);

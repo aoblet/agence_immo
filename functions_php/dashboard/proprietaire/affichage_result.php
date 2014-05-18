@@ -3,6 +3,7 @@
 	require_once(dirname(__FILE__).'/../../recherche_biens/affichage_result.php');
 	require_once(dirname(__FILE__).'/../../visualisation_bien/getUtils.php');
 	require_once(dirname(__FILE__).'/../common_result_html.php');
+	require_once(dirname(__FILE__).'/../../user_utils/getUtils_html.php');
 
 	function getListBiens($id_personne){
 		return affichage_base_liste_html(searchForProprioBase($id_personne));
@@ -12,11 +13,12 @@
 		//gérer quand le bien est loué : pas d'affichage dans le menu cf visu bien ?
 
 		$link_etat_bien = dirname($_SERVER['PHP_SELF']).'/bien.php?id_bien_immobilier='.trim($id_bien_immobilier);
+		$link_infos = getPathRoot().'user/dashboard/proprietaire/infos.php';
 		return <<<HTML
 		<div class="col-md-3">
 			<div class="dash-menu bg-white">
 				<h4>MENU</h4>
-				<a href="" class="button-home"><i class="fa fa-user"></i>Mes données personnelles</a>
+				<a href="$link_infos" class="button-home"><i class="fa fa-user"></i>Mes données personnelles</a>
 				<a href="historiques.php?id_bien_immobilier=$id_bien_immobilier" class="button-home"><i class="fa fa-sort-amount-desc"></i>Historiques financiers</a>
 				<a href="$link_etat_bien" class="button-home"><i class="fa fa-sitemap"></i>Etat du bien</a>
 				<a href="" class="button-home"><i class="fa fa-envelope"></i>Contacter l'agence</a>
