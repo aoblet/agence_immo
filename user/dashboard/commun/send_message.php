@@ -27,7 +27,6 @@
 		INSERT 	INTO message (id_auteur,id_destinataire,contenu_message,traite,id_bien_immobilier) 
 				VALUES ($id_auteur,$id_destinataire,'$contenu_message',0,$id_bien_immobilier)
 SQL;
-	echo $query;
 	$stmt=myPDO::getSingletonPDO()->query($query);
 	$stmt->closeCursor();
 
