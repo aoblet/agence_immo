@@ -42,7 +42,42 @@ HTML;
 			<div class="dash-menu bg-white" >
 				<h4>MENU</h4>
 				<a href="$infos_persos_link" class="button-home"><i class="fa fa-user"></i>Mes données personnelles</a>
-				<a href="" class="button-home"><i class="fa fa-envelope"></i>Contacter l'agence</a>
+				<a href="./messages.php" class="button-home"><i class="fa fa-envelope"></i>Mes messages</a>
+			</div>
+		</div>
+
+HTML;
+	}
+
+	function getMenuOnMessage($type_personne){
+		$infos_persos_link = getPathRoot().'user/dashboard/';
+		$mes_messages_link = getPathRoot().'user/dashboard/';
+		if($type_personne == LOCATAIRE){
+			$infos_persos_link.="locataire/infos.php";
+			$mes_messages_link.="locataire/messages.php";
+		}
+		else if($type_personne == PROPRIETAIRE){
+			$infos_persos_link.="proprietaire/infos.php";
+			$mes_messages_link.="proprietaire/messages.php";
+
+		}
+		else if($type_personne == EMPLOYE){
+			$infos_persos_link.="employe/infos.php";
+			$mes_messages_link.="employe/messages.php";
+		}
+		else{
+			$infos_persos_link='';
+			$mes_messages_link="";
+		}
+
+		return <<<HTML
+		<div class="col-md-3" >
+			<div class="dash-menu bg-white" >
+				<h4>MENU</h4>
+				<a href="$infos_persos_link" class="button-home"><i class="fa fa-user"></i>Mes données personnelles</a>
+				<a href="$mes_messages_link" class="button-home"><i class="fa fa-envelope"></i>Mes messages</a>
+				<a href="./" class="button-home"><i class="fa fa-reply"></i>Retour au Dash</a>
+				<!--<a href="" class="button-home"><i class="fa fa-envelope"></i>Contacter l'agence</a>-->
 			</div>
 		</div>
 

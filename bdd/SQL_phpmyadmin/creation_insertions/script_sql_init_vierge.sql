@@ -130,7 +130,7 @@ CREATE TABLE Region(
 CREATE TABLE Message(
         id_message           int (11) Auto_increment  NOT NULL ,
         date_message         TimeStamp ,
-        contenu_message      Varchar (255) ,
+        contenu_message      Varchar (5000) ,
         traite               Bool ,
         id_auteur            Int ,
         id_destinataire      Int ,

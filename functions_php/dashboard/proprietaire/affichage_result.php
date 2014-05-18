@@ -14,6 +14,7 @@
 
 		$link_etat_bien = dirname($_SERVER['PHP_SELF']).'/bien.php?id_bien_immobilier='.trim($id_bien_immobilier);
 		$link_infos = getPathRoot().'user/dashboard/proprietaire/infos.php';
+		$link_messages = getPathRoot().'user/dashboard/proprietaire/messages.php';
 		return <<<HTML
 		<div class="col-md-3">
 			<div class="dash-menu bg-white">
@@ -21,7 +22,7 @@
 				<a href="$link_infos" class="button-home"><i class="fa fa-user"></i>Mes données personnelles</a>
 				<a href="historiques.php?id_bien_immobilier=$id_bien_immobilier" class="button-home"><i class="fa fa-sort-amount-desc"></i>Historiques financiers</a>
 				<a href="$link_etat_bien" class="button-home"><i class="fa fa-sitemap"></i>Etat du bien</a>
-				<a href="" class="button-home"><i class="fa fa-envelope"></i>Contacter l'agence</a>
+				<a href="$link_messages" class="button-home"><i class="fa fa-envelope"></i>Mes messages</a>
 				<!--<a href="" class="button-home"><i class="fa fa-book"></i>Voir l'annonce du bien</a>-->
 				<a href="./" class="button-home"><i class="fa fa-reply"></i>Retour au Dash</a>
 			</div>

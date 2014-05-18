@@ -208,8 +208,8 @@ HTML;
 
 					<div class="form-champ">
 						<label>Adresse</label>
-						<input type="text" name="rue" value="" required="required" placeholder="$rue"/>
 						<input type="text" name="numero_rue" value="" required="required" placeholder="$numero_rue"/>
+						<input type="text" name="rue" value="" required="required" placeholder="$rue"/>
 					</div>
 
 					<div class="form-champ">

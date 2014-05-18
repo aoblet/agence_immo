@@ -34,7 +34,7 @@
 		return ($res ? true : false);
 	}
 
-	function getConversation($id_bien_immobilier,$id_personne_destinataire){
+	function getConversation($id_bien_immobilier,$id_personne_destinataire,$id_personne_auteur){
 		$res = array();
 
 		if($id_personne_destinataire == NULL || $id_bien_immobilier == NULL)
@@ -46,17 +46,17 @@
 							message.traite,
 							message.id_auteur,
 							message.id_destinataire,
-							(SELECT personne.nom_personne FROM personne WHERE personne.id_personne = message.id_auteur) AS prenom_auteur, 
+							(SELECT personne.prenom_personne FROM personne WHERE personne.id_personne = message.id_auteur) AS prenom_auteur, 
 							(SELECT personne.nom_personne FROM personne WHERE personne.id_personne = message.id_auteur) AS nom_auteur,
 							(SELECT photo.chemin_photo FROM photo,personne WHERE photo.id_photo = personne.id_photo AND personne.id_personne = message.id_auteur) AS photo_auteur,
 							(SELECT personne.nom_personne FROM personne WHERE personne.id_personne = message.id_destinataire) AS prenom_destinataire, 
 							(SELECT personne.nom_personne FROM personne WHERE personne.id_personne = message.id_destinataire) AS nom_destinataire,
 							(SELECT photo.chemin_photo FROM photo,personne WHERE photo.id_photo = personne.id_photo AND personne.id_personne = message.id_destinataire) AS photo_destinataire 
 					FROM 	message LEFT JOIN personne ON message.id_destinataire =personne.id_personne
-					WHERE 	(id_destinataire = $id_personne_destinataire OR id_auteur = $id_personne_destinataire) AND 
+					WHERE 	(	(id_destinataire = $id_personne_destinataire AND id_auteur = $id_personne_auteur) OR
+								(id_destinataire = $id_personne_auteur AND id_auteur = $id_personne_destinataire) ) AND 
 							id_bien_immobilier = $id_bien_immobilier
 					ORDER BY date_message";
-
 		$stmt = myPDO::getSingletonPDO()->query($query);
 		while($ligne = $stmt->fetch())
 			$res[] = $ligne;
