@@ -395,109 +395,31 @@ input[type='reset']:hover, input[type="submit"]:hover{
 }
 
 
-.contact-direct-USER{
+.contact-direct-AGENCE{
 	float: left;
 	height: auto;
 	margin-top: 5px;
 	padding-bottom: 0px;
 }
-.contact-direct-USER .contact-direct-pic{
+.contact-direct-AGENCE .contact-direct-pic{
 	float: left;
 	width: 65px;
 	min-height: 65px;
 }
-.contact-direct-USER .contact-direct-pic img{
+.contact-direct-AGENCE .contact-direct-pic img{
 	margin-top: 27px;
 	float: left;
 	width: 50px;
 	height: 50px;
 	border-radius: 100%;
 }
-.contact-direct-USER .contact-direct-author{
+.contact-direct-AGENCE .contact-direct-author{
 	text-align: left;
 	
 }
-.contact-direct-USER .contact-direct-author h4{
-	text-align: left;
-	float: left;
-	line-height: 1.5;
-}
-.contact-direct-USER .contact-direct-author span{
-	margin-left: 7px;
-	font-size: 14px;
-	font-weight: 300;
-	color: #aab;
-}
-.contact-direct-USER .contact-direct-rep a{
-	padding: 10px;
-	padding-left: 15px;
-	padding-right: 15px;
-	float: right;
-	background: #fff;
-	opacity: 0.8;
-	border-radius: 5px;
-}
-.contact-direct-USER .contact-direct-message{
-	float: left;
-	background: #FFF;
-  	color: #2C3E50;
-    border: 1px solid;
-    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
-    -webkit-border-radius: 5px;
-}
-.contact-direct-USER .contact-direct-message-triangle{
-	position: absolute;
-	float: left;
-	width: 15px;
-	height: 15px;
-	margin-left: -7px;
-	margin-top: 16px;
-	background: #FFF;
-	border-radius: 0px;
-	transform:rotate(45deg);
-	-ms-transform:rotate(45deg);
-	-webkit-transform:rotate(45deg);
-	border: 1px solid;
-	border-color: #FFF #FFF #CCC #CCC;
-}
-.contact-direct-USER .contact-direct-message p{
-	text-align: left;
-	padding: 10px;
-	padding-left: 15px;
-	padding-right: 15px;
-	color: #888;
-	max-width: 715px;
-}
-
-
-
-
-
-
-.contact-direct-AGENCE{
-	float: right;
-	height: auto;
-	margin-top: 5px;
-	padding-bottom: 0px;
-}
-.contact-direct-AGENCE .contact-direct-pic{
-	float: right;
-	width: 65px;
-	min-height: 65px;
-}
-.contact-direct-AGENCE .contact-direct-pic img{
-	margin-top: 26px;
-	float: right;
-	width: 50px;
-	height: 50px;
-	border-radius: 100%;
-}
-.contact-direct-AGENCE .contact-direct-author{
-	text-align: right;
-}
 .contact-direct-AGENCE .contact-direct-author h4{
 	text-align: left;
-	float: right;
+	float: left;
 	line-height: 1.5;
 }
 .contact-direct-AGENCE .contact-direct-author span{
@@ -516,6 +438,84 @@ input[type='reset']:hover, input[type="submit"]:hover{
 	border-radius: 5px;
 }
 .contact-direct-AGENCE .contact-direct-message{
+	float: left;
+	background: #FFF;
+  	color: #2C3E50;
+    border: 1px solid;
+    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+    -webkit-border-radius: 5px;
+}
+.contact-direct-AGENCE .contact-direct-message-triangle{
+	position: absolute;
+	float: left;
+	width: 15px;
+	height: 15px;
+	margin-left: -7px;
+	margin-top: 16px;
+	background: #FFF;
+	border-radius: 0px;
+	transform:rotate(45deg);
+	-ms-transform:rotate(45deg);
+	-webkit-transform:rotate(45deg);
+	border: 1px solid;
+	border-color: #FFF #FFF #CCC #CCC;
+}
+.contact-direct-AGENCE .contact-direct-message p{
+	text-align: left;
+	padding: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+	color: #888;
+	max-width: 715px;
+}
+
+
+
+
+
+
+.contact-direct-USER{
+	float: right;
+	height: auto;
+	margin-top: 5px;
+	padding-bottom: 0px;
+}
+.contact-direct-USER .contact-direct-pic{
+	float: right;
+	width: 65px;
+	min-height: 65px;
+}
+.contact-direct-USER .contact-direct-pic img{
+	margin-top: 26px;
+	float: right;
+	width: 50px;
+	height: 50px;
+	border-radius: 100%;
+}
+.contact-direct-USER .contact-direct-author{
+	text-align: right;
+}
+.contact-direct-USER .contact-direct-author h4{
+	text-align: left;
+	float: right;
+	line-height: 1.5;
+}
+.contact-direct-USER .contact-direct-author span{
+	margin-left: 7px;
+	font-size: 14px;
+	font-weight: 300;
+	color: #aab;
+}
+.contact-direct-USER .contact-direct-rep a{
+	padding: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+	float: right;
+	background: #fff;
+	opacity: 0.8;
+	border-radius: 5px;
+}
+.contact-direct-USER .contact-direct-message{
 	float: right;
 	background: #f6f6f6;
   	color: #2C3E50;
@@ -523,7 +523,7 @@ input[type='reset']:hover, input[type="submit"]:hover{
     border-color: #e5e6e9 #dfe0e4 #d0d1d5;
     -webkit-border-radius: 5px;
 }
-.contact-direct-AGENCE .contact-direct-message-triangle{
+.contact-direct-USER .contact-direct-message-triangle{
 	position: absolute;
 	float: right;
 	width: 15px;
@@ -538,7 +538,7 @@ input[type='reset']:hover, input[type="submit"]:hover{
 	border: 1px solid;
 	border-color: #ccc #ccc #f1f1f1 #f1f1f1;
 }
-.contact-direct-AGENCE .contact-direct-message p{
+.contact-direct-USER .contact-direct-message p{
 	text-align: left;
 	padding: 10px;
 	float: right;
