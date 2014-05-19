@@ -1,4 +1,4 @@
-.indice_A{
+bien-spe-title.indice_A{
 	color :#00ff00;
 	font-weight: 500;
 }
@@ -1876,5 +1876,96 @@ width: 100px;
 #depenses_array td, #recettes_array td{
 	vertical-align: middle;
 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.message-spe a{
+	text-decoration: none;
+}
+
+.message-spe a:hover > .message-spe-title{
+	background: rgba(255,255,255,0.7);
+}
+
+
+.message-spe-title{
+	min-height: 60px;
+	border-bottom: none;
+}
+
+
+.message-spe-title .fa{
+	padding-right: 10px;
+}
+
+
+
+.message-spe-title h2{
+	float: left;
+	padding-left: 20px;
+	font-size: 18px;
+	line-height: 58px;
+	border-left: 5px solid #fff;
+	color: rgba(44,62,80,0.7);
+}
+
+.new .message-spe-title h2{
+	border-left: 5px solid #2C3E50;
+}
+
+
+.message-spe-title h2 span{
+	text-transform: uppercase;
+	font-size: 20px;
+	padding-left: 2px;
+	color: rgba(44,62,80,1);
+}
+
+.message-spe-title h3{
+	float: right;
+	margin-right: 30px;
+	text-transform: uppercase;
+	font-size: 15px;
+	line-height: 60px;
+}
+
+.message-spe-apercu{
+	color: rgba(44,62,80,0.7);
+	float: right;
+	padding-right: 30px;
+	font-weight: 400;
+}
+
+.message-spe-desc{
+	min-height: 20px;
+	padding-bottom: 10px;
+	background: rgba(255,255,255,0.5);
+	border-top: 1px solid #eee;
+}
+
+.message-spe-desc p{
+	text-align: left;
+	font-size: 13px;
+	line-height: 20px;
+	padding-left: 25px;
+	padding-top: 10px;
+	font-weight: 300; 
+}
+.message-spe-desc p span{
+	padding-right: 5px;
+	font-size: 15px;
+	font-weight: 500;
 }
 
