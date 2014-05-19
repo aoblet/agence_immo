@@ -4,7 +4,7 @@
 	function userIsExistFromMail($mail){
 		try{
 			$stmt = myPDO::getSingletonPDO()->prepare("SELECT * FROM personne WHERE mail =:mail");
-			$mail = mysql_real_escape_string(htmlentities($mail));
+			$mail = myPDO::my_escape_string(htmlentities($mail));
 			$stmt->execute(array("mail"=>$mail));
 			$res = $stmt->fetch();
 			$stmt->closeCursor();

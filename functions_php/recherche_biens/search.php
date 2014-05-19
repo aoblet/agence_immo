@@ -23,7 +23,7 @@
 		if(!empty($array)){
 			foreach ($array as $key => $value) {
 				if(is_string($array[$key]))
-					$array[$key] = mysql_real_escape_string($value);
+					$array[$key] = myPDO::my_escape_string($value);
 			}
 			return $array;
 		}

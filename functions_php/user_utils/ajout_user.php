@@ -6,7 +6,7 @@
 
 	//password clair, return true si insertion ok sinon false
 	function addPersonne($nom,$prenom,$mail,$password,$type,$photo="img/avatar.png"){
-		$mail = mysql_real_escape_string(htmlentities($mail));
+		$mail = myPDO::my_escape_string(htmlentities($mail));
 		
 		if(userIsExistFromMail($mail)) // pas de doublon on insere
 			return false;
@@ -20,8 +20,8 @@
 				$id_photo = null;
 			$stmt_photo->closeCursor();
 
-			$prenom = mysql_real_escape_string(htmlentities($prenom));
-			$nom 	= mysql_real_escape_string(htmlentities($nom));
+			$prenom = myPDO::my_escape_string(htmlentities($prenom));
+			$nom 	= myPDO::my_escape_string(htmlentities($nom));
 			$stmt = myPDO::getSingletonPDO()->prepare("INSERT INTO personne (nom_personne,prenom_personne,mail,password,id_photo) VALUES(:nom_personne,:prenom_personne,:mail,:password, :id_photo)");
 			$stmt->execute(array(	'nom_personne'=>$nom,
 									'prenom_personne'=>$prenom,

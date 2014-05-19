@@ -10,8 +10,8 @@
 	}
 		
 	if(isset($_POST['mail']) && isset($_POST['password']) && !empty($_POST['mail']) && !empty($_POST['password'])){
-		$mail = mysql_real_escape_string(htmlentities($_POST['mail']));
-		$password = mysql_real_escape_string(htmlentities($_POST['password']));
+		$mail = myPDO::my_escape_string(htmlentities($_POST['mail']));
+		$password = myPDO::my_escape_string(htmlentities($_POST['password']));
 
 		$query="SELECT *,chemin_photo 
 				FROM personne pe, photo ph 

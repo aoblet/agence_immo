@@ -16,10 +16,15 @@
 				is_null(self::$password))
 				throw new Exception("Construction mypdo impossible: parametres connexions absents");
 			//connexion avec la bd
-			$this->pdo = new PDO(self::$dsn, self::$user, self::$password);
-			//mise en place du mode exception pour les erreurs de type PDO
-			$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$this->pdo->query("SET NAMES UTF8");
+			try{
+				$this->pdo = new PDO(self::$dsn, self::$user, self::$password);
+				//mise en place du mode exception pour les erreurs de type PDO
+				$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$this->pdo->query("SET NAMES UTF8");
+			}
+			catch(Exception $e){
+				throw new Exception("Connexion à la base de données impossible...");
+			}		
 		}
 
 		public function __destruct(){
@@ -45,9 +50,16 @@
 			self::$password=$_password;
 		}
 
+		public static function my_escape_string($string){
+			$string = self::getSingletonPDO()->quote($string);
+			$string = preg_replace("/^'/","", $string);
+			$string = preg_replace("/'$/","", $string);
+			return $string;
+		}
 		public function __clone(){
 			throw new Exception("Clonage de myPDO interdit!");
 		}
+
 	}
 
 	myPDO::setOptionsDataBase('mysql: host=localhost;dbname=agence_immo','root','');

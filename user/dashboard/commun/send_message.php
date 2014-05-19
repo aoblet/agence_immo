@@ -20,8 +20,8 @@
 
 	$id_auteur = $_SESSION['id_personne'];
 	$id_destinataire= $_SESSION['id_destinataire_for_message'];
-	$contenu_message = mysql_real_escape_string(htmlspecialchars($contenu_message));
-	$id_bien_immobilier = mysql_real_escape_string(htmlspecialchars($_SESSION['id_bien_immobilier_for_message']));
+	$contenu_message = myPDO::my_escape_string(htmlspecialchars($contenu_message));
+	$id_bien_immobilier = myPDO::my_escape_string(htmlspecialchars($_SESSION['id_bien_immobilier_for_message']));
 
 	$query=<<<SQL
 		INSERT 	INTO message (id_auteur,id_destinataire,contenu_message,traite,id_bien_immobilier) 
