@@ -216,9 +216,17 @@ footer{
     margin-right: 0px;
     width: 300px;
     background: #f6f6f6;
-
 }
 
+#new-messages-modal{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 6099;
+}
 
 #new-messages .triangle-message{
     width: 20px;
