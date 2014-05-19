@@ -23,7 +23,7 @@
 				$this->pdo->query("SET NAMES UTF8");
 			}
 			catch(Exception $e){
-				throw new Exception("Connexion à la base de données impossible...");
+				die("Connexion à la base de données impossible...");
 			}		
 		}
 
