@@ -63,7 +63,7 @@
 						<h2>Mes biens</h2>
 					</div>
 
-					<?php echo getListBiens($_SESSION['id_personne']) ?>
+					<?php echo getListBiensProprio($_SESSION['id_personne']) ?>
 
 				</div>
 			</div>

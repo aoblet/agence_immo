@@ -298,7 +298,7 @@ SQL;
 		return $res;
 	}
 
-	function searchForLocataire($id_personne_locataire){
+	function searchForLocataireBase($id_personne_locataire){
 		if($id_personne_locataire != NULL){
 			$res = searchBase(array('id_personne_locataire' => $id_personne_locataire));
 		}

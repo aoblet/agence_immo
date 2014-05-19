@@ -5,7 +5,7 @@
 	require_once(dirname(__FILE__).'/../common_result_html.php');
 	require_once(dirname(__FILE__).'/../../user_utils/getUtils_html.php');
 
-	function getListBiens($id_personne){
+	function getListBiensProprio($id_personne){
 		return affichage_base_liste_html(searchForProprioBase($id_personne));
 	}
 

@@ -62,7 +62,7 @@
 						<h2>Gestion location</h2>
 					</div>
 
-					<?php //echo getListBiens($_SESSION['id_personne']) ?>
+					<?php echo getListBiensLocataire($_SESSION['id_personne']) ?>
 
 				</div>
 			</div>

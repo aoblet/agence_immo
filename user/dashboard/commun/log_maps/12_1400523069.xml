@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GeocodeResponse>
+ <status>OK</status>
+ <result>
+  <type>street_address</type>
+  <formatted_address>95 Rue Joseph Gaillard, 93100 Vincennes, France</formatted_address>
+  <address_component>
+   <long_name>95</long_name>
+   <short_name>95</short_name>
+   <type>street_number</type>
+  </address_component>
+  <address_component>
+   <long_name>Rue Joseph Gaillard</long_name>
+   <short_name>Rue Joseph Gaillard</short_name>
+   <type>route</type>
+  </address_component>
+  <address_component>
+   <long_name>Vincennes</long_name>
+   <short_name>Vincennes</short_name>
+   <type>locality</type>
+   <type>political</type>
+  </address_component>
+  <address_component>
+   <long_name>Seine-Saint-Denis</long_name>
+   <short_name>93</short_name>
+   <type>administrative_area_level_2</type>
+   <type>political</type>
+  </address_component>
+  <address_component>
+   <long_name>Île-de-France</long_name>
+   <short_name>IDF</short_name>
+   <type>administrative_area_level_1</type>
+   <type>political</type>
+  </address_component>
+  <address_component>
+   <long_name>France</long_name>
+   <short_name>FR</short_name>
+   <type>country</type>
+   <type>political</type>
+  </address_component>
+  <address_component>
+   <long_name>93100</long_name>
+   <short_name>93100</short_name>
+   <type>postal_code</type>
+  </address_component>
+  <geometry>
+   <location>
+    <lat>48.8525731</lat>
+    <lng>2.4432876</lng>
+   </location>
+   <location_type>RANGE_INTERPOLATED</location_type>
+   <viewport>
+    <southwest>
+     <lat>48.8512218</lat>
+     <lng>2.4419471</lng>
+    </southwest>
+    <northeast>
+     <lat>48.8539197</lat>
+     <lng>2.4446451</lng>
+    </northeast>
+   </viewport>
+   <bounds>
+    <southwest>
+     <lat>48.8525684</lat>
+     <lng>2.4432876</lng>
+    </southwest>
+    <northeast>
+     <lat>48.8525731</lat>
+     <lng>2.4433046</lng>
+    </northeast>
+   </bounds>
+  </geometry>
+  <partial_match>true</partial_match>
+ </result>
+</GeocodeResponse>

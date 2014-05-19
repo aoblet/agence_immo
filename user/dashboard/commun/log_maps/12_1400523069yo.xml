@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Adresse>
+  <status>OK</status>
+  <numeroRue>95</numeroRue>
+  <rue>Rue Joseph Gaillard</rue>
+  <ville>Vincennes</ville>
+  <codePostal>93100</codePostal>
+</Adresse>
