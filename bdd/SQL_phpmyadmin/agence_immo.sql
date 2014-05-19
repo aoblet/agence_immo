@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Dim 18 Mai 2014 à 20:37
+-- Généré le: Lun 19 Mai 2014 à 14:21
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `bien_immobilier` (
 --
 
 INSERT INTO `bien_immobilier` (`id_bien_immobilier`, `prix`, `superficie`, `nb_pieces`, `descriptif`, `parking`, `nb_etages`, `id_personne_locataire`, `id_personne_proprio`, `id_personne_gest`, `id_agence_vendeur`, `id_agence_loueur`, `id_type_chauffage`, `id_adresse`, `id_gaz`, `id_consommation_energetique`, `date_parution`) VALUES
-(1, 450000, 450, 6, 'Belle demeure :)', 0, 6, 9, 11, 8, NULL, NULL, 3, 1, 3, 5, '2014-04-07 22:00:00'),
+(1, 450000, 450, 6, 'Belle demeure :)', 0, 6, 10, 11, 8, NULL, NULL, 3, 1, 3, 5, '2014-04-07 22:00:00'),
 (2, 850, 26, 2, 'Location donnant sur un jardin. Proche du métro barbès et de salles de sports. Voisins conviviaux. Bien non fumeurs. Résidence très propre et protégé par vidéo surveillance.', 0, 0, NULL, 11, 12, NULL, NULL, 3, 3, 4, 2, '2014-04-24 22:49:44'),
 (3, 3000, 120, 8, 'Petite maison situé dans l''Aisne, elle vous apportera tout le bonheur qu''il vous faut. Idéal pour une petite famille.', 1, 1, NULL, NULL, 12, NULL, 1, 3, 4, 2, 2, '2014-04-01 18:34:11'),
 (4, 200000, 1500, 23, 'Immeuble idéal pour l''implentation d''une petite entreprise.', 1, 4, NULL, NULL, 12, 1, NULL, 2, 5, 6, 4, '2014-04-01 18:38:03'),
@@ -535,7 +535,7 @@ CREATE TABLE IF NOT EXISTS `message` (
   KEY `FK_Message_id_auteur` (`id_auteur`),
   KEY `FK_Message_id_destinataire` (`id_destinataire`),
   KEY `FK_Message_id_bien_immobilier` (`id_bien_immobilier`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
 
 --
 -- Contenu de la table `message`
@@ -546,7 +546,19 @@ INSERT INTO `message` (`id_message`, `date_message`, `contenu_message`, `traite`
 (2, '2014-05-18 17:36:37', 'Réponse du test bonjour :)', 1, 11, 12, 2),
 (4, '2014-05-15 18:12:49', 'Bonjour Bill, pour visualiser tes dépenses, il te suffit de cliquer sur le lien prévu à cet effet, dans le menu situé à gauche de la page : "historiques des dépenses". Pour toutes informations supplémentaires, n''hésite pas à me recontacter ;)', 1, 12, 11, 2),
 (5, '2014-05-18 20:22:07', 'Hey je teste pour la première fois l''interface de message avec toi Matthieu :)', 0, 11, 12, 2),
-(6, '2014-05-18 20:22:31', 'C''est cool ça marche du tonnerre :)', 0, 11, 12, 2);
+(6, '2014-05-18 20:22:31', 'C''est cool ça marche du tonnerre :)', 0, 11, 12, 2),
+(9, '2014-05-18 20:45:30', 'Hello les amis :)', 0, 10, 8, 1),
+(10, '2014-05-18 20:48:38', 'Votre service de messagerie fonctionne t-il avec des injections SQL?'' , 1);\r\nSELECT * FROM bien_immobilier;#', 0, 10, 8, 1),
+(11, '2014-05-18 20:48:53', 'Effectivement.. Bien joué!', 0, 10, 8, 1),
+(12, '2014-05-18 22:13:59', 'Bonjour je teste le raccourci jquery Ctrl+entree ..', 0, 11, 8, 1),
+(13, '2014-05-18 22:15:23', 'Cela fonctionne à merveille!', 0, 11, 8, 1),
+(14, '2014-05-18 22:17:00', 'L''ancre est peut être trop basse ?', 0, 11, 8, 1),
+(15, '2014-05-18 22:22:22', 'Ressayons !', 0, 11, 8, 1),
+(17, '2014-05-18 22:22:39', 'Oui ça marche bien :)', 0, 11, 8, 1),
+(20, '2014-05-18 22:21:22', 'Nous avons pris note de tes remarques Bill. Merci beaucoup pour ce retour.\r\nCordialement.', NULL, 8, 11, 1),
+(22, '2014-05-19 00:06:11', 'Bonjour, pourrais-je vous demander si les messages sont gardés dans votre base de données à vie ?', 0, 11, 12, 6),
+(23, '2014-05-19 00:09:57', '?', 0, 11, 12, 6),
+(27, '2014-05-19 14:11:42', 'lol', 0, 11, 12, 2);
 
 -- --------------------------------------------------------
 
@@ -594,7 +606,7 @@ INSERT INTO `personne` (`id_personne`, `nom_personne`, `prenom_personne`, `login
 (1, 'test', 'test', 'test', 'test', 'test', NULL, NULL),
 (2, 'alexis', 'admin', 'admin', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', NULL, NULL, NULL),
 (7, 'alexis', 'admin', 'admin2', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', NULL, 1, NULL),
-(8, 'Oblet', 'Alexis', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'alexdeoiny@gmail.com', 1, NULL),
+(8, 'Oblet', 'Alexis', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'alexdeoiny@gmail.com', 4, NULL),
 (9, 'Biteau', 'Armand', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'armandbiteau@gmail.com', 1, NULL),
 (10, 'Locataire_nom', 'Locataire_prenom', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'locataire@gmail.com', 1, NULL),
 (11, 'Gates', 'Bill', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'proprietaire@gmail.com', 2, 7),
@@ -610,7 +622,7 @@ CREATE TABLE IF NOT EXISTS `photo` (
   `id_photo` int(11) NOT NULL AUTO_INCREMENT,
   `chemin_photo` varchar(255) NOT NULL,
   PRIMARY KEY (`id_photo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `photo`
@@ -619,7 +631,8 @@ CREATE TABLE IF NOT EXISTS `photo` (
 INSERT INTO `photo` (`id_photo`, `chemin_photo`) VALUES
 (1, 'img/avatar.png'),
 (2, 'img/11/gates.jpg'),
-(3, 'img/12/constant.jpg');
+(3, 'img/12/constant.jpg'),
+(4, 'img/8/alex.jpg');
 
 -- --------------------------------------------------------
 
