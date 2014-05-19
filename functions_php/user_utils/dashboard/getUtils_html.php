@@ -26,7 +26,7 @@
 HTML;
 	}
 
-	function getMenuAccueil($type_personne){
+	function getMenuAccueil($type_personne,$is_on_accueil){
 		$infos_persos_link = getPathRoot().'user/dashboard/';
 		if($type_personne == LOCATAIRE)
 			$infos_persos_link.="locataire/infos.php";
@@ -37,12 +37,20 @@ HTML;
 		else
 			$infos_persos_link='';
 
+		$link_dash='';
+		
+		if(!$is_on_accueil){
+			$link_dash_a = getPathRoot().'user/dashboardGateWay.php';
+			$link_dash="<a href='$link_dash_a' class='button-home'><i class='fa fa-reply'></i>Retour au Dash</a>";
+		}
+
 		return <<<HTML
 		<div class="col-md-3" >
 			<div class="dash-menu bg-white" >
 				<h4>MENU</h4>
 				<a href="$infos_persos_link" class="button-home"><i class="fa fa-user"></i>Mes données personnelles</a>
 				<a href="./messages.php" class="button-home"><i class="fa fa-envelope"></i>Mes messages</a>
+				$link_dash
 			</div>
 		</div>
 

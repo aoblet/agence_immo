@@ -53,7 +53,7 @@
 
 			<div class="container ">
 				<div class="row">
-					<?php echo getMenuAccueil($_SESSION['type_personne']) ?>
+					<?php echo getMenuAccueil($_SESSION['type_personne'],false) ?>
 					<div class="col-md-9">
 					
 					<div class="titlepage bg-blue">

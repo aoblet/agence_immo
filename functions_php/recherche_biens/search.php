@@ -298,9 +298,25 @@ SQL;
 		return $res;
 	}
 
-	function searchForLocataire($id_bien_immobilier = NULL){
-
+	function searchForLocataire($id_personne_locataire){
+		if($id_personne_locataire != NULL){
+			$res = searchBase(array('id_personne_locataire' => $id_personne_locataire));
+		}
+		return $res;
 	}
+
+	function searchForLocatarieAvance($id_bien_immobilier){
+		$res = array();
+		if($id_bien_immobilier != NULL){
+			$res = searchBase(array('id_bien_immobilier' => $id_bien_immobilier ));
+			$res['infos_historiques_depense'] = getInfosHistoriqueDepense($id_bien_immobilier);
+			$res['infos_historiques_rentree'] = getInfosHistoriqueRentree($id_bien_immobilier);
+			$res['infos_locataire'] = getInfosLocataire($id_bien_immobilier);
+		}
+
+		return $res;
+	}
+
 	function searchForEmployeGestionnaire($id_bien_immobilier = NULL){
 
 	}
