@@ -87,7 +87,7 @@ HTML;
 				$html.=<<<HTML
 					<div class="$classe">
 						<div class="contact-direct-pic">
-							<img src="$link_photo">
+							<img src="$link_photo" alt='photo_personne'>
 						</div>
 						<div class="contact-direct-mess">
 							<div class="contact-direct-author">
@@ -108,9 +108,14 @@ HTML;
 		
 		$traitement_formulaire=getPathRoot().'user/dashboard/commun/send_message.php';
 		$come_from = $_SERVER['PHP_SELF'].'?';
+		$cpt=1;
 		foreach ($_GET as $key => $value) {
-			$come_from.=$key.'='.$value.'&#last_message_ancre';
+			$come_from.=$key.'='.$value;
+			if($cpt != sizeof($_GET))
+				$come_from.='&';
 		}
+		$come_from.="#last_message_ancre";
+
 
 		$html.=<<<HTML
 				<div class="send-mess-user">

@@ -11,12 +11,12 @@
 	//verif securité
 	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne'])){
 		$link_home = getPathRoot().'index.php';
-		header('Location: '.$link_home);
+		header('Location: '.$link_home,false,301);
 		die();
 	}
 
 	if(!isset($_GET['id_bien_immobilier']) || empty($_GET['id_bien_immobilier']) || !getLegitimite($_SESSION, $_GET['id_bien_immobilier']) ){
-		header('Location: ../../dashboardGateway.php');
+		header('Location: ../../dashboardGateway.php',false,301);
 		die();
 	}
 
