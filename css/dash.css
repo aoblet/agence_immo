@@ -1886,17 +1886,39 @@ width: 100px;
 
 
 
+.new{
+	border-bottom: 2px solid rgba(44,62,80,0.9);
+}
 
 
+.new .message-spe-apercu{
+	font-weight: 700;
+	color: rgba(44,62,80,1);
+}
+
+.message-spe-pic{
+	margin-top: 1px;
+	height: 59px;
+	width: 59px;
+	background: #f5f7f8;
+	background: #fff;
+	float: left;
+	
+}
 
 
+.message-spe-pic img{
+	width: 45px;
+	height: 45px;
+	margin:7px auto;
+}
 
 .message-spe a{
 	text-decoration: none;
 }
 
 .message-spe a:hover > .message-spe-title{
-	background: rgba(255,255,255,0.7);
+	background: rgba(255,255,255,0.2);
 }
 
 
@@ -1917,13 +1939,10 @@ width: 100px;
 	padding-left: 20px;
 	font-size: 18px;
 	line-height: 58px;
-	border-left: 5px solid #fff;
 	color: rgba(44,62,80,0.7);
 }
 
-.new .message-spe-title h2{
-	border-left: 5px solid #2C3E50;
-}
+
 
 
 .message-spe-title h2 span{
@@ -1956,10 +1975,11 @@ width: 100px;
 }
 
 .message-spe-desc p{
+	margin-left: 60px;
 	text-align: left;
 	font-size: 13px;
 	line-height: 20px;
-	padding-left: 25px;
+	padding-left: 20px;
 	padding-top: 10px;
 	font-weight: 300; 
 }
