@@ -148,7 +148,7 @@
 									
 									<p>
 											<?php 
-												//echo getSelectDepartementsHTML("departement");
+												echo getSelectDepartementsHTML("departement");
 											?>
 
 									</p>
