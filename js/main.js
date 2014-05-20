@@ -26,7 +26,6 @@ $(function() {
 		  	bool =0;
 	  	}
 	});
-
 	$( "#new-messages-modal" ).click(function() {
 	  		$( "#new-messages" ).css("display","none");
 	  		$( "#new-messages-modal" ).css("display","none");
@@ -35,12 +34,36 @@ $(function() {
 
 
 
+	$( ".user-modal" ).hide();
+	$( ".user-modal-okay" ).hide();
+	$( ".user-modal-clarify" ).hide();
+	$( ".user-modal-error" ).hide();
 
-// 	$("body:not('#new-messages')").click(function(){
-// 		$("#new-messages").css("display","none");
-// 		bool =0;
-	
-// });
+
+
+	$( "#bouton-okay-test" ).click(function() {
+			$( ".user-modal" ).show();
+	  		$( ".user-modal-okay" ).show();
+	});
+	$( "#bouton-affiner-test" ).click(function() {
+			$( ".user-modal" ).show();
+	  		$( ".user-modal-clarify" ).show();
+	});
+	$( "#bouton-error-test" ).click(function() {
+			$( ".user-modal" ).show();
+	  		$( ".user-modal-error" ).show();
+	});
+
+
+
+	$(".user-modal").click(function() {
+	  		$( ".user-modal-okay" ).hide();
+	  		$( ".user-modal-clarify" ).hide();
+	  		$( ".user-modal-error" ).hide();
+	  		$( ".user-modal" ).hide();
+	});
+
+
 
 
 
