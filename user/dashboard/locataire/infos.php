@@ -44,6 +44,7 @@
 	</head>
 
 	<body>
+		<?php echo getModalsInfos() ?>
 		<header>
 			<?php echo getBanniereConnexion($_SESSION) ?>
 			<?php echo getBanniereDash() ?>
@@ -56,12 +57,13 @@
 					<?php echo getMenuAccueil($_SESSION['type_personne'],false) ?>
 					<div class="col-md-9">
 					
-					<div class="titlepage bg-blue">
-						<h2>Modifier mes informations personnelles</h2>
-					</div>
-		
-					<?php echo getInfosIdentiteForm($_SESSION['id_personne'],"lol.php") ?>
+						<div class="titlepage bg-blue">
+							<h2>Modifier mes informations personnelles</h2>
+						</div>
+			
+						<?php echo getInfosIdentiteForm($_SESSION['id_personne'],"../commun/changeAdresse.php") ?>
 								
+					</div>
 				</div>
 			</div>
 		</section>
@@ -75,6 +77,8 @@
 
 		<script type="text/javascript">
 			//<![CDATA[
+			<?php echo getJsForModal("changeAdresse"); ?>
+			
 			var open_menu = 0;
 			$( "#connect").click(function() {
 				$('#connect-form').slideToggle('fast');

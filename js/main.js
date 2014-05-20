@@ -34,7 +34,7 @@ $(function() {
 
 
 
-	$( ".user-modal" ).hide();
+	/*$( ".user-modal" ).hide();
 	$( ".user-modal-okay" ).hide();
 	$( ".user-modal-clarify" ).hide();
 	$( ".user-modal-error" ).hide();
@@ -62,7 +62,7 @@ $(function() {
 	  		$( ".user-modal-error" ).hide();
 	  		$( ".user-modal" ).hide();
 	});
-
+*/
 
 
 

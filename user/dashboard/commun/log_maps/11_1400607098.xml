@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GeocodeResponse>
+ <status>OK</status>
+ <result>
+  <type>postal_code</type>
+  <formatted_address>75000 Paris, France</formatted_address>
+  <address_component>
+   <long_name>75000</long_name>
+   <short_name>75000</short_name>
+   <type>postal_code</type>
+  </address_component>
+  <address_component>
+   <long_name>Hôpital Saint-Louis</long_name>
+   <short_name>Hôpital Saint-Louis</short_name>
+   <type>neighborhood</type>
+   <type>political</type>
+  </address_component>
+  <address_component>
+   <long_name>10th arrondissement of Paris</long_name>
+   <short_name>10th arrondissement of Paris</short_name>
+   <type>sublocality</type>
+   <type>political</type>
+  </address_component>
+  <address_component>
+   <long_name>Paris</long_name>
+   <short_name>Paris</short_name>
+   <type>locality</type>
+   <type>political</type>
+  </address_component>
+  <address_component>
+   <long_name>Paris</long_name>
+   <short_name>75</short_name>
+   <type>administrative_area_level_2</type>
+   <type>political</type>
+  </address_component>
+  <address_component>
+   <long_name>Île-de-France</long_name>
+   <short_name>IDF</short_name>
+   <type>administrative_area_level_1</type>
+   <type>political</type>
+  </address_component>
+  <address_component>
+   <long_name>France</long_name>
+   <short_name>FR</short_name>
+   <type>country</type>
+   <type>political</type>
+  </address_component>
+  <geometry>
+   <location>
+    <lat>48.8785779</lat>
+    <lng>2.3641929</lng>
+   </location>
+   <location_type>APPROXIMATE</location_type>
+   <viewport>
+    <southwest>
+     <lat>48.8772289</lat>
+     <lng>2.3628439</lng>
+    </southwest>
+    <northeast>
+     <lat>48.8799269</lat>
+     <lng>2.3655419</lng>
+    </northeast>
+   </viewport>
+  </geometry>
+  <partial_match>true</partial_match>
+ </result>
+</GeocodeResponse>

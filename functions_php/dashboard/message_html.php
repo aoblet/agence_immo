@@ -1,7 +1,12 @@
 <?php
 	require_once(dirname(__FILE__).'/../user_utils/dashboard/getUtils_html.php');
 	require_once(dirname(__FILE__).'/../user_utils/dashboard/getUtils.php');
+	require_once(dirname(__FILE__).'/../user_utils/getUtils.php');
 	require_once(dirname(__FILE__).'/../user_utils/getUtils_html.php');
+	require_once(dirname(__FILE__).'/../../enum/enum_type_user.php');
+	require_once(dirname(__FILE__).'/../recherche_biens/getInfos.php');
+
+
 
 	function getDateFormatedConversation($date_to_compare_timestamp){
 		$date_return		='';
@@ -17,18 +22,23 @@
 				return '';
 			}
 
-			// si heure > 24 on affiche la date dd/mm/yy
-			if($date_diff->d==0){
-				if($date_diff->h==0){
-					if($date_diff->i==0){
-						$date_return = 'Il y a '.$date_diff->s.' s';
+			// si j > 15 on affiche la date dd/mm/yy
+			if($date_diff->m==0 || $date_diff->d<15){
+				if($date_diff->d==0){
+					if($date_diff->h==0){
+						if($date_diff->i==0){
+							$date_return = 'Il y a '.$date_diff->s.' s';
+						}
+						else{
+							$date_return = 'Il y a '.$date_diff->i.' m';
+						}
 					}
 					else{
-						$date_return = 'Il y a '.$date_diff->i.' m';
+						$date_return = 'Il y a '.$date_diff->h.' h';
 					}
 				}
-				else{
-					$date_return = 'Il y a '.$date_diff->h.' h';
+				else{ 
+					$date_return =' Il y a '.$date_diff->d.' j';
 				}
 			}
 			else{
@@ -37,16 +47,6 @@
 			}
 		}
 		return $date_return;
-	}
-
-	function getIdGestionnaire($id_bien_immobilier){
-		$id_gest='';
-		$stmt = myPDO::getSingletonPDO()->query("SELECT id_personne_gest FROM bien_immobilier WHERE id_bien_immobilier={$id_bien_immobilier}");
-		if($res=$stmt->fetch())
-			$id_gest = $res['id_personne_gest'];
-		$stmt->closeCursor();
-
-		return $id_gest;
 	}
 
 	function getMessageHTML($id_bien_immobilier,$id_personne_destinataire,$id_personne_auteur){
@@ -106,7 +106,7 @@ HTML;
 			}
 		}
 		
-		$traitement_formulaire=getPathRoot().'user/dashboard/commun/send_message.php';
+		$traitement_formulaire=getPathRoot().'user/dashboard/commun/sendMessage.php';
 		$come_from = $_SERVER['PHP_SELF'].'?';
 		$cpt=1;
 		foreach ($_GET as $key => $value) {
@@ -155,4 +155,125 @@ HTML;
 		listenerRaccourciSend();
 
 JAVASCRIPT;
+	}
+
+	function getHandleJsMiniViewMessages(){
+		return <<<JAVASCRIPT
+		function handleMiniViewMessages(){
+			$(function(){
+				var bool =0;
+				$( ".fa-message" ).click(function() {
+					if (bool == 0) {
+					  	$( "#new-messages" ).css("display","block");
+					  	$( "#new-messages-modal" ).css("display","block");
+					  	bool =1;
+				  	}else{
+				  		$( "#new-messages" ).css("display","none");
+				  		$( "#new-messages-modal" ).css("display","none");
+					  	bool =0;
+				  	}
+				});
+				$( "#new-messages-modal" ).click(function() {
+				  		$( "#new-messages" ).css("display","none");
+				  		$( "#new-messages-modal" ).css("display","none");
+					  	bool =0;
+				});
+			});
+		}
+
+		handleMiniViewMessages();
+JAVASCRIPT;
+	}
+
+
+	function getInfosForListeMessages($id_personne,$type_personne){
+		if($id_personne == NULL)
+			return NULL;
+
+		$condition='';
+		if($type_personne == LOCATAIRE)
+			$condition = "bien_immobilier.id_personne_locataire = $id_personne";
+		else if($type_personne == PROPRIETAIRE)
+			$condition = "bien_immobilier.id_personne_proprio = $id_personne";
+		else if($type_personne == EMPLOYE)
+			$condition = "bien_immobilier.id_personne_gest = $id_personne";
+
+		$query = <<<SQL
+			SELECT 	bien_immobilier.id_bien_immobilier,
+				 	bien_immobilier.id_personne_gest,
+					bien_immobilier.id_personne_locataire,
+					bien_immobilier.id_personne_proprio
+			FROM 	bien_immobilier
+			WHERE 	$condition
+SQL;
+
+		$stmt=myPDO::getSingletonPDO()->query($query);
+		$res=array();
+		while($ligne=$stmt->fetch()){
+			$res[] = $ligne;
+		}
+		$stmt->closeCursor();
+		return $res;
+	}
+
+	function getListMessagesHTML($id_personne,$type_personne){
+
+		$infos = getInfosForListeMessages($id_personne,$type_personne);
+					
+		$html='';
+		if($type_personne != EMPLOYE){
+			//le traitement est différent
+			foreach ($infos as $value) {
+				$conversation = getConversation($value['id_bien_immobilier'],$value['id_personne_gest'],$id_personne,true);
+				$type_personne_info = ''; //pas besoin pour loc et proprio, ils conversent qu'avec le gestionnaire
+				$infos_adresse = getInfosAdresse($value['id_bien_immobilier']);
+				$apercu_message=''; $nom=''; $prenom=''; $photo=''; $classe_new=''; $traite='';
+
+				$infos_heure='Discussion vide';
+
+				if($conversation){
+					$infos_heure = getDateFormatedConversation($conversation[0]['date_message']);
+					if($conversation[0]['id_auteur'] != $id_personne && !$conversation[0]['traite'])
+						$traite='new';
+					$apercu_message = substr($conversation[0]['contenu_message'], 0,35).' ...';
+				}
+
+
+				if($infos_adresse){
+					$adresse= $infos_adresse['numero_rue'].' '.substr($infos_adresse['rue'],0,20).', '.$infos_adresse['code_postal'].' '.$infos_adresse['ville'];
+				}
+
+				if( ($infos_personne=getIdentitePersonne($value['id_personne_gest']))){
+					$photo=getPathRoot().getPhotoPersonne($value['id_personne_gest'])[0];
+					$nom = $infos_personne['nom_personne'];
+					$prenom=$infos_personne['prenom_personne'];
+				}
+
+				//lien du message
+				$href=getPathRoot().'user/dashboard/commun/messageGateway.php?id_bien_immobilier='.$value['id_bien_immobilier'];
+
+				$html.=<<<HTML
+
+				<div class="message-spe margin15  $traite">
+					<a href="$href">
+						<div class="message-spe-pic">
+							<img src="$photo" alt='photo_personne'>
+						</div>
+						<div class="message-spe-title bg-white">
+							<h2>$prenom <span>$nom</span> $type_personne_info</h2>
+							<h3>$infos_heure</h3>
+						</div>
+						<div class="message-spe-desc bg-white">
+							<p>$adresse <B class="message-spe-apercu">$apercu_message</B></p>
+						</div>
+					</a>
+				</div>
+HTML;
+			}
+		}
+		else{
+
+		}
+
+		return $html;
 	}

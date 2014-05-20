@@ -92,5 +92,147 @@ HTML;
 HTML;
 	}
 
+	function getModalsInfos(){
+		return <<<HTML
+		<div class="user-modal"></div>
+
+		<div class="user-modal-okay user-box-modal" id='find_ok'>
+			<div id="adress-okay">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="user-modal-content bg-white">
+								<span class='user-close-modal' title='Annuler' ><i class="fa fa-times"></i></span>
+								<h1><i class="fa fa-check"></i></h1>
+								<p>Nous avons trouvé votre adresse, veuillez cliquer pour confirmer le changement</p>
+								<input type="submit" value="Mettre à jour" >
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="user-modal-clarify user-box-modal" id='find_approximate'>
+			<div id="adress-clarify">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="user-modal-content bg-white">
+								<span class='user-close-modal' title='Annuler'><i class="fa fa-times"></i></span>
+								<h1><i class="fa fa-search"></i></h1>
+								<p>L'adresse est trop aproximative, veuillez affiner.</p>
+								<input type="submit" value="Affiner l'adresse">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="user-modal-error user-box-modal" id='find_fail'>
+			<div id="adress-error">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="user-modal-content bg-white">
+								<span class='user-close-modal' title='Annuler'><i class="fa fa-times"></i></span>
+								<h1><i class="fa fa-times"></i></h1>
+								<p>L'adresse n'a pas été trouvée, veuillez recommencer.</p>
+								<input type="submit" value="Recommencer" >
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+HTML;
+	}
+
+	function getJsForModal($nom_formulaire){
+		return <<<JAVASCRIPT
+
+
+		function showScrollBar(){
+			$('html, body').css({
+			    'overflow': 'visible',
+			    'height': '100%'
+			});
+		}
+
+		function hideScrollBar(){
+			$('html, body').css({
+			    'overflow': 'hidden',
+			    'height': '100%'
+			});
+		}
+		function handleModals(){
+			$(function(){
+				//comportement par défaut
+				$( ".user-modal" ).hide();
+				$( ".user-modal-okay" ).hide();
+				$( ".user-modal-clarify" ).hide();
+				$( ".user-modal-error" ).hide();
+				$(".user-close-modal").css('opacity',0);
+
+				//comportement close-modal
+				$( ".user-box-modal").hover(function(){
+					$(".user-close-modal").animate({ opacity:1},'slow');
+				});
+
+				$( ".user-box-modal").mouseleave(function(){
+					$(".user-close-modal").animate({ opacity:0},'slow');
+				});
+
+				$( ".user-close-modal" ).click(function(){
+					$(".user-modal").fadeOut('slow',showScrollBar);
+					$(".user-box-modal").fadeOut('slow');
+					
+				});
+				
+				$('.user-close-modal').mouseleave(function(){
+					$(this).addClass('user-close-modal-color-down');
+				});
+				
+				//comportement box-modal
+				var find_form = $("input[name='find']")[0];
+
+				if(find_form){
+					var id_modal = 'find_'+find_form.value;
+
+					$('#'+id_modal+" input[type='submit']").click(function(e){
+						e.preventDefault();
+					});
+
+					if(find_form.value=='ok'){
+						//traitement spécial: envoi formulaire
+						$('#'+id_modal+" input[type='submit']").click(function(){
+							$('#'+id_modal).fadeOut('slow', function (){
+								$("form[name='$nom_formulaire']").submit();
+							});
+						});
+					}
+					else{
+						$('#'+id_modal+" input[type='submit']").click(function(){
+							$( ".user-modal" ).fadeOut('slow',showScrollBar);
+							$('#'+id_modal).fadeOut('slow');
+							
+						});
+					}
+					//on affiche
+					$( ".user-modal" ).fadeIn();
+					$( '#'+id_modal).fadeIn();
+					hideScrollBar();
+				}
+
+				
+			});
+		}
+		
+		handleModals();
+JAVASCRIPT;
+	}
+
 	
 

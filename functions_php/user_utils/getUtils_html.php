@@ -172,6 +172,11 @@ HTML;
 
 	}
 
+	function urlEncodeArray(&$array){
+		foreach ($array as $key => &$value) {
+			$array[$key]=urlencode($value);
+		}
+	}
 
 	
 

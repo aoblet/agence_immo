@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GeocodeResponse>
+ <status>OK</status>
+ <result>
+  <type>airport</type>
+  <type>transit_station</type>
+  <type>establishment</type>
+  <formatted_address>Fes-Saïss Airport (FEZ), Oulad Tayeb, Morocco</formatted_address>
+  <address_component>
+   <long_name>Fes-Saïss Airport</long_name>
+   <short_name>Fes-Saïss Airport</short_name>
+   <type>establishment</type>
+  </address_component>
+  <address_component>
+   <long_name>Oulad Tayeb</long_name>
+   <short_name>Oulad Tayeb</short_name>
+   <type>locality</type>
+   <type>political</type>
+  </address_component>
+  <address_component>
+   <long_name>Wilaya de Fes</long_name>
+   <short_name>Wilaya de Fes</short_name>
+   <type>administrative_area_level_2</type>
+   <type>political</type>
+  </address_component>
+  <address_component>
+   <long_name>Fes-Boulemane</long_name>
+   <short_name>Fes-Boulemane</short_name>
+   <type>administrative_area_level_1</type>
+   <type>political</type>
+  </address_component>
+  <address_component>
+   <long_name>Morocco</long_name>
+   <short_name>MA</short_name>
+   <type>country</type>
+   <type>political</type>
+  </address_component>
+  <geometry>
+   <location>
+    <lat>33.9297252</lat>
+    <lng>-4.9800485</lng>
+   </location>
+   <location_type>APPROXIMATE</location_type>
+   <viewport>
+    <southwest>
+     <lat>33.9255437</lat>
+     <lng>-4.9994965</lng>
+    </southwest>
+    <northeast>
+     <lat>33.9356884</lat>
+     <lng>-4.9580611</lng>
+    </northeast>
+   </viewport>
+   <bounds>
+    <southwest>
+     <lat>33.9255437</lat>
+     <lng>-4.9994965</lng>
+    </southwest>
+    <northeast>
+     <lat>33.9356884</lat>
+     <lng>-4.9580611</lng>
+    </northeast>
+   </bounds>
+  </geometry>
+ </result>
+</GeocodeResponse>

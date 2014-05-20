@@ -16,4 +16,9 @@
 		return NULL;
 	}
 
-
+	function getPhotoPersonne($id_personne){
+		$stmt = myPDO::getSingletonPDO()->query("SELECT chemin_photo FROM photo WHERE id_photo = (SELECT id_photo FROM personne WHERE id_personne = $id_personne)");
+		$res = $stmt->fetch();
+		$stmt->closeCursor();
+		return $res;
+	}

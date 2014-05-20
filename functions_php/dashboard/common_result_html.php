@@ -190,10 +190,36 @@ HTML;
 		$code_postal 	= !empty($infos['code_postal']) ? $infos['code_postal'] : "code postal";
 		$numero_rue 	= !empty($infos['numero_rue']) ? $infos['numero_rue'] : "numero rue";
 
+		$rue_value=''; $numero_rue_value=''; $ville_value=''; $code_postal_value='';$confirm_value=0;
+
+		if(!empty($_GET['numero_rue']))
+			$numero_rue_value = urldecode($_GET['numero_rue']);
+		if(!empty($_GET['rue']))
+			$rue_value = urldecode($_GET['rue']);
+		if(!empty($_GET['ville']))
+			$ville_value = urldecode($_GET['ville']);
+		if(!empty($_GET['code_postal']))
+			$code_postal_value = urldecode($_GET['code_postal']);
+		if(!empty($_GET['confirm']) && $_GET['confirm'] ==1)
+			$confirm_value=1;
+
+		$input_hidden_modal='';
+		
+		if(isset($_GET['find']) && !empty($_GET['find'])){
+			$value_find='';
+			if($_GET['find'] == 'fail')
+				$value_find='fail';
+			else if($_GET['find'] == 'approximate')
+				$value_find='approximate';
+			elseif ($_GET['find'] == 'ok') 
+				$value_find='ok';
+
+			$input_hidden_modal="<input type='hidden' name='find' value='$value_find'/>";
+		}
 
 		return <<<HTML
 			<div class="form-user bg-white margin30">
-				<form method='POST' action ='#'>
+				<form method='POST' name='changeAdresse' action ='$absolute_path_to_handle_form'>
 					<h4>Pour un éventuel changement d'adresse email, veuillez contacter l'agence par téléphone.</h4>
 					
 					<div class="form-champ">
@@ -208,23 +234,25 @@ HTML;
 
 					<div class="form-champ">
 						<label>Adresse</label>
-						<input type="text" name="numero_rue" value="" required="required" placeholder="$numero_rue"/>
-						<input type="text" name="rue" value="" required="required" placeholder="$rue"/>
+						<input type="text" name="numero_rue" value="$numero_rue_value" required="required" placeholder="$numero_rue"/>
+						<input type="text" name="rue" value="$rue_value" required="required" placeholder="$rue"/>
 					</div>
 
 					<div class="form-champ">
 						<label>Code Postal</label>
-						<input type="text" name="code_postal" value="" required="required" placeholder="$code_postal"/>
+						<input type="text" name="code_postal" value="$code_postal_value" required="required" placeholder="$code_postal"/>
 					</div>
 
 					<div class="form-champ">
 						<label>Ville</label>
-						<input type="text" name="ville" value="" required="required" placeholder="$ville"/>
+						<input type="text" name="ville" value="$ville_value" required="required" placeholder="$ville"/>
 					</div>
 
 					
 					<div class="form-champ-sub">
-						<input type="submit" name="connexion" value="Mettre à jour mes données" onclick='return false' />
+						<input type="hidden" name='confirm' value='$confirm_value'/>
+						$input_hidden_modal
+						<input type="submit" name="connexion" value="Mettre à jour mes données" />
 						<!-- fonction js à implementer-->
 					</div>
 				</form>

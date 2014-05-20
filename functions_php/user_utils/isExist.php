@@ -18,7 +18,7 @@
 	}
 
 	function adresseIsExistInDataBase($numero_rue, $rue, $ville, $code_postal){
-		if(!is_numeric($numero_rue) && !is_string($rue) && !is_string($ville) && !is_string($code_postal)){
+		if(is_numeric($numero_rue) && is_string($rue) && is_string($ville) && (is_string($code_postal) || is_numeric($code_postal)) ){
 			$rue = strtolower($rue);
 			$ville = strtolower($ville);
 			$code_postal = trim(strtolower($code_postal));
@@ -32,11 +32,9 @@
 						a.code_postal = :code_postal
 SQL;
 			$stmt = myPDO::getSingletonPDO()->prepare($query);
-			$stmt->exexute(array(':numero_rue'=>$numero_rue, ':rue'=>"%$rue%", ':ville'=>"%$ville%", ':code_postal'=>$code_postal));
+			$stmt->execute(array(':numero_rue'=>$numero_rue, ':rue'=>"%$rue%", ':ville'=>"%$ville%", ':code_postal'=>$code_postal));
 
-			$res = false;
-			if($stmt->fetch)
-				$res=true;
+			$res = $stmt->fetch();
 			$stmt->closeCursor();
 
 			return $res;

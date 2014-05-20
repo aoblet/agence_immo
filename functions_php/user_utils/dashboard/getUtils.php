@@ -34,11 +34,25 @@
 		return ($res ? true : false);
 	}
 
-	function getConversation($id_bien_immobilier,$id_personne_destinataire,$id_personne_auteur){
+	function getIdGestionnaire($id_bien_immobilier){
+		$id_gest='';
+		$stmt = myPDO::getSingletonPDO()->query("SELECT id_personne_gest FROM bien_immobilier WHERE id_bien_immobilier={$id_bien_immobilier}");
+		if($res=$stmt->fetch())
+			$id_gest = $res['id_personne_gest'];
+		$stmt->closeCursor();
+
+		return $id_gest;
+	}
+	
+	function getConversation($id_bien_immobilier,$id_personne_destinataire,$id_personne_auteur,$last=false){
 		$res = array();
 
 		if($id_personne_destinataire == NULL || $id_bien_immobilier == NULL)
 			return $res;
+
+		$condition_last='';
+		if($last)
+			$condition_last='DESC LIMIT 1';
 
 		$query = "	SELECT DISTINCT message.id_message,
 						 	message.date_message,
@@ -46,6 +60,7 @@
 							message.traite,
 							message.id_auteur,
 							message.id_destinataire,
+							message.id_bien_immobilier,
 							(SELECT personne.prenom_personne FROM personne WHERE personne.id_personne = message.id_auteur) AS prenom_auteur, 
 							(SELECT personne.nom_personne FROM personne WHERE personne.id_personne = message.id_auteur) AS nom_auteur,
 							(SELECT photo.chemin_photo FROM photo,personne WHERE photo.id_photo = personne.id_photo AND personne.id_personne = message.id_auteur) AS photo_auteur,
@@ -56,7 +71,8 @@
 					WHERE 	(	(id_destinataire = $id_personne_destinataire AND id_auteur = $id_personne_auteur) OR
 								(id_destinataire = $id_personne_auteur AND id_auteur = $id_personne_destinataire) ) AND 
 							id_bien_immobilier = $id_bien_immobilier
-					ORDER BY date_message";
+					ORDER BY date_message $condition_last";
+
 		$stmt = myPDO::getSingletonPDO()->query($query);
 		while($ligne = $stmt->fetch())
 			$res[] = $ligne;
@@ -128,3 +144,12 @@ SQL;
 		return $res;
 	}
 
+	function getLastMessageConversation($id_bien_immobilier,$id_personne_destinataire,$id_personne_auteur){
+		return getConversation($id_bien_immobilier,$id_personne_destinataire,$id_personne_auteur,true);
+	}
+
+	function getListeMessages($id_personne, $type_personne){
+		if($type_personne == PROPRIETAIRE || $type_personne == LOCATAIRE){
+			//même traitement.
+		}
+	}
