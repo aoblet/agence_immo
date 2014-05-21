@@ -1,5 +1,7 @@
 <?php
-	
+	require_once(dirname(__FILE__).'/dashboard/getUtils.php');
+	require_once(dirname(__FILE__).'/../dashboard/message_html.php');
+
 	// si changement racine : définir ici
 	function getPathRoot(){
 		$dir_current_script_using = str_replace("\\", "/", (dirname($_SERVER['PHP_SELF'])) );
@@ -14,12 +16,33 @@
 		return $reconstruction_path_root;
 	}
 
-	//echo getPathRoot();
+	function getDivNotifs($session,$nb_messages_non_lues){
+		$link_message = getPathRoot().'/user/dashboard/'.trim(strtolower($session['type_personne'])).'/messages.php';
+
+		if(!$nb_messages_non_lues)
+			return <<<HTML
+			<div id="new-messages" class="bg-white">
+				<div class="bottom-new-messages">
+					<div class="triangle-message"></div>
+					<a href="messages.php">Afficher tous les messages</a>
+				</div>
+			</div>
+HTML;
+		return getListeMessagesForNotifs($session);
+	}
+
+
 	// come_from : permet la redirection desirée, deconnexion connexion
-	function getBanniereConnexion($session,$file_come_from=''){
+	function getBanniereConnected($session,$file_come_from=''){
 		$link_photo = getPathRoot().$session['photo_personne'];
 		$link_deco  = getPathRoot().'user/deconnexion.php';
 		$link_dash  = getPathRoot().'user/dashboardGateway.php';
+
+		if( !($nb_messages_non_lues = getNbMessagesNonLus($session['id_personne'])) )
+			$nb_messages_non_lues ='';
+
+		$notifs_div = getDivNotifs($session,$nb_messages_non_lues);
+		
 		return <<<HTML
 		<div id="bar-connected">
 			<div class="container" >
@@ -34,8 +57,13 @@
 								<span>{$session['prenom_personne']} {$session['nom_personne']}</span>
 								<img src="$link_photo" alt='photo_personne'>
 								<input type='hidden' name='come_from' value="{$file_come_from}" />
+								<a href='#' class="fa-message">
+									<i class="fa fa-comments"></i>
+									<span>$nb_messages_non_lues</span>
+								</a>
 								<a href='#' onclick='document.send_to_deconnexion.submit()' class="fa-deconnect" title='Déconnexion'><i class="deco-moove fa fa-unlock"></i></a>
 							</p>
+							$notifs_div
 						</form>
 					</div>
 				</div>
@@ -48,7 +76,7 @@ HTML;
 		$banniere='';
 		$display_mon_compte='';
 		if(isset($session) && !empty($session)){
-			$banniere.=getBanniereConnexion($session,$come_from);
+			$banniere.=getBanniereConnected($session,$come_from);
 			$display_mon_compte='display:none';
 		}
 
@@ -64,9 +92,9 @@ HTML;
 						<ul id="menu-nav" class="only-desktop">
 							<li><a href="$link_index" class="button-home"><i class="fa fa-home"></i></a></li>
 							<li><a href="$link_achat">Acheter</a></li>
-							<li><a href="">Vendre</a></li>
+							<!--<li><a href="">Vendre</a></li>-->
 							<li><a href="$link_location">Louer</a></li>
-							<li><a href="#">Faire gerer</a></li>
+							<!--<li><a href="#">Faire gerer</a></li>-->
 						</ul>
 
 						<a href="#" id="connect" class="only-desktop" style="$display_mon_compte">

@@ -254,8 +254,8 @@
 								<strong>Vous désirez contribuer à l'objectif ?</strong>
 							</p>
 							<a href=""><i class="fa fa-plus"></i>Proposer un bien</a>
-							<a href=""><i class="fa fa-plus"></i>Rechercher un bien</a>
-							<a href=""><i class="fa fa-plus"></i>Gérer mes biens</a>
+							<a href="result.php"><i class="fa fa-plus"></i>Rechercher un bien</a>
+							<a href="user/dashboardGateway.php"><i class="fa fa-plus"></i>Gérer mes biens</a>
 							
 						</div>
 					</div>

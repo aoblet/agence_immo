@@ -43,16 +43,19 @@
 
 		return $id_gest;
 	}
-	
-	function getConversation($id_bien_immobilier,$id_personne_destinataire,$id_personne_auteur,$last=false){
+
+
+	function getConversation($id_bien_immobilier,$id_personne_destinataire,$id_personne_auteur,$last=false,$traite=true){
 		$res = array();
 
 		if($id_personne_destinataire == NULL || $id_bien_immobilier == NULL)
 			return $res;
 
-		$condition_last='';
+		$condition_last='';$condition_traite='';
 		if($last)
 			$condition_last='DESC LIMIT 1';
+		if(!$traite)
+			$condition_traite=" AND (traite=0 OR traite IS NULL) AND id_auteur!=$id_personne_destinataire";
 
 		$query = "	SELECT DISTINCT message.id_message,
 						 	message.date_message,
@@ -71,6 +74,7 @@
 					WHERE 	(	(id_destinataire = $id_personne_destinataire AND id_auteur = $id_personne_auteur) OR
 								(id_destinataire = $id_personne_auteur AND id_auteur = $id_personne_destinataire) ) AND 
 							id_bien_immobilier = $id_bien_immobilier
+							$condition_traite
 					ORDER BY date_message $condition_last";
 
 		$stmt = myPDO::getSingletonPDO()->query($query);
@@ -98,7 +102,7 @@
 	function getNbMessagesNonLus($id_personne){
 		if($id_personne == NULL)
 			return -1;
-		$stmt = myPDO::getSingletonPDO()->query("SELECT COUNT(*) AS count FROM message WHERE id_destinataire = $id_personne AND traite=0");
+		$stmt = myPDO::getSingletonPDO()->query("SELECT COUNT(DISTINCT id_auteur) AS count FROM message WHERE id_destinataire = $id_personne AND (traite=0 OR traite IS NULL)");
 		$res=0;
 		if($ligne=$stmt->fetch())
 			$res = $ligne["count"];
@@ -146,10 +150,4 @@ SQL;
 
 	function getLastMessageConversation($id_bien_immobilier,$id_personne_destinataire,$id_personne_auteur){
 		return getConversation($id_bien_immobilier,$id_personne_destinataire,$id_personne_auteur,true);
-	}
-
-	function getListeMessages($id_personne, $type_personne){
-		if($type_personne == PROPRIETAIRE || $type_personne == LOCATAIRE){
-			//même traitement.
-		}
 	}

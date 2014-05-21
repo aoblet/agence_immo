@@ -45,7 +45,7 @@
 
 	<body>
 	<header>
-		<?php echo getBanniereConnexion($_SESSION) ?>
+		<?php echo getBanniereConnected($_SESSION) ?>
 		<?php echo getBanniereDash() ?>
 	</header>
 

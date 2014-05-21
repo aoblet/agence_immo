@@ -21,7 +21,7 @@
 	else{
 		$id_destinataire = getIdGestionnaire($_GET['id_bien_immobilier']);
 		$conversation = getConversation($_GET['id_bien_immobilier'],$_SESSION['id_personne'],$id_destinataire,true);
-		if($conversation && $conversation[0]['id_destinataire'] == $_SESSION['id_personne'] && !$conversation[0]['traite'] ){
+		if($conversation && $conversation[0]['id_destinataire'] == $_SESSION['id_personne'] ){
 			//on update tous les messages de la conversation
 
 			$query = "	UPDATE message set traite=1 

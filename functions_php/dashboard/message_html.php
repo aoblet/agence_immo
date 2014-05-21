@@ -216,6 +216,58 @@ SQL;
 		return $res;
 	}
 
+	function getListeMessagesForNotifs($session){
+		$html='';
+		if($session['type_personne'] != EMPLOYE){
+			$infos_biens = getInfosForListeMessages($session['id_personne'],$session['type_personne']);
+			$cpt=0;
+			$liste='';
+			foreach ($infos_biens as $key => $value) {
+				$conversation = getConversation($value['id_bien_immobilier'],$session['id_personne'],$value['id_personne_gest'],true,false);
+				if($conversation){
+					$cpt++;
+					$infos_personne = getIdentitePersonne($value['id_personne_gest']);
+					$photo_personne = getPathRoot().getPhotoPersonne($value['id_personne_gest'])[0];
+					$prenom_nom = $infos_personne['prenom_personne'].' '.$infos_personne['nom_personne'];
+					$apercu_message = substr($conversation[0]['contenu_message'], 0,15).'...';
+					$link_message = getPathRoot().'user/dashboard/commun/messageGateway.php?id_bien_immobilier='.$value['id_bien_immobilier'];
+
+					$liste.=<<<HTML
+					<a href="$link_message">
+						<div class="new-message">
+							<div class="new-message-pic">
+								<img src="$photo_personne" alt='photo_personne'>
+							</div>
+							<div class="new-message-desc">
+								<span>$prenom_nom</span>
+								<p>$apercu_message</p>
+							</div>
+						</div>
+					</a>
+HTML;
+				}
+			}
+
+			$link_all = getPathRoot().'user/dashboard/'.strtolower($session['type_personne']).'/messages.php';
+			$html=<<<HTML
+			<div id="new-messages" class="bg-white">
+				<div class="top-new-messages">
+					<p>Nouveaux messages (<span>$cpt</span>)</p>
+					<div class="triangle-message"></div>
+				</div>
+HTML;
+			$all=<<<HTML
+				<div class="bottom-new-messages">
+					<a href="$link_all">Afficher tous les messages</a>
+				</div>
+			</div>
+HTML;
+			$html.=$liste.$all;
+		}
+
+		return $html;
+	}
+
 	function getListMessagesHTML($id_personne,$type_personne){
 
 		$infos = getInfosForListeMessages($id_personne,$type_personne);
@@ -240,7 +292,7 @@ SQL;
 
 
 				if($infos_adresse){
-					$adresse= $infos_adresse['numero_rue'].' '.substr($infos_adresse['rue'],0,20).', '.$infos_adresse['code_postal'].' '.$infos_adresse['ville'];
+					$adresse= $infos_adresse['numero_rue'].' '.substr($infos_adresse['rue'],0,20).', '.$infos_adresse['code_postal'].' '.substr($infos_adresse['ville'],0,30);
 				}
 
 				if( ($infos_personne=getIdentitePersonne($value['id_personne_gest']))){
