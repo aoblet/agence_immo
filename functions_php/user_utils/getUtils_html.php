@@ -74,10 +74,11 @@ HTML;
 
 	function getBanniere($session,$come_from=''){
 		$banniere='';
-		$display_mon_compte='';
+		$display_mon_compte=''; $padding_top='';
 		if(isset($session) && !empty($session)){
 			$banniere.=getBanniereConnected($session,$come_from);
 			$display_mon_compte='display:none';
+			$padding_top="padding-top:60px";
 		}
 
 		$link_index = getPathRoot().'index.php';
@@ -85,7 +86,7 @@ HTML;
 		$link_location = getPathRoot().'result.php?type_achat_location=location';
 
 		$banniere.=<<<HTML
-		<div class="container" >
+		<div class="container" style="$padding_top">
 			<div class="row">
 				<div class="col-md-12">
 					<div id="menu">

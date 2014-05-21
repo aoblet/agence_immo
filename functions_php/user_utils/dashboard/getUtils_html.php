@@ -176,15 +176,15 @@ HTML;
 				$( ".user-modal-okay" ).hide();
 				$( ".user-modal-clarify" ).hide();
 				$( ".user-modal-error" ).hide();
-				$(".user-close-modal").css('opacity',0);
+				$(".user-close-modal").css('opacity',0.2);
 
 				//comportement close-modal
 				$( ".user-box-modal").hover(function(){
-					$(".user-close-modal").animate({ opacity:1},'slow');
+					$(".user-close-modal").fadeTo('slow',1);
 				});
 
 				$( ".user-box-modal").mouseleave(function(){
-					$(".user-close-modal").animate({ opacity:0},'slow');
+					$(".user-close-modal").fadeTo('slow',0.2);
 				});
 
 				$( ".user-close-modal" ).click(function(){

@@ -305,13 +305,12 @@ SQL;
 		return $res;
 	}
 
-	function searchForLocatarieAvance($id_bien_immobilier){
+	function searchForLocatarieAvance($id_bien_immobilier,$id_locataire){
 		$res = array();
 		if($id_bien_immobilier != NULL){
 			$res = searchBase(array('id_bien_immobilier' => $id_bien_immobilier ));
-			$res['infos_historiques_depense'] = getInfosHistoriqueDepense($id_bien_immobilier);
-			$res['infos_historiques_rentree'] = getInfosHistoriqueRentree($id_bien_immobilier);
-			$res['infos_locataire'] = getInfosLocataire($id_bien_immobilier);
+			$res['infos_historiques_imputation'] = getInfosHistoriqueImputation($id_bien_immobilier,$id_locataire);
+			$res['infos_historiques_paiement'] = getInfosHistoriquePaiement($id_bien_immobilier,$id_locataire);
 		}
 
 		return $res;

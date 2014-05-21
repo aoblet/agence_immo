@@ -9,7 +9,7 @@
 		return affichage_base_liste_html(searchForProprioBase($id_personne));
 	}
 
-	function getMenuOnBien($id_bien_immobilier){
+	function getMenuOnBienProprietaire($id_bien_immobilier){
 		//gérer quand le bien est loué : pas d'affichage dans le menu cf visu bien ?
 
 		$link_etat_bien = dirname($_SERVER['PHP_SELF']).'/bien.php?id_bien_immobilier='.trim($id_bien_immobilier);
@@ -556,7 +556,7 @@ HTML;
 	}
 
 
-	function getEtatDuBien($id_bien_immobilier){
+	function getEtatDuBienProprietaire($id_bien_immobilier){
 		return affichage_visu_proprio($id_bien_immobilier);
 	}
 

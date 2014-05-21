@@ -1,4 +1,4 @@
-<?php
+	<?php
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils_html.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/locataire/affichage_result.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/getUtils_html.php');

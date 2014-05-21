@@ -6,7 +6,7 @@
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils_html.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/getUtils_html.php');
 	require_once(dirname(__FILE__).'/../../../enum/enum_type_user.php');
-	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/proprietaire/affichage_result.php');
+	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/locataire/affichage_result.php');
 
 
 	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne'])){
@@ -29,7 +29,7 @@
 		die();
 	}
 
-	$infos = searchForProprioAvance($_GET['id_bien_immobilier']);
+	$infos = searchForLocataireAvance($_GET['id_bien_immobilier']);
 
 	$depenses = isset($infos['infos_historiques_depense']) ? $infos['infos_historiques_depense'] : array();
 	$rentrees = isset($infos['infos_historiques_rentree']) ? $infos['infos_historiques_rentree'] : array();
@@ -120,17 +120,6 @@
 		$( "#connect-mobile").click(function() {
 			$('#connect-form').slideToggle('fast');
 		});
-
-
-		<?php echo getDepensesGraphiqueJS($depenses) ?>
-		<?php echo getRecettesGraphiqueJS($rentrees) ?>
-		<?php echo getDiagrammeProportionsJS($depenses,$rentrees) ?>
-
-		<?php echo getChoiceButtonJS()?>
-
-
-		<?php echo addSortArrayDepensesJS(); ?>
-		<?php echo addSortArrayRecettesJS(); ?>
 		// ]]>
 	</script>
 

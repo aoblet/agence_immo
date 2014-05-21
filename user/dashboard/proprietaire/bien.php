@@ -69,11 +69,11 @@
 			<div class="container ">
 				<div class="row">
 
-					<?php echo getMenuOnBien($_GET['id_bien_immobilier']) ?>
+					<?php echo getMenuOnBienProprietaire($_GET['id_bien_immobilier']) ?>
 
 					<div class="col-md-9">
 
-						<?php echo getEtatDuBien($_GET['id_bien_immobilier']) ?>
+						<?php echo getEtatDuBienProprietaire($_GET['id_bien_immobilier']) ?>
 
 					</div>
 				</div>
