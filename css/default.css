@@ -125,11 +125,14 @@ footer{
 
 #bar-connected{
     color: #555;
-    padding: 5px;
-    width: 100%;
-    height: 60px;
-    background: #ECF0F1;
-    text-align: left;
+padding: 5px;
+width: 100%;
+height: 60px;
+background: #ECF0F1;
+text-align: left;
+top: 0;
+position: fixed;
+z-index: 40000;
 }
 
 #bar-connected a{
