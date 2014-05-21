@@ -229,7 +229,7 @@ SQL;
 					$infos_personne = getIdentitePersonne($value['id_personne_gest']);
 					$photo_personne = getPathRoot().getPhotoPersonne($value['id_personne_gest'])[0];
 					$prenom_nom = $infos_personne['prenom_personne'].' '.$infos_personne['nom_personne'];
-					$apercu_message = substr($conversation[0]['contenu_message'], 0,15).'...';
+					$apercu_message = substr($conversation[0]['contenu_message'], 0,25).'...';
 					$link_message = getPathRoot().'user/dashboard/commun/messageGateway.php?id_bien_immobilier='.$value['id_bien_immobilier'];
 
 					$liste.=<<<HTML
