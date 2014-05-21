@@ -35,7 +35,9 @@ header {
     background: #2C3E50; 
     width: 100%;
     z-index: 30000;
+    /*padding-top: 60px;*/
 }
+
 #menu {
 	display: block;
     float: left;
