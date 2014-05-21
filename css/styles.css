@@ -34,7 +34,7 @@ header {
     top: 0px;
     background: #2C3E50; 
     width: 100%;
-    z-index: 7000;
+    z-index: 30000;
 }
 #menu {
 	display: block;

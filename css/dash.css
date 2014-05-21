@@ -29,12 +29,6 @@ bien-spe-title.indice_A{
 
 
 
-#bar-connected{
-	position: fixed;
-	top: 0px;
-}
-
-
 
 header {
     position: relative;
@@ -54,6 +48,12 @@ header h1{
 	color: #FFF;
 	line-height: 2;
 	font-weight: 300;
+}
+
+
+
+#new-messages-modal {
+z-index: 7000;
 }
 
 
