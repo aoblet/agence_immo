@@ -8,7 +8,7 @@
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/getUtils_html.php');
 	session_start();
 
-	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne'])){
+	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne']) || $_SESSION['type_personne'] != LOCATAIRE){
 		$link_home = getPathRoot().'index.php';
 		header('Location: '.$link_home);
 		die();

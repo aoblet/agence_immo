@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mar 20 Mai 2014 à 21:06
+-- Généré le: Mer 21 Mai 2014 à 17:28
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
@@ -379,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `historique` (
   `date_historique` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_historique`),
   KEY `FK_Historique_id_bien_immobilier` (`id_bien_immobilier`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Contenu de la table `historique`
@@ -396,7 +396,9 @@ INSERT INTO `historique` (`id_historique`, `nom_action`, `prix_action`, `descrip
 (8, 'achat fourniture papier peint', 150, 'rafraichissement salon ', 2, '2014-05-01 21:50:12'),
 (9, 'achat parquet', 2000, 'parquet pour le salon', 2, '2014-05-01 21:50:12'),
 (10, 'achat luminaire', 160, 'luminaires pour la cuisine', 2, '2014-05-01 21:51:18'),
-(11, 'achat mobilier', 6000, 'mobilier pour la cuisine', NULL, '2014-05-01 21:51:18');
+(11, 'achat mobilier', 6000, 'mobilier pour la cuisine', 1, '2014-05-01 21:51:18'),
+(12, 'loyer mai', 1500, 'loyer mai', 1, '2014-05-21 14:10:33'),
+(13, 'loyer aout', 2000, 'loyer aout', 1, '2014-05-21 15:48:25');
 
 -- --------------------------------------------------------
 
@@ -423,7 +425,7 @@ INSERT INTO `historique_depense` (`id_historique`, `id_personne_impute`) VALUES
 (8, NULL),
 (9, NULL),
 (10, NULL),
-(11, NULL);
+(11, 10);
 
 -- --------------------------------------------------------
 
@@ -445,7 +447,9 @@ CREATE TABLE IF NOT EXISTS `historique_entree` (
 INSERT INTO `historique_entree` (`id_historique`, `id_paiement`) VALUES
 (5, NULL),
 (6, NULL),
-(7, NULL);
+(7, NULL),
+(12, 1),
+(13, 1);
 
 -- --------------------------------------------------------
 
@@ -536,7 +540,7 @@ CREATE TABLE IF NOT EXISTS `message` (
   KEY `FK_Message_id_auteur` (`id_auteur`),
   KEY `FK_Message_id_destinataire` (`id_destinataire`),
   KEY `FK_Message_id_bien_immobilier` (`id_bien_immobilier`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
 
 --
 -- Contenu de la table `message`
@@ -559,8 +563,9 @@ INSERT INTO `message` (`id_message`, `date_message`, `contenu_message`, `traite`
 (20, '2014-05-18 22:21:22', 'Nous avons pris note de tes remarques Bill. Merci beaucoup pour ce retour.\r\nCordialement.', 1, 8, 11, 1),
 (22, '2014-05-19 00:06:11', 'Bonjour, pourrais-je vous demander si les messages sont gardés dans votre base de données à vie ?', 0, 11, 12, 6),
 (23, '2014-05-19 00:09:57', '?', 0, 11, 12, 6),
-(27, '2014-05-19 14:11:42', 'Petit test traite ou non', 0, 12, 11, 2),
-(28, '2014-05-20 19:40:28', 'Bonjour Monsieur, avez vous des soucis avec l''intérface web?\r\nCordialement.\r\nVotre gestionnaire.', 0, 8, 11, 1);
+(27, '2014-05-19 14:11:42', 'Petit test traite ou non', 1, 12, 11, 2),
+(28, '2014-05-20 19:40:28', 'Bonjour Monsieur, avez vous des soucis avec l''intérface web?\r\nCordialement.\r\nVotre gestionnaire.', 1, 8, 11, 1),
+(31, '2014-05-20 22:58:15', '&lt;script&gt;alert()&lt;/script&gt;', 0, 11, 12, 7);
 
 -- --------------------------------------------------------
 
@@ -578,7 +583,15 @@ CREATE TABLE IF NOT EXISTS `paiement` (
   PRIMARY KEY (`id_paiement`),
   KEY `FK_Paiement_id_personne` (`id_personne_payeur`),
   KEY `FK_Paiement_id_historique` (`id_historique`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `paiement`
+--
+
+INSERT INTO `paiement` (`id_paiement`, `date_paiement`, `montant_paiement`, `motif_paiement`, `id_personne_payeur`, `id_historique`) VALUES
+(1, NULL, 1500, 'loyer mai', 10, 12),
+(2, NULL, 2000, 'loyer aout', 12, 13);
 
 -- --------------------------------------------------------
 
@@ -609,7 +622,7 @@ INSERT INTO `personne` (`id_personne`, `nom_personne`, `prenom_personne`, `login
 (2, 'alexis', 'admin', 'admin', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', NULL, NULL, NULL),
 (7, 'alexis', 'admin', 'admin2', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', NULL, 1, NULL),
 (8, 'Oblet', 'Alexis', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'alexdeoiny@gmail.com', 4, NULL),
-(9, 'Biteau', 'Armand', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'armandbiteau@gmail.com', 1, NULL),
+(9, 'Biteau', 'Armand', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'armandbiteau@gmail.com', 5, NULL),
 (10, 'Locataire_nom', 'Locataire_prenom', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'locataire@gmail.com', 1, 10),
 (11, 'Gates', 'Bill', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'proprietaire@gmail.com', 2, 10),
 (12, 'Constant', 'Matthieu', NULL, '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'employe@gmail.com', 3, NULL);
@@ -624,7 +637,7 @@ CREATE TABLE IF NOT EXISTS `photo` (
   `id_photo` int(11) NOT NULL AUTO_INCREMENT,
   `chemin_photo` varchar(255) NOT NULL,
   PRIMARY KEY (`id_photo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `photo`
@@ -632,9 +645,10 @@ CREATE TABLE IF NOT EXISTS `photo` (
 
 INSERT INTO `photo` (`id_photo`, `chemin_photo`) VALUES
 (1, 'img/avatar.png'),
-(2, 'img/11/gates.jpg'),
-(3, 'img/12/constant.jpg'),
-(4, 'img/8/alex.jpg');
+(2, 'img/personnes/11/gates.jpg'),
+(3, 'img/personnes/12/constant.jpg'),
+(4, 'img/personnes/8/alex.jpg'),
+(5, 'img/personnes/9/armand.jpg');
 
 -- --------------------------------------------------------
 

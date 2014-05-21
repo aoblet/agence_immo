@@ -305,7 +305,7 @@ SQL;
 		return $res;
 	}
 
-	function searchForLocatarieAvance($id_bien_immobilier,$id_locataire){
+	function searchForLocataireAvance($id_bien_immobilier,$id_locataire){
 		$res = array();
 		if($id_bien_immobilier != NULL){
 			$res = searchBase(array('id_bien_immobilier' => $id_bien_immobilier ));

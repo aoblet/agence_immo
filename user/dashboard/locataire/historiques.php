@@ -9,7 +9,7 @@
 	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/locataire/affichage_result.php');
 
 
-	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne'])){
+	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne']) || $_SESSION['type_personne'] != LOCATAIRE){
 		$link_home = getPathRoot().'index.php';
 		header('Location: '.$link_home);
 		die();
@@ -29,10 +29,10 @@
 		die();
 	}
 
-	$infos = searchForLocataireAvance($_GET['id_bien_immobilier']);
+	$infos = searchForLocataireAvance($_GET['id_bien_immobilier'],$_SESSION["id_personne"]);
 
-	$depenses = isset($infos['infos_historiques_depense']) ? $infos['infos_historiques_depense'] : array();
-	$rentrees = isset($infos['infos_historiques_rentree']) ? $infos['infos_historiques_rentree'] : array();
+	$imputations = isset($infos['infos_historiques_imputation']) ? $infos['infos_historiques_imputation'] : array();
+	$paiements = isset($infos['infos_historiques_paiement']) ? $infos['infos_historiques_paiement'] : array();
 	
 	//rappel bien fait ici car pas de recherche d'infos dans affichage result
 	// getInfosAdresse minifie la recherche d'infos
@@ -83,19 +83,22 @@
 		<div class="container ">
 			<div class="row">
 
-				<?php echo getMenuOnBienProprietaire($_GET['id_bien_immobilier']) ?>
+				<?php echo getMenuOnBienLocataire($_GET['id_bien_immobilier']) ?>
 			
 				<div class="col-md-9">
 					<div class="titlepage bg-blue">
 						<h2>Historiques financiers <span class='indication-bien-dash'><?php echo $adresse?></span> </h2>
 					</div>
-					<?php echo getChoiceButtonHTML() ?>
-					<?php echo getDepensesGraphiqueHTML($depenses) 	?>
-					<?php echo getRentreesGraphiqueHTML($rentrees) 	?>
-					<?php echo getDiagrammeProportionsHTML($depenses,$rentrees)	?>
 
-					<?php echo getArrayDepenses($depenses) ?>
-					<?php echo getArrayRecettes($rentrees) ?>
+						<?php echo getChoiceButtonLocataireHTML();?>
+
+
+						<?php echo getImputationsGraphiqueHTML($imputations);?>
+						<?php echo getPaiementsGraphiqueHTML($paiements);?>
+						<?php echo getDiagrammeProportionsLocataireHTML($imputations,$paiements);?>
+
+						<?php echo getArrayImputations($imputations);?>
+						<?php echo getArrayPaiements($paiements);?>
 
 				</div>
 			</div>
@@ -112,6 +115,15 @@
 
 	<script type="text/javascript">
 		//<![CDATA[
+		<?php echo getChoiceButtonLocataireJS()?>
+
+		<?php echo getImputationsGraphiqueJS($imputations) ?>
+		<?php echo getPaiementsGraphiqueJS($paiements) ?>
+		<?php echo getDiagrammeProportionsLocataireJS($imputations,$paiements);?>
+
+
+		<?php echo addSortArrayImputationsJS()?>
+		<?php echo addSortArrayPaiementsJS()?>
 		var open_menu = 0;
 		$( "#connect").click(function() {
 			$('#connect-form').slideToggle('fast');

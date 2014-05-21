@@ -9,7 +9,7 @@
 	session_start();
 
 	//verif securité
-	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne'])){
+	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne']) || $_SESSION['type_personne'] != LOCATAIRE){
 		$link_home = getPathRoot().'index.php';
 		header('Location: '.$link_home);
 		die();

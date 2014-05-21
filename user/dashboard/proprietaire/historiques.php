@@ -9,7 +9,7 @@
 	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/proprietaire/affichage_result.php');
 
 
-	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne'])){
+	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne']) || $_SESSION['type_personne'] != PROPRIETAIRE){
 		$link_home = getPathRoot().'index.php';
 		header('Location: '.$link_home);
 		die();
@@ -89,10 +89,10 @@
 					<div class="titlepage bg-blue">
 						<h2>Historiques financiers <span class='indication-bien-dash'><?php echo $adresse?></span> </h2>
 					</div>
-					<?php echo getChoiceButtonHTML() ?>
+					<?php echo getChoiceButtonProprietaireHTML() ?>
 					<?php echo getDepensesGraphiqueHTML($depenses) 	?>
 					<?php echo getRentreesGraphiqueHTML($rentrees) 	?>
-					<?php echo getDiagrammeProportionsHTML($depenses,$rentrees)	?>
+					<?php echo getDiagrammeProportionsProprietaireHTML($depenses,$rentrees)	?>
 
 					<?php echo getArrayDepenses($depenses) ?>
 					<?php echo getArrayRecettes($rentrees) ?>
@@ -124,9 +124,9 @@
 
 		<?php echo getDepensesGraphiqueJS($depenses) ?>
 		<?php echo getRecettesGraphiqueJS($rentrees) ?>
-		<?php echo getDiagrammeProportionsJS($depenses,$rentrees) ?>
+		<?php echo getDiagrammeProportionsProprietaireJS($depenses,$rentrees) ?>
 
-		<?php echo getChoiceButtonJS()?>
+		<?php echo getChoiceButtonProprietaireJS()?>
 
 
 		<?php echo addSortArrayDepensesJS(); ?>

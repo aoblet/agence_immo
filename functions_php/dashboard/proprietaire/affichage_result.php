@@ -82,6 +82,9 @@ HTML;
 	}
 
 	function getDepensesGraphiqueJS($depenses_array){
+		if(empty($depenses_array))
+			return;
+
 		$depenses_js = array();
 		$labels_js = array();
 		$options_chart="{}";
@@ -195,6 +198,9 @@ HTML;
 	}
 
 	function getRecettesGraphiqueJS($rentrees_array){
+		if(empty($rentrees_array))
+			return ;
+
 		$rentrees_js = array();
 		$labels_js = array();
 		$options_chart="{}";
@@ -273,7 +279,7 @@ JAVASCRIPT;
 		return $js;
 	}
 
-	function getDiagrammeProportionsHTML($depenses_array, $rentrees_array){
+	function getDiagrammeProportionsProprietaireHTML($depenses_array, $rentrees_array){
 
 		if(empty($rentrees_array) && empty($depenses_array)){
 			return <<<HTML
@@ -296,7 +302,7 @@ HTML;
 HTML;
 	}
 
-	function getDiagrammeProportionsJS($depenses_array,$recettes_array){
+	function getDiagrammeProportionsProprietaireJS($depenses_array,$recettes_array){
 		$total_depenses = 0;
 		$total_recettes = 0;
 		$depenses_prorata=0;
@@ -342,7 +348,7 @@ JAVASCRIPT;
 		return $js;
 	}
 
-	function getChoiceButtonHTML(){
+	function getChoiceButtonProprietaireHTML(){
 		return <<<HTML
 		<div id='choice_buttons'>
 			<input type='button' class='button-graphique choice-button' id='choice_graphic' value='Graphiques' onClick="setChoiceHistorique('choice_graphic')">
@@ -352,7 +358,7 @@ JAVASCRIPT;
 HTML;
 	}
 
-	function getChoiceButtonJS(){
+	function getChoiceButtonProprietaireJS(){
 		return <<<JAVASCRIPT
 			function setChoiceHistorique(type_choice){
 				var buttons = document.getElementById('choice_buttons').getElementsByTagName('input');
