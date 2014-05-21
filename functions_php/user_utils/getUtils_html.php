@@ -24,7 +24,7 @@
 			<div id="new-messages" class="bg-white">
 				<div class="bottom-new-messages">
 					<div class="triangle-message"></div>
-					<a href="messages.php">Afficher tous les messages</a>
+					<a href="$link_message">Afficher tous les messages</a>
 				</div>
 			</div>
 HTML;
