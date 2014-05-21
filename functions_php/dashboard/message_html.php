@@ -219,9 +219,10 @@ SQL;
 	function getListeMessagesForNotifs($session){
 		$html='';
 		$liste='';
+		$cpt=0;
 		if($session['type_personne'] != EMPLOYE){
 			$infos_biens = getInfosForListeMessages($session['id_personne'],$session['type_personne']);
-			$cpt=0;
+			
 			$liste='';
 			foreach ($infos_biens as $key => $value) {
 				$conversation = getConversation($value['id_bien_immobilier'],$session['id_personne'],$value['id_personne_gest'],true,false);
@@ -251,10 +252,15 @@ HTML;
 		}
 
 		$link_all = getPathRoot().'user/dashboard/'.strtolower($session['type_personne']).'/messages.php';
+		if($cpt == 0 || $cpt == 1)
+			$phrase_message = 'Nouveau message';
+		else
+			$phrase_message='Nouveaux messages';
+
 		$html=<<<HTML
 		<div id="new-messages" class="bg-white">
 			<div class="top-new-messages">
-				<p>Nouveaux messages (<span>$cpt</span>)</p>
+				<p>$phrase_message (<span>$cpt</span>)</p>
 				<div class="triangle-message"></div>
 			</div>
 HTML;
