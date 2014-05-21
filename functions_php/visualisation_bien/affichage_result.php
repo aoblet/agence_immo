@@ -257,7 +257,7 @@ HTML;
 							<h2>$phrase_type_bien_type_operation_superficie</h2>
 
 							<div class="bien-spe-title-back">
-								<a href="$link_retour"><i class="fa fa-reply"></i> Retour</a>
+								<a href="$link_retour"><i class="fa fa-reply"></i> Recherche</a>
 							</div>
 
 							<h3>$prix</h3>

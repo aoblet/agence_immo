@@ -17,7 +17,7 @@
 	}
 
 	function getDivNotifs($session,$nb_messages_non_lues){
-		$link_message = getPathRoot().'/user/dashboard/'.trim(strtolower($session['type_personne'])).'/messages.php';
+		$link_message = getPathRoot().'user/dashboard/'.trim(strtolower($session['type_personne'])).'/messages.php';
 
 		if(!$nb_messages_non_lues)
 			return <<<HTML
