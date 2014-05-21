@@ -17,7 +17,7 @@
 
 			$html="<select name='{$name_select}' id='$name_select'> \n".$dep_opt." </select>";
 
-			return $html;	
+			return $html;
 		}
 		return '';
 		
