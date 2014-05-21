@@ -7,7 +7,8 @@ $(function() {
 	// }else{
 	// 	$(".deco-moove").removeClass( "fa-unlock");
 	// });
-
+	
+	$(' body').prepend($( "<div id='new-messages-modal'/>" ));
 
 	$('.fa-deconnect').hover(
        function(){ $(".deco-moove").addClass("fa-lock");$(".deco-moove").removeClass("fa-unlock") },
@@ -15,7 +16,8 @@ $(function() {
 	)
 
 	var bool =0;
-	$( ".fa-message" ).click(function() {
+	$( ".fa-message" ).click(function(e) {
+		e.preventDefault();
 		if (bool == 0) {
 		  	$( "#new-messages" ).css("display","block");
 		  	$( "#new-messages-modal" ).css("display","block");

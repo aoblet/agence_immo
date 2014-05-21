@@ -218,6 +218,7 @@ SQL;
 
 	function getListeMessagesForNotifs($session){
 		$html='';
+		$liste='';
 		if($session['type_personne'] != EMPLOYE){
 			$infos_biens = getInfosForListeMessages($session['id_personne'],$session['type_personne']);
 			$cpt=0;
@@ -247,23 +248,23 @@ SQL;
 HTML;
 				}
 			}
+		}
 
-			$link_all = getPathRoot().'user/dashboard/'.strtolower($session['type_personne']).'/messages.php';
-			$html=<<<HTML
-			<div id="new-messages" class="bg-white">
-				<div class="top-new-messages">
-					<p>Nouveaux messages (<span>$cpt</span>)</p>
-					<div class="triangle-message"></div>
-				</div>
-HTML;
-			$all=<<<HTML
-				<div class="bottom-new-messages">
-					<a href="$link_all">Afficher tous les messages</a>
-				</div>
+		$link_all = getPathRoot().'user/dashboard/'.strtolower($session['type_personne']).'/messages.php';
+		$html=<<<HTML
+		<div id="new-messages" class="bg-white">
+			<div class="top-new-messages">
+				<p>Nouveaux messages (<span>$cpt</span>)</p>
+				<div class="triangle-message"></div>
 			</div>
 HTML;
-			$html.=$liste.$all;
-		}
+		$all=<<<HTML
+			<div class="bottom-new-messages">
+				<a href="$link_all">Afficher tous les messages</a>
+			</div>
+		</div>
+HTML;
+		$html.=$liste.$all;
 
 		return $html;
 	}
