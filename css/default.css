@@ -344,7 +344,7 @@ z-index: 40000;
     max-width: 700px;
     min-height: 230px;
     height: auto;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
     margin: 0px auto;
 }
 
@@ -359,11 +359,11 @@ z-index: 40000;
 }
 
 
-.user-modal-content input{
+.user-modal-content input[type=submit]{
+    margin: 0px auto;
     margin-top: 10px!important;
     text-align: center;
-    float: left;
-    left: calc(50% - 55px);
+    float: none;
 }
 
 
@@ -580,10 +580,6 @@ z-index: 40000;
     padding: 10px;
     background: #bbb;
 }
-
-
-
-
 
 
 
