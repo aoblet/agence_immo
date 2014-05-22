@@ -19,26 +19,60 @@
 
 	if(    empty($_POST['prix']) || !is_numeric($_POST['prix']) || empty($_POST['proprietaire']) || empty($_POST['type_bien_radio']) || empty($_POST['rue']) 
 		|| empty($_POST['nb_pieces']) || !is_numeric($_POST['nb_pieces']) || empty($_POST['numero_rue']) || !is_numeric($_POST['numero_rue'])
-		|| empty($_POST['code_postal']) || empty($_POST['ville']) || empty($_POST['departement']) || empty($_POST['description'])){
+		|| empty($_POST['code_postal']) || empty($_POST['ville']) || empty($_POST['departement']) || empty($_POST['description']) 
+		|| empty($_POST['vente_location']) || ($_POST['vente_location'] != 'vente' && $_POST['vente_location'] != 'location')){
 
 		$message = urlencode(utf8_encode("Les champs obligatoires n'ont pas été correctement saisis"));
 		$end_url_redirect='?statut_reponse=fail&message_reponse='.$message;
 	}
 	else{
+		//proprietaire
+		$id_proprietaire=NULL; $id_agence_vendeur=NULL;$id_agence_loueur=NULL;$type_chauffage=NULL;$gaz_effet_de_serre=NULL;$conso_energetique=NULL;
+		$id_agence = getIdAgence();
+
+		if($_POST['vente_location'] == 'vente'){
+			if($_POST['proprietaire'] != $id_agence){
+				$end_url_redirect='?statut_reponse=fail&message_reponse='.urlencode(utf8_encode("L'ajout a echoué: la vente est réservé à l'agence"));
+				header('Location: ../ajoutBien.php'.$end_url_redirect);
+				die();
+			}
+			$id_agence_vendeur=$_POST['proprietaire'];
+		}
+		else{
+			if($_POST['proprietaire'] ==$id_agence)
+				$id_agence_loueur = $_POST['proprietaire'];
+			else
+				$id_proprietaire = $_POST['proprietaire'];
+		}
+
+		if(!empty($_POST['chauffage']))
+			$type_chauffage = $_POST['chauffage'];
+		if(!empty($_POST['energetique']))
+			$conso_energetique = $_POST['energetique'];
+		if(!empty($_POST['gaz']))
+			$gaz_effet_de_serre = $_POST['gaz'];
 
 
-		//on insère le bien
-		$query="INSERT INTO bien_immobilier (prix, superficie, nb_pieces, descriptif, id_personne_gest,parking) 
-				VALUES(:prix, :superficie, :nb_pieces, :descriptif, :id_personne_gest,:parking) ";
-
-		$parking='NULL';
+		$parking=NULL;
 		if(!empty($_POST['parking']) && ($_POST['parking']==0 || $_POST['parking']==1))
 			$parking = $_POST['parking'];
 
+		//on insère le bien
+		$query="INSERT INTO bien_immobilier (prix, superficie, nb_pieces, descriptif, id_personne_gest,parking, 
+											id_personne_proprio,id_agence_loueur,id_agence_vendeur, id_type_chauffage, id_gaz, id_consommation_energetique) 
+				VALUES(	:prix, :superficie, :nb_pieces, :descriptif, :id_personne_gest,:parking,:id_personne_proprio,:id_agence_loueur,:id_agence_vendeur,
+						:id_type_chauffage, :id_gaz, :id_consommation_energetique) ";
+
 		$insert_ok = false;
 		$stmt = myPDO::getSingletonPDO()->prepare($query);
-		$insert_ok = $stmt->execute(array(':prix'=>$_POST['prix'],':superficie'=>$_POST['superficie'],':nb_pieces'=>$_POST['nb_pieces'],
-										  ':descriptif'=>$_POST['description'],':id_personne_gest'=>$_SESSION['id_personne'],':parking'=>$parking));
+		$array_requete  =array(':prix'=>$_POST['prix'],':superficie'=>$_POST['superficie'],':nb_pieces'=>$_POST['nb_pieces'],
+										  ':descriptif'=>$_POST['description'],':id_personne_gest'=>$_SESSION['id_personne'],':parking'=>$parking,
+										  ':id_personne_proprio'=>$id_proprietaire,':id_agence_loueur'=>$id_agence_loueur,
+										  ':id_agence_vendeur'=>$id_agence_vendeur, 'id_type_chauffage'=>$type_chauffage, 'id_gaz'=>$gaz_effet_de_serre,
+										  'id_consommation_energetique'=>$conso_energetique);
+
+		$insert_ok = $stmt->execute($array_requete);
+
 		$id_bien = myPDO::getSingletonPDO()->lastInsertId();
 		$stmt->closeCursor();
 

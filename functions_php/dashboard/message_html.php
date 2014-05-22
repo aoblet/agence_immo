@@ -51,7 +51,7 @@
 
 	function getMessageHTML($id_bien_immobilier,$id_personne_destinataire,$id_personne_auteur,&$cpt_message){
 		$cpt_message='';
-
+		$cpt=0;
 		$conversation = getConversation($id_bien_immobilier,$id_personne_destinataire,$id_personne_auteur);
 
 		$html=<<<HTML
@@ -67,7 +67,7 @@ HTML;
 					</div>";
 		}
 		else{
-			$cpt=0;
+			
 			foreach ($conversation as $value) {
 				$cpt++;
 

@@ -164,3 +164,12 @@ SQL;
 	function getLastMessageConversation($id_bien_immobilier,$id_personne_destinataire,$id_personne_auteur){
 		return getConversation($id_bien_immobilier,$id_personne_destinataire,$id_personne_auteur,true);
 	}
+
+	function getIdAgence(){
+		$stmt = myPDO::getSingletonPDO()->query("SELECT id_agence_immobiliere FROM agence_immobiliere");
+		$res=-1;
+		if($ligne=$stmt->fetch())
+			$res = $ligne['id_agence_immobiliere'];
+		$stmt->closeCursor();
+		return $res;
+	}

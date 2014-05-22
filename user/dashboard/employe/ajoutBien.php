@@ -78,7 +78,24 @@
 					<div class="form-add bg-white margin30">
 						<form action='traitement/ajoutBienTraitement.php' method='POST' name='form_ajout_bien'>
 							<h4>Les informations primaires sont obligatoires.</h4>
+							<div class="form-champ">
+								<label>Type d'opération</label>
+
+								<div class="form-add-radio">
+									<input type="radio" id="location_id" checked name="vente_location" value="location" /> 
+									<span><label for='location_id' style='line-height:0px;font-weight:normal;margin-top:12px'>Location</label></span>
+
+									<input type="radio" id="vente_id" name="vente_location" value="vente" /> 
+									<span><label for="vente_id" style='line-height:0px;font-weight:normal;margin-top:12px'>Vente</label></span>
+								</div>
+
+							</div>
 							
+							<div class="form-champ">
+								<label>Proprietaire</label>
+								<?php echo getSelectProprietaireEmploye('proprietaire')?>
+							</div>
+
 							<div class="form-champ">
 								<label>Prix</label>
 								<input style="max-width:500px;" type="text" name="prix" value="" required="required" placeholder="€"/>
@@ -93,12 +110,6 @@
 								<label>Nombre de pièces</label>
 								<input style="max-width:500px;" type="text" name="nb_pieces" value="" required="required" placeholder="0"/>
 							</div>
-
-							<div class="form-champ">
-								<label>Proprietaire</label>
-								<?php echo getSelectProprietaireEmploye('proprietaire')?>
-							</div>
-
 
 							<div class="form-champ">
 								<label>Type de bien</label>

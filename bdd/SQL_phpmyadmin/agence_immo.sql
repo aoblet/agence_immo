@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 21 Mai 2014 à 17:28
+-- Généré le: Jeu 22 Mai 2014 à 17:34
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `adresse` (
   `id_departement` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_adresse`),
   KEY `FK_Adresse_id_departement` (`id_departement`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- Contenu de la table `adresse`
@@ -53,7 +53,14 @@ INSERT INTO `adresse` (`id_adresse`, `code_postal`, `ville`, `rue`, `numero_rue`
 (7, '06200', 'Nice', 'rue de la Joconde', 3, 6),
 (8, '93100', 'Montreuil', 'rue de la Soif', 65, 92),
 (9, '35200', 'Rennes', 'rue de Mitterand', 6, 34),
-(10, '94300', 'Vincennes', 'Rue Joseph Gaillard', 67, 93);
+(10, '94300', 'Vincennes', 'Rue Joseph Gaillard', 67, 93),
+(11, '75000', 'Paris', 'rue du php', 20, 74),
+(12, '75015', 'Paris', 'rue du php', 20, 74),
+(13, '94300', 'Paris', 'rue du php', 15, 16),
+(14, '75000', 'vincennes', 'rue de la joconde', 20, 4),
+(15, '94300', 'vincennes', 'rue de la soif', 3, 3),
+(16, '94300', 'Paris', 'rue de la soif', 15, 4),
+(17, '06200', 'vincennes', 'rue de la soif', 20, 15);
 
 -- --------------------------------------------------------
 
@@ -100,7 +107,8 @@ CREATE TABLE IF NOT EXISTS `appartement` (
 
 INSERT INTO `appartement` (`etage`, `ascenseur`, `numero_appartement`, `id_bien_immobilier`) VALUES
 (3, 1, 2, 2),
-(1, 0, 6, 6);
+(1, 0, 6, 6),
+(1, NULL, NULL, 35);
 
 -- --------------------------------------------------------
 
@@ -136,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `bien_immobilier` (
   KEY `FK_Bien_immobilier_id_adresse` (`id_adresse`),
   KEY `FK_Bien_immobilier_id_gaz` (`id_gaz`),
   KEY `FK_Bien_immobilier_id_consommation_energetique` (`id_consommation_energetique`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=38 ;
 
 --
 -- Contenu de la table `bien_immobilier`
@@ -151,7 +159,11 @@ INSERT INTO `bien_immobilier` (`id_bien_immobilier`, `prix`, `superficie`, `nb_p
 (6, 450, 21, 3, 'Petit studio lumineux, très agréable pour les étudiants', 0, 0, NULL, 11, 12, NULL, NULL, 4, 6, 6, 7, '2014-04-22 18:40:20'),
 (7, 1600, 162, 9, 'Maison très agréable à vivre en communauté.', 1, 2, NULL, 11, 12, NULL, NULL, 1, 7, 4, 1, '2014-02-22 19:45:31'),
 (8, 5000, 500, 12, 'Immeuble en location parfait pour le début d''une TPE en région parisienne.', 1, 3, NULL, NULL, 12, NULL, 1, 1, 8, 5, 5, '2014-04-22 18:47:45'),
-(9, 7000, 22, 1, 'Grand garage utile pour tout le monde. Pratique pour stocker de la drogue.', 0, 0, NULL, NULL, 12, 1, NULL, NULL, 9, 7, 1, '2013-09-22 18:49:54');
+(9, 7000, 22, 1, 'Grand garage utile pour tout le monde. Pratique pour les grosses bérlines.', 0, 0, NULL, NULL, 12, 1, NULL, NULL, 9, 7, 1, '2013-09-22 18:49:54'),
+(34, 2555555555, 120000, 5, '#test1', 1, NULL, NULL, NULL, 12, NULL, 1, NULL, 14, NULL, NULL, '2014-05-22 17:21:22'),
+(35, 2555555555, 2147483647, 65423, '#test 2', 1, NULL, NULL, 11, 12, NULL, NULL, 3, 15, 3, 3, '2014-05-22 17:27:47'),
+(36, 100000, 1000, 2, '#test3', 1, NULL, NULL, NULL, 12, 1, NULL, 3, 16, 4, NULL, '2014-05-22 17:30:59'),
+(37, 2, 5, 3, '#test alex', 1, NULL, NULL, 11, 8, NULL, NULL, NULL, 17, 1, 2, '2014-05-22 17:32:56');
 
 -- --------------------------------------------------------
 
@@ -481,7 +493,8 @@ CREATE TABLE IF NOT EXISTS `immeuble` (
 
 INSERT INTO `immeuble` (`id_bien_immobilier`) VALUES
 (4),
-(8);
+(8),
+(36);
 
 -- --------------------------------------------------------
 
@@ -520,7 +533,9 @@ CREATE TABLE IF NOT EXISTS `maison` (
 INSERT INTO `maison` (`superficie_jardin`, `id_bien_immobilier`) VALUES
 (25, 1),
 (60, 3),
-(40, 7);
+(40, 7),
+(4, 34),
+(1, 37);
 
 -- --------------------------------------------------------
 
@@ -540,7 +555,7 @@ CREATE TABLE IF NOT EXISTS `message` (
   KEY `FK_Message_id_auteur` (`id_auteur`),
   KEY `FK_Message_id_destinataire` (`id_destinataire`),
   KEY `FK_Message_id_bien_immobilier` (`id_bien_immobilier`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=47 ;
 
 --
 -- Contenu de la table `message`
@@ -552,20 +567,33 @@ INSERT INTO `message` (`id_message`, `date_message`, `contenu_message`, `traite`
 (4, '2014-05-15 18:12:49', 'Bonjour Bill, pour visualiser tes dépenses, il te suffit de cliquer sur le lien prévu à cet effet, dans le menu situé à gauche de la page : "historiques des dépenses". Pour toutes informations supplémentaires, n''hésite pas à me recontacter ;)', 1, 12, 11, 2),
 (5, '2014-05-18 20:22:07', 'Hey je teste pour la première fois l''interface de message avec toi Matthieu :)', 1, 11, 12, 2),
 (6, '2014-05-18 20:22:31', 'C''est cool ça marche du tonnerre :)', 1, 11, 12, 2),
-(9, '2014-05-18 20:45:30', 'Hello les amis :)', 0, 10, 8, 1),
-(10, '2014-05-18 20:48:38', 'Votre service de messagerie fonctionne t-il avec des injections SQL?'' , 1);\r\nSELECT * FROM bien_immobilier;#', 0, 10, 8, 1),
-(11, '2014-05-18 20:48:53', 'Effectivement.. Bien joué!', 0, 10, 8, 1),
+(9, '2014-05-18 20:45:30', 'Hello les amis :)', 1, 10, 8, 1),
+(10, '2014-05-18 20:48:38', 'Votre service de messagerie fonctionne t-il avec des injections SQL?'' , 1);\r\nSELECT * FROM bien_immobilier;#', 1, 10, 8, 1),
+(11, '2014-05-18 20:48:53', 'Effectivement.. Bien joué!', 1, 10, 8, 1),
 (12, '2014-05-18 22:13:59', 'Bonjour je teste le raccourci jquery Ctrl+entree ..', 1, 11, 8, 1),
 (13, '2014-05-18 22:15:23', 'Cela fonctionne à merveille!', 1, 11, 8, 1),
 (14, '2014-05-18 22:17:00', 'L''ancre est peut être trop basse ?', 1, 11, 8, 1),
 (15, '2014-05-18 22:22:22', 'Ressayons !', 1, 11, 8, 1),
 (17, '2014-05-18 22:22:39', 'Oui ça marche bien :)', 1, 11, 8, 1),
 (20, '2014-05-18 22:21:22', 'Nous avons pris note de tes remarques Bill. Merci beaucoup pour ce retour.\r\nCordialement.', 1, 8, 11, 1),
-(22, '2014-05-19 00:06:11', 'Bonjour, pourrais-je vous demander si les messages sont gardés dans votre base de données à vie ?', 0, 11, 12, 6),
-(23, '2014-05-19 00:09:57', '?', 0, 11, 12, 6),
+(22, '2014-05-19 00:06:11', 'Bonjour, pourrais-je vous demander si les messages sont gardés dans votre base de données à vie ?', 1, 11, 12, 6),
+(23, '2014-05-19 00:09:57', '?', 1, 11, 12, 6),
 (27, '2014-05-19 14:11:42', 'Petit test traite ou non', 1, 12, 11, 2),
 (28, '2014-05-20 19:40:28', 'Bonjour Monsieur, avez vous des soucis avec l''intérface web?\r\nCordialement.\r\nVotre gestionnaire.', 1, 8, 11, 1),
-(31, '2014-05-20 22:58:15', '&lt;script&gt;alert()&lt;/script&gt;', 0, 11, 12, 7);
+(31, '2014-05-20 22:58:15', '&lt;script&gt;alert()&lt;/script&gt;', 1, 11, 12, 7),
+(34, '2014-05-21 22:55:15', 'Nope :)', 1, 12, 11, 6),
+(35, '2014-05-21 22:57:03', 'Parfait, merci beaucoup.', 1, 8, 11, 1),
+(36, '2014-05-21 22:57:26', 'Petit test #2', 1, 12, 11, 2),
+(37, '2014-05-21 22:57:45', 'Petit test #3', 1, 12, 11, 2),
+(38, '2014-05-21 23:50:02', 'Et non les attaques javascript ne fonctionnent pas, nous sommes soucieux de la sécurité de notre site.\r\nCordialement.', 1, 12, 11, 7),
+(39, '2014-05-21 23:50:48', 'Bien vu. J''en prend note. Merci.\r\nCordialement.', 1, 11, 12, 7),
+(40, '2014-05-22 00:35:22', 'Ok.', 1, 12, 11, 7),
+(41, '2014-05-22 00:35:57', 'Ok', 1, 12, 11, 7),
+(42, '2014-05-22 01:50:50', 'Il faut voir avec les développeurs de l''agence!', 1, 12, 11, 6),
+(43, '2014-05-22 01:52:34', ';)', 1, 11, 8, 1),
+(44, '2014-05-22 01:57:43', 'é', 1, 8, 10, 1),
+(45, '2014-05-22 01:58:36', 'Effectivement.. Bien joué!', 1, 10, 8, 1),
+(46, '2014-05-22 02:18:42', 'ééééèèèèàâ ~é', 0, 8, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -719,7 +747,7 @@ CREATE TABLE IF NOT EXISTS `type_chauffage` (
   `id_type_chauffage` int(11) NOT NULL AUTO_INCREMENT,
   `nom_type_chauffage` varchar(255) NOT NULL,
   PRIMARY KEY (`id_type_chauffage`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `type_chauffage`
@@ -731,7 +759,8 @@ INSERT INTO `type_chauffage` (`id_type_chauffage`, `nom_type_chauffage`) VALUES
 (3, 'Bois'),
 (4, 'Solaire'),
 (5, 'Biomasse'),
-(6, 'Pompe à chaleur');
+(6, 'Pompe à chaleur'),
+(7, 'Electrique');
 
 --
 -- Contraintes pour les tables exportées
