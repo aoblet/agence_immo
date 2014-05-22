@@ -17,10 +17,10 @@
 		$link_etat_bien = dirname($_SERVER['PHP_SELF']).'/bien.php?id_bien_immobilier='.trim($id_bien_immobilier);
 		$link_infos = getPathRoot().'user/dashboard/employe/infos.php';
 		$link_messages = getPathRoot().'user/dashboard/employe/messages.php';
-		$link_ajout_bien = getPathRoot().'/user/dashboard/employe/ajoutBien.php';
-		$link_ajout_historique = getPathRoot().'/user/dashboard/employe/ajoutHistorique.php?id_bien_immobilier='.trim($id_bien_immobilier);
-		$link_ajout_paiement = getPathRoot().'/user/dashboard/employe/ajoutPaiement.php?id_bien_immobilier='.trim($id_bien_immobilier);
-		$link_modif_annonce= getPathRoot().'/user/dashboard/employe/modifierAnnonce.php?id_bien_immobilier='.trim($id_bien_immobilier);
+		$link_ajout_bien = getPathRoot().'user/dashboard/employe/ajoutBien.php';
+		$link_ajout_historique = getPathRoot().'user/dashboard/employe/ajoutHistorique.php?id_bien_immobilier='.trim($id_bien_immobilier);
+		$link_ajout_paiement = getPathRoot().'user/dashboard/employe/ajoutPaiement.php?id_bien_immobilier='.trim($id_bien_immobilier);
+		$link_modif_annonce= getPathRoot().'user/dashboard/employe/modifierAnnonce.php?id_bien_immobilier='.trim($id_bien_immobilier);
 
 		return <<<HTML
 		<div class="col-md-3">
