@@ -1,13 +1,24 @@
 <?php
 	require_once(dirname(__FILE__).'/../../../enum/enum_type_user.php'); 
+	require_once(dirname(__FILE__).'/../../../enum/enum_type_biens.php'); 
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/getUtils_html.php'); 
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils_html.php'); 
+	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils.php'); 
+	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/employe/affichage_result.php'); 
 	session_start();
 
 	if(empty($_SESSION['id_personne']) || $_SESSION['type_personne'] != EMPLOYE){
 		header('Location: '.getPathRoot().'index.php',false,301);
 		die();
 	}
+
+	$statut_reponse=''; $message_reponse='';
+	if(!empty($_GET['statut_reponse']) && ($_GET['statut_reponse'] == 'ok' || $_GET['statut_reponse'] =='fail')){
+		$statut_reponse= $_GET['statut_reponse'];
+		if(!empty($_GET['message_reponse']))
+			$message_reponse=urldecode(utf8_decode($_GET['message_reponse']));
+	}
+		
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +52,7 @@
 
 	<body>
 
-
+		<?php echo getModalsInfos();?>
 		<header>
 			<?php echo getBanniereConnected($_SESSION) ?>
 			<?php echo getBanniereDash() ?>
@@ -65,15 +76,27 @@
 
 
 					<div class="form-add bg-white margin30">
-						<form>
+						<form action='traitement/ajoutBienTraitement.php' method='POST' name='form_ajout_bien'>
 							<h4>Les informations primaires sont obligatoires.</h4>
 							
 							<div class="form-champ">
+								<label>Prix</label>
+								<input style="max-width:500px;" type="text" name="prix" value="" required="required" placeholder="€"/>
+							</div>
+
+							<div class="form-champ">
+								<label>Supérficie (en m&sup2;)</label>
+								<input style="max-width:500px;" type="text" name="superficie" value="" required="required" placeholder="0"/>
+							</div>
+
+							<div class="form-champ">
+								<label>Nombre de pièces</label>
+								<input style="max-width:500px;" type="text" name="nb_pieces" value="" required="required" placeholder="0"/>
+							</div>
+
+							<div class="form-champ">
 								<label>Proprietaire</label>
-								<select class="add-bien-select" style="margin-left:0px!important">
-									<option>Steve Jobs</option>
-									<option>Bill Gates</option>
-								</select>
+								<?php echo getSelectProprietaireEmploye('proprietaire')?>
 							</div>
 
 
@@ -81,18 +104,7 @@
 								<label>Type de bien</label>
 
 								<div class="form-add-radio">
-								<input type="radio" id="type" name="choice" value="" /> 
-								<span for="type">Appartement</span>
-
-								<input type="radio" id="type" name="choice" value="" /> 
-								<span for="type">Maison</span>
-
-								<input type="radio" id="type" name="choice" value="" /> 
-								<span for="type">Immeuble</span>
-
-								<input type="radio" id="type" name="choice" value="" /> 
-								<span for="type">Garage</span>
-
+									<?php echo getSelectTypeBienEmploye('type_bien_radio',$ARRAY_TYPE_BIEN); ?>
 								</div>
 
 							</div>
@@ -100,29 +112,26 @@
 
 							<div class="form-champ">
 								<label>Adresse du bien</label>
-								<input style="max-width:500px;" type="text" name="email" value="" required="required" placeholder="20 rue du php"/>
+								<input style="max-width:500px;" type="text" name="numero_rue" value="" required="required" placeholder="20"/>
+								<input style="max-width:500px;" type="text" name="rue" value="" required="required" placeholder="rue du php"/>
 							</div>
 
 							<div class="form-champ">
 								<label>Ville</label>
-								<input style="max-width:500px;" type="text" name="email" value="" required="required" placeholder="Paris"/>
+								<input style="max-width:500px;" type="text" name="ville" value="" required="required" placeholder="Paris"/>
 							</div>
 
 							<div class="form-champ">
 								<label>Code Postal</label>
-								<input type="text" class="form-add-cp" name="email" value="" required="required" placeholder="75000"/>
-								<select class="add-bien-select">
-									<option>Département</option>
-									<option>Bretagne</option>
-									<option>Cote d'azur</option>
-								</select>
+								<input type="text" class="form-add-cp" name="code_postal" value="" required="required" placeholder="75000"/>
+								<?php echo getSelectDepartementsEmploye('departement') ?>
 							</div>
 
 							
 
 							<div class="form-champ">
 								<label>Description du bien</label>
-								<textarea name="email" value="" required="required" placeholder="Description du bien"></textarea>
+								<textarea name="description" value="" required="required" placeholder="Description du bien"></textarea>
 							</div>
 
 							
@@ -133,13 +142,13 @@
 
 
 							<div class="form-champ">
-								<label>Garage ?</label>
+								<label>Parking ?</label>
 
 								<div class="form-add-radio">
-								<input type="radio" id="garage" name="choice" value="" /> 
+								<input type="radio" id="garage" name="parking" value="1" /> 
 								<span for="garage">Oui</span>
 
-								<input type="radio" id="garage" name="choice" value="" /> 
+								<input type="radio" id="garage" name="parking" value="0" /> 
 								<span for="garage">Non</span>
 								</div>
 
@@ -147,7 +156,7 @@
 
 							<div class="form-champ">
 								<label>Jardin (surface en m&sup2;)</label>
-								<input style="max-width:120px;" type="number" name="email" value="0"/>
+								<input style="max-width:120px;" name='superficie_jardin' type="number" value="0"/>
 							</div>
 
 
@@ -158,38 +167,17 @@
 							<h4 style="font-style:italic;margin-top:20px;">Energie :</h4>
 
 							<div class="form-champ">
-								<select class="add-bien-tech-select">
-									<option>Chauffage</option>
-									<option>Electrique</option>
-									<option>Gaz</option>
-									<option>Bois</option>
-								</select>
+								<?php echo getSelectTypeChauffageEmploye('chauffage') ?>
 							</div>
 
-							<div class="form-champ">
-								<select class="add-bien-select">
-									<option>Indice ecologique</option>
-									<option>A</option>
-									<option>B</option>
-									<option>C</option>
-									<option>D</option>
-									<option>E</option>
-									<option>F</option>
-								</select>
-							</div>
-
-							<div class="form-champ">
-								<label>Consommation min / max (GAZ)</label>
-								<input type="number" class="form-add-nom" name="email" value="" placeholder="min"/>
-								<input type="number" class="form-add-prenom" name="email" value="" placeholder="max"/>
-							</div>
+						
+						
 
 
 							<div class="form-champ">
-								<label>Consommation moy /min / max (NON GAZ)</label>
-								<input type="number" class="form-add-moy" name="email" value="" placeholder="moyenne"/>
-								<input type="number" class="form-add-min" name="email" value="" placeholder="min"/>
-								<input type="number" class="form-add-min" name="email" value="" placeholder="max"/>
+								<label>Consommations:</label>
+								<?php echo getSelectConsosEnergetiqueEmploye('energetique'); ?>
+								<?php echo getSelectConsosGazEmploye('gaz'); ?>								
 							</div>
 
 
@@ -198,23 +186,23 @@
 								
 								<div class="form-champ" style="margin-top:0px;">
 									<label>Nombre d'étages (immeuble)</label>
-									<input type="number" name="email" value="0"/>
+									<input type="number" name="nb_etage" style='max-width:400px' value="0"/>
 								</div>
 
 								<div class="form-champ">
 									<label>Étage et numéro d'appartement</label>
-									<input type="number" class="form-add-nom" name="email" value="" placeholder="étage"/>
-									<input type="number" class="form-add-prenom" name="email" value="" placeholder="numéro"/>
+									<input type="number" class="form-add-nom" name="etage" value="" placeholder="étage"/>
+									<input type="number" class="form-add-prenom" name="numero_etage" value="" placeholder="numéro"/>
 								</div>
 
 								<div class="form-champ">
 									<label>Ascenseur ?</label>
 
 									<div class="form-add-radio">
-									<input type="radio" id="ascenseur" name="choice" value="" /> 
+									<input type="radio" id="ascenseur_oui_id" name="ascenseur" value="1" /> 
 									<span for="ascenseur">Oui</span>
 
-									<input type="radio" id="ascenseur" name="choice" value="" /> 
+									<input type="radio" id="ascenseur_non_id" name="ascenseur" value="0" /> 
 									<span for="ascenseur">Non</span>
 									</div>
 
@@ -227,9 +215,8 @@
 							<div class="form-champ-sub">
 								<input type="submit" name="connexion" value="Ajouter le nouveau bien" />
 							</div>
-
-
-
+							<input type='hidden' name='statut_reponse' value='<?php echo $statut_reponse ?>'/>
+							<input type='hidden' name='statut_message' value="<?php echo $message_reponse?>"/>
 						</form>
 					</div>
 				</div>
@@ -293,7 +280,7 @@
 
 
 <script type="text/javascript">
-
+<?php echo getJsForModalAjoutBien('form_ajout_bien');?>
 
 var open_menu = 0;
 $( "#connect").click(function() {

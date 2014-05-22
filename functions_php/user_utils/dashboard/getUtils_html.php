@@ -118,7 +118,7 @@ HTML;
 							<div class="user-modal-content bg-white">
 								<span class='user-close-modal' title='Annuler' ><i class="fa fa-times"></i></span>
 								<h1><i class="fa fa-check"></i></h1>
-								<p>Nous avons trouvé votre adresse, veuillez cliquer pour confirmer le changement</p>
+								<p class='text_modal'>Nous avons trouvé votre adresse, veuillez cliquer pour confirmer le changement</p>
 								<input type="submit" value="Mettre à jour" >
 							</div>
 						</div>
@@ -135,7 +135,7 @@ HTML;
 							<div class="user-modal-content bg-white">
 								<span class='user-close-modal' title='Annuler'><i class="fa fa-times"></i></span>
 								<h1><i class="fa fa-search"></i></h1>
-								<p>L'adresse est trop aproximative, veuillez affiner.</p>
+								<p class='text_modal'>L'adresse est trop aproximative, veuillez affiner.</p>
 								<input type="submit" value="Affiner l'adresse">
 							</div>
 						</div>
@@ -152,7 +152,7 @@ HTML;
 							<div class="user-modal-content bg-white">
 								<span class='user-close-modal' title='Annuler'><i class="fa fa-times"></i></span>
 								<h1><i class="fa fa-times"></i></h1>
-								<p>L'adresse n'a pas été trouvée, veuillez recommencer.</p>
+								<p class='text_modal' >L'adresse n'a pas été trouvée, veuillez recommencer.</p>
 								<input type="submit" value="Recommencer" >
 							</div>
 						</div>
@@ -250,3 +250,82 @@ JAVASCRIPT;
 	function getModalNewNotifsMessage(){
 		return "<div id='new-messages-modal'></div>";
 	}
+
+	function getJsForModalAjoutBien($nom_formulaire){
+		return <<<JAVASCRIPT
+
+
+		function showScrollBarAjoutBien(){
+			$('html, body').css({
+			    'overflow': 'visible',
+			    'height': '100%'
+			});
+		}
+
+		function hideScrollBarAjoutBien(){
+			$('html, body').css({
+			    'overflow': 'hidden',
+			    'height': '100%'
+			});
+		}
+		function handleModalsAjoutBien(){
+			$(function(){
+				//comportement par défaut
+				$( ".user-modal" ).hide();
+				$( ".user-modal-okay" ).hide();
+				$( ".user-modal-clarify" ).hide();
+				$( ".user-modal-error" ).hide();
+				$(".user-close-modal").css('opacity',0.2);
+
+				//comportement close-modal
+				$( ".user-box-modal").hover(function(){
+					$(".user-close-modal").fadeTo('slow',1);
+				});
+
+				$( ".user-box-modal").mouseleave(function(){
+					$(".user-close-modal").fadeTo('slow',0.2);
+				});
+
+				$( ".user-close-modal" ).click(function(){
+					$(".user-modal").fadeOut('slow',showScrollBarAjoutBien);
+					$(".user-box-modal").fadeOut('slow');
+					
+				});
+				
+				$('.user-close-modal').mouseleave(function(){
+					$(this).addClass('user-close-modal-color-down');
+				});
+				
+				//comportement box-modal
+				var find_form = $("input[name='statut_reponse']")[0];
+
+				if(find_form.value){
+					var id_modal = 'find_'+find_form.value;
+
+					$('#'+id_modal+" input[type='submit']").click(function(e){
+						e.preventDefault();
+					});
+
+					$('#'+id_modal+" input[type='submit']").click(function(){
+						$( ".user-modal" ).fadeOut('slow',showScrollBarAjoutBien);
+						$('#'+id_modal).fadeOut('slow');
+					});
+					
+					if(find_form.value =='ok')
+						$('#'+id_modal+" input[type='submit']")[0].value='OK';
+
+					$('#'+id_modal+" .text_modal").html($("input[name='statut_message']")[0].value);
+					
+					//on affiche
+					$( ".user-modal" ).fadeIn();
+					$( '#'+id_modal).fadeIn();
+					hideScrollBarAjoutBien();
+				}
+
+			});
+		}
+		
+		handleModalsAjoutBien();
+JAVASCRIPT;
+	}
+
