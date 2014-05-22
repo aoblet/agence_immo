@@ -37,7 +37,7 @@ HTML;
 			$infos_persos_link.="proprietaire/infos.php";
 		}
 		else if($type_personne == EMPLOYE){
-			$link_messages_a=getPathRoot().'user/dashboard/employe/messages.php';
+			$infos_persos_link.='employe/infos.php';
 			$link_ajout_bien_a=getPathRoot().'user/dashboard/employe/ajoutBien.php';
 			$link_employe_add_bien="<a href='$link_ajout_bien_a' class='button-home'><i class='fa fa-pencil'></i>Ajouter un bien</a>";
 		}

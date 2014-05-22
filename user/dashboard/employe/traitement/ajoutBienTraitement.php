@@ -54,7 +54,7 @@
 
 
 		$parking=NULL;
-		if(!empty($_POST['parking']) && ($_POST['parking']==0 || $_POST['parking']==1))
+		if(isset($_POST['parking']) && ($_POST['parking']==0 || $_POST['parking']==1))
 			$parking = $_POST['parking'];
 
 		//on insère le bien
@@ -134,7 +134,7 @@
 					$end_url_redirect='?statut_reponse=ok&message_reponse='.urlencode(utf8_encode("L'ajout s'est bien passé! Mais l'étage a été ignoré: Mauvaise donnée"));
 			}
 
-			if(!empty($_POST['ascenseur'])){
+			if(isset($_POST['ascenseur'])){
 				if(is_numeric($_POST['ascenseur']) && ($_POST['ascenseur'] == 1 || $_POST['ascenseur'] == 0))
 					$etage = $_POST['ascenseur'];
 				else

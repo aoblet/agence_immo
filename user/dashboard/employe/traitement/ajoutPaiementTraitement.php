@@ -72,6 +72,8 @@
 				}
 				$stmt->closeCursor();
 			}
+			else
+				$end_url_redirect='?statut_reponse=fail&message_reponse='.urlencode(utf8_encode("Erreur sur la date"));
 		}
 	}
 
