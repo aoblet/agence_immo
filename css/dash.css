@@ -183,6 +183,24 @@ input[type="text"]{
     appearance:none;
     border-radius: 4px;
 }
+input[type="number"]{
+	float: left;
+	display: block;
+	width: 100%;
+	padding:5px;
+    padding-left: 10px;
+    margin: 0;
+    margin-top: 20px;
+    background: #ECF0F1;
+    color:#888;
+    border:none;
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    border-radius: 4px;
+}
 input[type="date"]{
 	float: left;
 	display: block;
@@ -249,7 +267,7 @@ input[type='reset']:hover, input[type="submit"]:hover{
 
 
 .form-champ{
-	width: 100%;
+	width: 500px;
 	display: block;
 	margin-left: 20px;
 	margin-top: 5px;
@@ -320,8 +338,37 @@ input[type='reset']:hover, input[type="submit"]:hover{
 	display: block;
 }
 
+
+.form-add-pai{
+	min-height: 440px;
+	padding-bottom: 30px;
+	padding-top: 5px;
+}
+
+.form-add-pai h4{
+	text-align: left;
+	padding: 15px;
+	margin-left: 5px;
+	width: 100%;
+	min-width:500px;
+	padding-bottom: 10px;
+}
+
+.form-add-pai p{
+	margin-top: 20px;
+	display: block;
+}
+
+
+
 .form-add-nom{max-width: 195px;display: inline-block;}
 .form-add-prenom{margin-left:15px!important;max-width: 190px;display: inline-block;}
+
+
+.form-add-date{max-width: 195px;display: inline-block;}
+.form-add-montant{margin-left:15px!important;max-width: 190px;display: inline-block;}
+
+
 
 .form-add-cp{
 	max-width: 200px;display: inline-block;
@@ -369,6 +416,26 @@ input[type='reset']:hover, input[type="submit"]:hover{
 }
 
 
+.form-add-pai textarea{
+	float: left;
+	width: 100%;
+	padding:5px;
+    padding-left: 10px;
+    margin: 0;
+    margin-top: 5px;
+    background: #ECF0F1;
+    color:#888;
+    border:none;
+    outline:none;
+    display: block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    border-radius: 4px;
+    max-width: 500px;
+    height: 80px;
+    resize:none;
+}
 
 .form-add-tech .form-champ{
 	width: 100%;
