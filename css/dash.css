@@ -249,17 +249,21 @@ input[type='reset']:hover, input[type="submit"]:hover{
 
 
 .form-champ{
-	max-width: 400px;
+	width: 100%;
 	display: block;
 	margin-left: 20px;
 	margin-top: 5px;
 }
 
-.form-champ-sub{
-	max-width: 400px;
-	display: block;
-	margin-left: 20px;
-	margin-top: 50px;
+.form-champ-sub input{
+	
+	float: left;
+	margin-left: 250px;
+	margin-top: 40px;
+	width: 300px;
+	height: 50px;
+	font-size: 14px;
+	text-align: center;
 }
 
 .form-champ input{
@@ -270,7 +274,10 @@ input[type='reset']:hover, input[type="submit"]:hover{
 	margin-top: 15px;
 	text-align: left;
 	float: left;
+	width: 100%;
 }
+
+
 
 
 .form-user{
@@ -290,6 +297,210 @@ input[type='reset']:hover, input[type="submit"]:hover{
 	margin-top: 20px;
 	display: block;
 }
+
+
+
+.form-add{
+	min-height: 1520px;
+	padding-bottom: 30px;
+	padding-top: 5px;
+}
+
+.form-add h4{
+	text-align: left;
+	padding: 15px;
+	margin-left: 5px;
+	width: 100%;
+	min-width:500px;
+	padding-bottom: 10px;
+}
+
+.form-add p{
+	margin-top: 20px;
+	display: block;
+}
+
+.form-add-nom{max-width: 195px;display: inline-block;}
+.form-add-prenom{margin-left:15px!important;max-width: 190px;display: inline-block;}
+
+.form-add-cp{
+	max-width: 200px;display: inline-block;
+}
+
+.add-bien-select{
+	float: left;
+	margin-left:15px!important;
+	display: inline-block;
+	padding: 6px;
+	padding-left: 20px;
+	padding-right: 20px;
+	border-radius: 3px;
+	margin-top: 4px;
+	background: #ECF0F1;
+	color: #999999;
+	border: none;
+	outline: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	cursor: pointer;
+}
+
+
+textarea{
+	float: left;
+	width: 100%;
+	padding:5px;
+    padding-left: 10px;
+    margin: 0;
+    margin-top: 5px;
+    background: #ECF0F1;
+    color:#888;
+    border:none;
+    outline:none;
+    display: block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    border-radius: 4px;
+    max-width: 500px;
+    height: 80px;
+    resize:none;
+}
+
+
+
+.form-add-tech .form-champ{
+	width: 100%;
+}
+
+.form-add-tech h4{
+	width: 100%;
+	display: inline-block;
+}
+
+.form-add-tech{
+	margin-top: 30px;
+	width: 100%;
+	display: block;
+	float: left;
+}
+.form-add-tech input{
+	float: left;
+}
+
+
+.form-add-tech h4{
+	padding: 20px;
+}
+
+
+.add-bien-tech-select{
+	text-align: left;
+	float: left;
+	margin-left:0px!important;
+	display: inline-block;
+	padding: 6px;
+	padding-left: 20px;
+	padding-right: 20px;
+	border-radius: 3px;
+	margin-top: 4px;
+	background: #ECF0F1;
+	color: #999999;
+	border: none;
+	outline: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	cursor: pointer;
+}
+
+
+
+.float-left{
+	float: left;
+}
+
+
+.form-si-appt{
+	margin-top: 30px;
+	padding-top: 0px;
+	padding-bottom: 30px;
+	width: 100%;
+	background: rgba(0,0,0,0.02);
+	float: left;
+}
+
+
+.form-some{
+	max-width: 240px;
+	float: left;
+	display: inline-block;
+	margin-left: 20px;
+	margin-top: 5px;
+}
+
+.form-some input{
+	float: left;
+	display: block;
+	width: 100%;
+	padding: 5px;
+	padding-left: 10px;
+	margin: 0;
+	margin-top: 20px;
+	background: #ECF0F1;
+	color: #888;
+	border: none;
+	outline: none;
+	display: inline-block;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border-radius: 4px;
+}
+
+.form-some label{
+	margin-top: 15px;
+	text-align: left;
+	float: left;
+	width: 100%;
+}
+
+
+
+
+
+.form-add-moy{max-width: 103px;display: inline-block;}
+.form-add-min{margin-left:15px!important;max-width: 103px;display: inline-block;}
+
+
+
+
+.form-add-radio{
+	float: left;
+	width: 100%;
+}
+
+
+.form-add-radio input{
+	float: left;
+	text-align: left;
+}
+
+
+.form-add-radio span{
+	float: left;
+	padding-left: 5px;
+	line-height: 24px;
+	font-weight: 500;
+	text-align: left;
+	margin-right: 20px;
+}
+
+
+
+
+
 
 
 

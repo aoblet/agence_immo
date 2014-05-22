@@ -183,6 +183,10 @@ input[type="text"]{
     appearance:none;
     border-radius: 4px;
 }
+
+
+
+
 input[type="date"]{
 	float: left;
 	display: block;
