@@ -96,12 +96,34 @@
 							<h4>Les informations primaires sont obligatoires.</h4>
 							
 							<div class="form-champ">
-								<label>Nom et prénom du proprietaire</label>
-								<input type="text" class="form-add-nom" name="email" value="" required="required" placeholder="Nom"/>
-								<input type="text" class="form-add-prenom" name="email" value="" required="required" placeholder="Prénom"/>
+								<label>Proprietaire</label>
+								<select class="add-bien-select" style="margin-left:0px!important">
+									<option>Steve Jobs</option>
+									<option>Bill Gates</option>
+								</select>
 							</div>
 
-							
+
+							<div class="form-champ">
+								<label>Type de bien</label>
+
+								<div class="form-add-radio">
+								<input type="radio" id="type" name="choice" value="" /> 
+								<span for="type">Appartement</span>
+
+								<input type="radio" id="type" name="choice" value="" /> 
+								<span for="type">Maison</span>
+
+								<input type="radio" id="type" name="choice" value="" /> 
+								<span for="type">Immeuble</span>
+
+								<input type="radio" id="type" name="choice" value="" /> 
+								<span for="type">Garage</span>
+
+								</div>
+
+							</div>
+
 
 							<div class="form-champ">
 								<label>Adresse du bien</label>
