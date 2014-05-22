@@ -58,7 +58,7 @@ HTML;
 		return <<<HTML
 			<div id='$id_div' class="bien-spe-desc-no-res bg-white margin30">
 				<h4>Imputations</h4>
-				<p>Bonne nouvelle: Il n'y a pas d'imputations pour le moment !</p>
+				<p>Il n'y a pas d'imputations pour le moment</p>
 			</div>
 HTML;
 	}

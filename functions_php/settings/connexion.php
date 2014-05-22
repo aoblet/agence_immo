@@ -62,7 +62,7 @@
 
 	}
 
-	myPDO::setOptionsDataBase('mysql: host=localhost;dbname=agence_immo','root','');
+	myPDO::setOptionsDataBase('mysql: host=localhost;dbname=agence_immo;charset=UTF8','root','');
 
 	// requet a faire comme cela
 	// myPDO::getSingletonPDO()->query("SELECT * FROM appartement");

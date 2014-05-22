@@ -246,7 +246,7 @@ SQL;
 					$infos_personne = getIdentitePersonne($value_multiple_destinataire['id_personne_destinataire']);
 					$photo_personne = getPathRoot().getPhotoPersonne($value_multiple_destinataire['id_personne_destinataire'])[0];
 					$prenom_nom = $infos_personne['prenom_personne'].' '.$infos_personne['nom_personne'];
-					$apercu_message = substr($conversation[0]['contenu_message'], 0,25).'...';
+					$apercu_message = mb_substr($conversation[0]['contenu_message'], 0,25,"utf-8").'...';
 					$link_message = getPathRoot().'user/dashboard/commun/messageGateway.php?id_bien_immobilier='.$value['id_bien_immobilier'];
 
 					if($session['type_personne'] == EMPLOYE)
@@ -289,7 +289,6 @@ HTML;
 		</div>
 HTML;
 		$html.=$liste.$all;
-
 		return $html;
 	}
 
@@ -323,12 +322,12 @@ HTML;
 					$infos_heure = getDateFormatedConversation($conversation[0]['date_message']);
 					if($conversation[0]['id_auteur'] != $id_personne && !$conversation[0]['traite'])
 						$traite='new';
-					$apercu_message = substr($conversation[0]['contenu_message'], 0,35).' ...';
+					$apercu_message = mb_substr($conversation[0]['contenu_message'], 0,35,"utf-8").' ...';
 				}
 
 
 				if($infos_adresse){
-					$adresse= $infos_adresse['numero_rue'].' '.substr($infos_adresse['rue'],0,20).', '.$infos_adresse['code_postal'].' '.substr($infos_adresse['ville'],0,30);
+					$adresse= $infos_adresse['numero_rue'].' '.mb_substr($infos_adresse['rue'],0,20,"utf-8").', '.$infos_adresse['code_postal'].' '.mb_substr($infos_adresse['ville'],0,30,"utf-8");
 				}
 
 				if( ($infos_personne=getIdentitePersonne($value_multiple_destinataire['id_personne_destinataire']))){

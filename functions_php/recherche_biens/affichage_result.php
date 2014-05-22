@@ -70,7 +70,7 @@ HTML;
 
 			$descriptif='';
 			if(!empty($value['descriptif'])){
-				$descriptif=substr($value['descriptif'], 0, 80)."...";
+				$descriptif=mb_substr($value['descriptif'], 0, 80,"utf-8")."...";
 			}
 
 			if(!empty($value['date_parution'])){

@@ -16,6 +16,8 @@
 		return $reconstruction_path_root;
 	}
 
+
+
 	// come_from : permet la redirection desirée, deconnexion connexion
 	function getBanniereConnected($session,$file_come_from=''){
 		$link_photo = getPathRoot().$session['photo_personne'];
