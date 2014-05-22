@@ -347,7 +347,7 @@ input[type='reset']:hover, input[type="submit"]:hover{
 }
 
 
-textarea{
+.form-add textarea{
 	float: left;
 	width: 100%;
 	padding:5px;
