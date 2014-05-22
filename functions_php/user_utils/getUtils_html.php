@@ -24,11 +24,11 @@
 		$link_deco  = getPathRoot().'user/deconnexion.php';
 		$link_dash  = getPathRoot().'user/dashboardGateway.php';
 
-		if( !($nb_messages_non_lues = getNbMessagesNonLus($session['id_personne'])) )
-			$nb_messages_non_lues ='';
+	
+		$nb_messages_non_lues;
 
-		$notifs_div = getListeMessagesForNotifs($session);
-		
+		$notifs_div = getListeMessagesForNotifs($session,$nb_messages_non_lues);
+		$nb_messages_non_lues = $nb_messages_non_lues? $nb_messages_non_lues:'';
 		return <<<HTML
 		<div id="bar-connected">
 			<div class="container" >

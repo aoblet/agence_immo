@@ -220,7 +220,7 @@ SQL;
 		return $res;
 	}
 
-	function getListeMessagesForNotifs($session){
+	function getListeMessagesForNotifs($session,&$nb_messages){
 		$html='';
 		$liste='';
 		$cpt=0;
@@ -267,6 +267,7 @@ SQL;
 HTML;
 				}
 			}
+			$nb_messages = $cpt;
 		}
 
 		$link_all = getPathRoot().'user/dashboard/'.strtolower($session['type_personne']).'/messages.php';
