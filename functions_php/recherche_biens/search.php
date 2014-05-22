@@ -278,6 +278,7 @@ SQL;
 
 	// rajoute d'autres informations
 	function searchForProprioBase($id_personne_proprio){
+		$res='';
 		if($id_personne_proprio != NULL){
 			$res = searchBase(array('id_personne_proprio' => $id_personne_proprio));
 		}
@@ -299,6 +300,7 @@ SQL;
 	}
 
 	function searchForLocataireBase($id_personne_locataire){
+		$res='';
 		if($id_personne_locataire != NULL){
 			$res = searchBase(array('id_personne_locataire' => $id_personne_locataire));
 		}
@@ -316,10 +318,29 @@ SQL;
 		return $res;
 	}
 
-	function searchForEmployeGestionnaire($id_bien_immobilier = NULL){
-
+	function searchForEmployeBase($id_personne_gest){
+		$res='';
+		if($id_personne_gest != NULL){
+			$res = searchBase(array('id_personne_gest' => $id_personne_gest));
+		}
+		return $res;
 	}
 	
+	function searchForEmployeAvance($id_bien_immobilier){
+		$res = array();
+		if($id_bien_immobilier != NULL){
+			$res = searchBase(array('id_bien_immobilier' => $id_bien_immobilier ));
+			$res['infos_historiques_imputation'] = getInfosHistoriqueImputation($id_bien_immobilier);
+			$res['infos_historiques_paiement'] = getInfosHistoriquePaiement($id_bien_immobilier);
+			$res['infos_historiques_depense'] = getInfosHistoriqueDepense($id_bien_immobilier);
+			$res['infos_historiques_rentree'] = getInfosHistoriqueRentree($id_bien_immobilier);
+		}
+
+		return $res;
+	}
+
+
+
 
 
 

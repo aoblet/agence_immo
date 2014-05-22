@@ -1,13 +1,13 @@
 <?php
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils_html.php');
-	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/proprietaire/affichage_result.php');
+	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/employe/affichage_result.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/common_result_html.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/getUtils_html.php');
 	require_once(dirname(__FILE__).'/../../../enum/enum_type_user.php');
 	session_start();
 
-	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne']) || $_SESSION['type_personne'] != LOCATAIRE){
+	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne']) || $_SESSION['type_personne'] != EMPLOYE){
 		$link_home = getPathRoot().'index.php';
 		header('Location: '.$link_home,false,301);
 		die();
@@ -44,7 +44,7 @@
 	</head>
 
 	<body>
-		<?php echo getModalsInfos() ?>
+	<?php echo getModalsInfos() ?>
 		<header>
 			<?php echo getBanniereConnected($_SESSION) ?>
 			<?php echo getBanniereDash() ?>
@@ -78,7 +78,7 @@
 		<script type="text/javascript">
 			//<![CDATA[
 			<?php echo getJsForModalInfosPersos("changeAdresse"); ?>
-			
+
 			var open_menu = 0;
 			$( "#connect").click(function() {
 				$('#connect-form').slideToggle('fast');

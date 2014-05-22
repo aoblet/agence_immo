@@ -77,7 +77,7 @@
 
 		<script type="text/javascript">
 			//<![CDATA[
-			<?php echo getJsForModal("changeAdresse"); ?>
+			<?php echo getJsForModalInfosPersos("changeAdresse"); ?>
 
 			var open_menu = 0;
 			$( "#connect").click(function() {

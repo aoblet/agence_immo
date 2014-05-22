@@ -23,6 +23,9 @@
 	// pour envoyer un potentiel message, on met en session l'id du destinataire, pour que l'user ne le voit pas : sécu ++
 	$_SESSION['id_destinataire_for_message'] = getIdGestionnaire($_GET['id_bien_immobilier']);
 	$_SESSION['id_bien_immobilier_for_message'] = $_GET['id_bien_immobilier'];
+
+	$cpt_message;
+	$html_conversation = getMessageHTML($_GET['id_bien_immobilier'],$_SESSION['id_destinataire_for_message'],$_SESSION['id_personne'],$cpt_message);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -69,9 +72,9 @@
 				<div class="col-md-9">
 					
 					<div class="titlepage bg-blue">
-						<h2>Contact direct</h2>
+						<h2>Contact direct <?php echo $cpt_message ?></h2>
 					</div>
-					<?php echo getMessageHTML($_GET['id_bien_immobilier'],$_SESSION['id_destinataire_for_message'],$_SESSION['id_personne'])?>
+					<?php echo $html_conversation ?>
 				</div>
 			</div>
 		</div>

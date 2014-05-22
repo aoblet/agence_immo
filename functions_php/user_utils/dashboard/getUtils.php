@@ -34,6 +34,19 @@
 		return ($res ? true : false);
 	}
 
+	// on s'assure que l'employe ne fasse pas n'importe quoi pour les messages
+	function getLegitimiteEmployeDestinataire($id_personne_gest,$id_destinataire,$id_bien_immobilier){
+		$query = "	SELECT 	id_bien_immobilier 
+					FROM 	bien_immobilier 
+					WHERE 	id_bien_immobilier = $id_bien_immobilier AND 
+							id_personne_gest = $id_personne_gest AND
+							(id_personne_locataire=$id_destinataire OR id_personne_proprio=$id_destinataire)";
+		$stmt = myPDO::getSingletonPDO()->query($query);
+		$res = $stmt->fetch();
+		$stmt->closeCursor();
+		return $res;
+	}
+
 	function getIdGestionnaire($id_bien_immobilier){
 		$id_gest='';
 		$stmt = myPDO::getSingletonPDO()->query("SELECT id_personne_gest FROM bien_immobilier WHERE id_bien_immobilier={$id_bien_immobilier}");

@@ -4,6 +4,8 @@
 	require_once(dirname(__FILE__).'/../../visualisation_bien/getUtils.php');
 	require_once(dirname(__FILE__).'/../common_result_html.php');
 	require_once(dirname(__FILE__).'/../../user_utils/getUtils_html.php');
+	require_once(dirname(__FILE__).'/../../visualisation_bien/affichage_result.php');
+
 
 
 	function getMenuOnBienLocataire($id_bien_immobilier){
@@ -223,7 +225,10 @@ HTML;
 
 			$(document).ready(function() { 
 				$("#imputations_array").tablesorter();
-        		$("#imputations_array").tablesorter( {sortList: [[0,0], [1,0]]} ); 
+        		$("#imputations_array").tablesorter({
+        		 	headers: { 4: { sorter: "shortDate", dateFormat: "ddmmyyyy"}},
+       				sortList: [[0,0]]
+        		}); 
 			}); 
     
 JAVASCRIPT;
@@ -233,8 +238,10 @@ JAVASCRIPT;
 		return <<<JAVASCRIPT
 
 			$(document).ready(function() { 
-				$("#paiements_array").tablesorter();
-        		$("#paiements_array").tablesorter( {sortList: [[0,0], [1,0]]} ); 
+        		$("#paiements_array").tablesorter({
+        		 	headers: { 4: { sorter: "shortDate", dateFormat: "ddmmyyyy"} },
+       				sortList: [[0,0]]        		 	
+        		}); 
 			}); 
     
 JAVASCRIPT;

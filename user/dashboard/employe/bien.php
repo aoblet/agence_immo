@@ -1,17 +1,33 @@
 <?php
+	require_once(dirname(__FILE__).'/../../../functions_php/settings/connexion.php');
+	require_once(dirname(__FILE__).'/../../../functions_php/recherche_biens/search.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils.php');
+
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/dashboard/getUtils_html.php');
-	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/proprietaire/affichage_result.php');
-	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/common_result_html.php');
+	require_once(dirname(__FILE__).'/../../../functions_php/dashboard/employe/affichage_result.php');
 	require_once(dirname(__FILE__).'/../../../functions_php/user_utils/getUtils_html.php');
-	require_once(dirname(__FILE__).'/../../../enum/enum_type_user.php');
 	session_start();
 
-	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne']) || $_SESSION['type_personne'] != LOCATAIRE){
+	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne']) || $_SESSION['type_personne'] != EMPLOYE){
 		$link_home = getPathRoot().'index.php';
-		header('Location: '.$link_home,false,301);
+		header('Location: '.$link_home);
 		die();
 	}
+
+	//verif param bien présent
+	if(!isset($_GET['id_bien_immobilier']) || !is_numeric($_GET['id_bien_immobilier'])){
+		header('Location: ./index.php');
+		die();
+	}
+
+	//verif que le bien lui correspond sinon redirection
+	$isOK = getLegitimite($_SESSION,$_GET['id_bien_immobilier']);
+
+	if(!$isOK){
+		header('Location: ./index.php');
+		die();
+	}
+
 
 ?>
 <!DOCTYPE html>
@@ -44,25 +60,21 @@
 	</head>
 
 	<body>
-		<?php echo getModalsInfos() ?>
 		<header>
 			<?php echo getBanniereConnected($_SESSION) ?>
 			<?php echo getBanniereDash() ?>
 		</header>
-		
-		<section class="bg-grey first-section" style="padding-top:60px;">
 
+		<section class="bg-grey first-section" style="padding-top:60px;">
 			<div class="container ">
 				<div class="row">
-					<?php echo getMenuAccueil($_SESSION['type_personne'],false) ?>
+
+					<?php echo getMenuOnBienEmploye($_GET['id_bien_immobilier']) ?>
+
 					<div class="col-md-9">
-					
-						<div class="titlepage bg-blue">
-							<h2>Modifier mes informations personnelles</h2>
-						</div>
-			
-						<?php echo getInfosIdentiteForm($_SESSION['id_personne'],"../commun/changeAdresse.php") ?>
-								
+
+						<?php echo getEtatDuBienEmploye($_GET['id_bien_immobilier'],$_SESSION['id_personne']) ?>
+
 					</div>
 				</div>
 			</div>
@@ -71,14 +83,10 @@
 		<section class="bg-grey" style="min-height:100px;">
 		</section>
 
-
 		<?php echo getFooter() ?>
-
 
 		<script type="text/javascript">
 			//<![CDATA[
-			<?php echo getJsForModalInfosPersos("changeAdresse"); ?>
-			
 			var open_menu = 0;
 			$( "#connect").click(function() {
 				$('#connect-form').slideToggle('fast');

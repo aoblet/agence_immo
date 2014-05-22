@@ -4,6 +4,8 @@
 	require_once(dirname(__FILE__).'/../../visualisation_bien/getUtils.php');
 	require_once(dirname(__FILE__).'/../common_result_html.php');
 	require_once(dirname(__FILE__).'/../../user_utils/getUtils_html.php');
+	require_once(dirname(__FILE__).'/../../visualisation_bien/affichage_result.php');
+
 
 	function getListBiensProprio($id_personne){
 		return affichage_base_liste_html(searchForProprioBase($id_personne));
@@ -471,8 +473,10 @@ HTML;
 	function addSortArrayDepensesJS(){
 		return <<<JAVASCRIPT
 			$(document).ready(function() { 
-				$("#depenses_array").tablesorter();
-        		$("#depenses_array").tablesorter( {sortList: [[0,0], [1,0]]} ); 
+        		$('#depenses_array').tablesorter({
+       				headers: { 4: { sorter: "shortDate", dateFormat: "ddmmyyyy"}   },
+       				sortList: [[0,0]]
+				});        		
 			}); 
     
 JAVASCRIPT;
@@ -481,8 +485,10 @@ JAVASCRIPT;
 	function addSortArrayRecettesJS(){
 		return <<<JAVASCRIPT
 			$(document).ready(function() { 
-				$("#recettes_array").tablesorter();
-        		$("#recettes_array").tablesorter( {sortList: [[0,0], [1,0]]} ); 
+				$('#recettes_array').tablesorter({
+       				headers: { 4: { sorter: "shortDate", dateFormat: "ddmmyyyy"}   },
+       				sortList: [[0,0]]
+				});        		
 			}); 
     
 JAVASCRIPT;

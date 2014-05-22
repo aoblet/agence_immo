@@ -255,16 +255,20 @@
 		return $infos;
 	}
 
-	function getInfosHistoriqueImputation($id_bien_immobilier,$id_locataire){
+	function getInfosHistoriqueImputation($id_bien_immobilier,$id_locataire=NULL){
 		$infos = array();
+
+		$condition_locataire='AND hi_dep.id_personne_impute IS NOT NULL';
+		if($id_locataire != NULL)
+			$condition_locataire=" AND hi_dep.id_personne_impute = $id_locataire  ";
+
 		if($id_bien_immobilier != NULL){
 			$query = "	SELECT 	* 
 						FROM 	historique hi, historique_depense hi_dep 
 						WHERE 	hi.id_historique = hi_dep.id_historique AND 
-								hi.id_bien_immobilier = $id_bien_immobilier AND 
-								hi_dep.id_personne_impute = $id_locataire 
+								hi.id_bien_immobilier = $id_bien_immobilier 
+								$condition_locataire
 						ORDER BY date_historique ";
-
 			$stmt = myPDO::getSingletonPDO()->query($query);
 
 			while($ligne = $stmt->fetch()){
@@ -275,15 +279,20 @@
 		return $infos;
 	}
 
-	function getInfosHistoriquePaiement($id_bien_immobilier,$id_locataire){
+	function getInfosHistoriquePaiement($id_bien_immobilier,$id_locataire=NULL){
 		$infos = array();
+
+		$condition_locataire='';
+		if($id_locataire != NULL)
+			$condition_locataire=" AND p.id_personne_payeur = $id_locataire ";
+
 		if($id_bien_immobilier != NULL){
 			$query = "	SELECT 	* 
 						FROM 	historique hi, historique_entree hi_en, paiement p
 						WHERE 	hi.id_bien_immobilier = $id_bien_immobilier AND 
 								hi.id_historique = hi_en.id_historique AND 
-								hi_en.id_paiement = p.id_paiement AND
-								p.id_personne_payeur = $id_locataire 
+								hi_en.id_paiement = p.id_paiement
+								$condition_locataire
 						ORDER BY date_historique ";
 
 			$stmt = myPDO::getSingletonPDO()->query($query);

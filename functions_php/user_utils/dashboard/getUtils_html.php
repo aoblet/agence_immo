@@ -27,13 +27,20 @@ HTML;
 	}
 
 	function getMenuAccueil($type_personne,$is_on_accueil){
+		$link_employe_add_bien='';
+
 		$infos_persos_link = getPathRoot().'user/dashboard/';
-		if($type_personne == LOCATAIRE)
+		if($type_personne == LOCATAIRE){
 			$infos_persos_link.="locataire/infos.php";
-		else if($type_personne == PROPRIETAIRE)
+		}
+		else if($type_personne == PROPRIETAIRE){
 			$infos_persos_link.="proprietaire/infos.php";
-		else if($type_personne == EMPLOYE)
-			$infos_persos_link.="employe/infos.php";
+		}
+		else if($type_personne == EMPLOYE){
+			$link_messages_a=getPathRoot().'user/dashboard/employe/messages.php';
+			$link_ajout_bien_a=getPathRoot().'user/dashboard/employe/ajoutBien.php';
+			$link_employe_add_bien="<a href='$link_ajout_bien_a' class='button-home'><i class='fa fa-pencil'></i>Ajouter un bien</a>";
+		}
 		else
 			$infos_persos_link='';
 
@@ -52,6 +59,7 @@ HTML;
 				<h4>MENU</h4>
 				<a href="$infos_persos_link" class="button-home"><i class="fa fa-user"></i>Mes données personnelles</a>
 				$link_messages
+				$link_employe_add_bien
 				$link_dash
 			</div>
 		</div>
@@ -62,6 +70,7 @@ HTML;
 	function getMenuOnMessage($type_personne){
 		$infos_persos_link = getPathRoot().'user/dashboard/';
 		$mes_messages_link = getPathRoot().'user/dashboard/';
+		$link_ajout_bien='';
 		if($type_personne == LOCATAIRE){
 			$infos_persos_link.="locataire/infos.php";
 			$mes_messages_link.="locataire/messages.php";
@@ -74,6 +83,8 @@ HTML;
 		else if($type_personne == EMPLOYE){
 			$infos_persos_link.="employe/infos.php";
 			$mes_messages_link.="employe/messages.php";
+			$link_ajout_bien_a=getPathRoot().'user/dashboard/employe/ajoutBien.php';
+			$link_ajout_bien="<a href='$link_ajout_bien_a' class='button-home'><i class='fa fa-pencil'></i>Ajouter un bien</a>";
 		}
 		else{
 			$infos_persos_link='';
@@ -86,6 +97,7 @@ HTML;
 				<h4>MENU</h4>
 				<a href="$infos_persos_link" class="button-home"><i class="fa fa-user"></i>Mes données personnelles</a>
 				<a href="$mes_messages_link" class="button-home"><i class="fa fa-envelope"></i>Mes messages</a>
+				$link_ajout_bien
 				<a href="./" class="button-home"><i class="fa fa-reply"></i>Retour au Dash</a>
 				<!--<a href="" class="button-home"><i class="fa fa-envelope"></i>Contacter l'agence</a>-->
 			</div>
@@ -152,7 +164,7 @@ HTML;
 HTML;
 	}
 
-	function getJsForModal($nom_formulaire){
+	function getJsForModalInfosPersos($nom_formulaire){
 		return <<<JAVASCRIPT
 
 
@@ -228,7 +240,6 @@ HTML;
 					hideScrollBar();
 				}
 
-				
 			});
 		}
 		
@@ -239,4 +250,3 @@ JAVASCRIPT;
 	function getModalNewNotifsMessage(){
 		return "<div id='new-messages-modal'></div>";
 	}
-

@@ -30,6 +30,10 @@ SQL;
 	$stmt=myPDO::getSingletonPDO()->query($query);
 	$stmt->closeCursor();
 
+
+	unset($_SESSION['id_destinataire_for_message']);
+	unset($_SESSION['id_bien_immobilier_for_message']);
+
 	//301 "cache" la page à l'user
 	header('Location: '.trim($_POST['come_from']),false,301);
 	die();

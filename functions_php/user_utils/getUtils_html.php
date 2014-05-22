@@ -16,22 +16,6 @@
 		return $reconstruction_path_root;
 	}
 
-	function getDivNotifs($session,$nb_messages_non_lues){
-		$link_message = getPathRoot().'user/dashboard/'.trim(strtolower($session['type_personne'])).'/messages.php';
-
-		if(!$nb_messages_non_lues)
-			return <<<HTML
-			<div id="new-messages" class="bg-white">
-				<div class="bottom-new-messages">
-					<div class="triangle-message"></div>
-					<a href="$link_message">Afficher tous les messages</a>
-				</div>
-			</div>
-HTML;
-		return getListeMessagesForNotifs($session);
-	}
-
-
 	// come_from : permet la redirection desirée, deconnexion connexion
 	function getBanniereConnected($session,$file_come_from=''){
 		$link_photo = getPathRoot().$session['photo_personne'];
@@ -41,7 +25,7 @@ HTML;
 		if( !($nb_messages_non_lues = getNbMessagesNonLus($session['id_personne'])) )
 			$nb_messages_non_lues ='';
 
-		$notifs_div = getDivNotifs($session,$nb_messages_non_lues);
+		$notifs_div = getListeMessagesForNotifs($session);
 		
 		return <<<HTML
 		<div id="bar-connected">

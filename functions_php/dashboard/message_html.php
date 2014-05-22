@@ -49,7 +49,8 @@
 		return $date_return;
 	}
 
-	function getMessageHTML($id_bien_immobilier,$id_personne_destinataire,$id_personne_auteur){
+	function getMessageHTML($id_bien_immobilier,$id_personne_destinataire,$id_personne_auteur,&$cpt_message){
+		$cpt_message='';
 
 		$conversation = getConversation($id_bien_immobilier,$id_personne_destinataire,$id_personne_auteur);
 
@@ -66,8 +67,10 @@ HTML;
 					</div>";
 		}
 		else{
-			$cpt=1;
+			$cpt=0;
 			foreach ($conversation as $value) {
+				$cpt++;
+
 				if($value['id_auteur'] != $id_personne_auteur)	//on met a droite l'autre interlocuteur, clase AGENCE
 					//message provenant de l'agence
 					$classe = "contact-direct-mess contact-direct-AGENCE margin15";
@@ -82,7 +85,6 @@ HTML;
 				$ancre='';
 				if($cpt == sizeof($conversation))
 					$ancre = "id='last_message_ancre'";
-				$cpt++;
 
 				$html.=<<<HTML
 					<div class="$classe">
@@ -105,7 +107,8 @@ HTML;
 HTML;
 			}
 		}
-		
+		$cpt_message = '( '.$cpt.' )';
+
 		$traitement_formulaire=getPathRoot().'user/dashboard/commun/sendMessage.php';
 		$come_from = $_SERVER['PHP_SELF'].'?';
 		$cpt=1;
@@ -113,6 +116,7 @@ HTML;
 			$come_from.=$key.'='.$value;
 			if($cpt != sizeof($_GET))
 				$come_from.='&';
+			$cpt++;
 		}
 		$come_from.="#last_message_ancre";
 
@@ -220,19 +224,33 @@ SQL;
 		$html='';
 		$liste='';
 		$cpt=0;
-		if($session['type_personne'] != EMPLOYE){
-			$infos_biens = getInfosForListeMessages($session['id_personne'],$session['type_personne']);
-			
-			$liste='';
-			foreach ($infos_biens as $key => $value) {
-				$conversation = getConversation($value['id_bien_immobilier'],$session['id_personne'],$value['id_personne_gest'],true,false);
+		$infos_biens = getInfosForListeMessages($session['id_personne'],$session['type_personne']);
+		
+		$liste='';
+		foreach ($infos_biens as $key => $value) {
+			$array_to_loop_multiple_destinataire=array();
+
+			if($session['type_personne'] == EMPLOYE){
+				if($value['id_personne_proprio'] != NULL)
+					$array_to_loop_multiple_destinataire[] = array('id_personne_destinataire'=>$value['id_personne_proprio']);
+				if($value['id_personne_locataire'] != NULL)
+					$array_to_loop_multiple_destinataire[] = array('id_personne_destinataire'=>$value['id_personne_locataire']);
+			}
+			else
+				$array_to_loop_multiple_destinataire[] = array('id_personne_destinataire'=>$value['id_personne_gest']);
+
+			foreach ($array_to_loop_multiple_destinataire as $value_multiple_destinataire) {
+				$conversation = getConversation($value['id_bien_immobilier'],$session['id_personne'],$value_multiple_destinataire['id_personne_destinataire'],true,false);
 				if($conversation){
 					$cpt++;
-					$infos_personne = getIdentitePersonne($value['id_personne_gest']);
-					$photo_personne = getPathRoot().getPhotoPersonne($value['id_personne_gest'])[0];
+					$infos_personne = getIdentitePersonne($value_multiple_destinataire['id_personne_destinataire']);
+					$photo_personne = getPathRoot().getPhotoPersonne($value_multiple_destinataire['id_personne_destinataire'])[0];
 					$prenom_nom = $infos_personne['prenom_personne'].' '.$infos_personne['nom_personne'];
 					$apercu_message = substr($conversation[0]['contenu_message'], 0,25).'...';
 					$link_message = getPathRoot().'user/dashboard/commun/messageGateway.php?id_bien_immobilier='.$value['id_bien_immobilier'];
+
+					if($session['type_personne'] == EMPLOYE)
+						$link_message.="&id_destinataire=".$value_multiple_destinataire['id_personne_destinataire'];
 
 					$liste.=<<<HTML
 					<a href="$link_message">
@@ -277,17 +295,28 @@ HTML;
 
 	function getListMessagesHTML($id_personne,$type_personne){
 
-		$infos = getInfosForListeMessages($id_personne,$type_personne);
-					
+		$infos = getInfosForListeMessages($id_personne,$type_personne);	
 		$html='';
-		if($type_personne != EMPLOYE){
-			//le traitement est différent
-			foreach ($infos as $value) {
-				$conversation = getConversation($value['id_bien_immobilier'],$value['id_personne_gest'],$id_personne,true);
-				$type_personne_info = ''; //pas besoin pour loc et proprio, ils conversent qu'avec le gestionnaire
-				$infos_adresse = getInfosAdresse($value['id_bien_immobilier']);
-				$apercu_message=''; $nom=''; $prenom=''; $photo=''; $classe_new=''; $traite='';
+		
+		foreach ($infos as $value) {
+			$array_to_loop_multiple_destinataire=array();
 
+			if($type_personne == EMPLOYE){
+				if($value['id_personne_locataire'] != NULL)
+					$array_to_loop_multiple_destinataire[]=array('type_personne'=>'locataire','id_personne_destinataire'=>$value['id_personne_locataire']);
+				if($value['id_personne_proprio'] != NULL)	
+					$array_to_loop_multiple_destinataire[]=array('type_personne'=>'prorietaire','id_personne_destinataire'=>$value['id_personne_proprio']);
+			}
+			else{
+				$array_to_loop_multiple_destinataire[] = array('type_personne'=>'','id_personne_destinataire'=>$value['id_personne_gest']);
+			}
+
+			foreach ($array_to_loop_multiple_destinataire as $value_multiple_destinataire) {
+				$conversation = getConversation($value['id_bien_immobilier'],$id_personne,$value_multiple_destinataire['id_personne_destinataire'],true);
+				$type_personne_info = ucfirst($value_multiple_destinataire['type_personne']); 
+				$infos_adresse = getInfosAdresse($value['id_bien_immobilier']);
+
+				$apercu_message=''; $nom=''; $prenom=''; $photo=''; $classe_new=''; $traite='';
 				$infos_heure='Discussion vide';
 
 				if($conversation){
@@ -302,14 +331,16 @@ HTML;
 					$adresse= $infos_adresse['numero_rue'].' '.substr($infos_adresse['rue'],0,20).', '.$infos_adresse['code_postal'].' '.substr($infos_adresse['ville'],0,30);
 				}
 
-				if( ($infos_personne=getIdentitePersonne($value['id_personne_gest']))){
-					$photo=getPathRoot().getPhotoPersonne($value['id_personne_gest'])[0];
+				if( ($infos_personne=getIdentitePersonne($value_multiple_destinataire['id_personne_destinataire']))){
+					$photo=getPathRoot().getPhotoPersonne($value_multiple_destinataire['id_personne_destinataire'])[0];
 					$nom = $infos_personne['nom_personne'];
 					$prenom=$infos_personne['prenom_personne'];
 				}
 
 				//lien du message
 				$href=getPathRoot().'user/dashboard/commun/messageGateway.php?id_bien_immobilier='.$value['id_bien_immobilier'];
+				if($type_personne == EMPLOYE)
+					$href.="&id_destinataire=".$value_multiple_destinataire['id_personne_destinataire'];
 
 				$html.=<<<HTML
 
@@ -330,9 +361,6 @@ HTML;
 HTML;
 			}
 		}
-		else{
-
-		}
-
+		
 		return $html;
 	}

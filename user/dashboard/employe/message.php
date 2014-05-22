@@ -9,19 +9,22 @@
 	session_start();
 
 	//verif securité
-	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne']) || $_SESSION['type_personne'] != LOCATAIRE){
+	if(!isset($_SESSION['id_personne']) || empty($_SESSION['id_personne']) || $_SESSION['type_personne'] != EMPLOYE){
 		$link_home = getPathRoot().'index.php';
-		header('Location: '.$link_home);
+		header('Location: '.$link_home,false,301);
 		die();
 	}
-	
-	if(!isset($_GET['id_bien_immobilier']) || empty($_GET['id_bien_immobilier']) || !getLegitimite($_SESSION, $_GET['id_bien_immobilier']) ){
-		header('Location: ../../dashboardGateway.php');
+
+	if(!isset($_GET['id_bien_immobilier']) || empty($_GET['id_bien_immobilier']) || empty($_GET['id_destinataire']) || 
+	   !getLegitimite($_SESSION, $_GET['id_bien_immobilier']) || 
+	   !getLegitimiteEmployeDestinataire($_SESSION['id_personne'],$_GET['id_destinataire'], $_GET['id_bien_immobilier']) ){
+
+		header('Location: ../../dashboardGateway.php',false,301);
 		die();
 	}
 
 	// pour envoyer un potentiel message, on met en session l'id du destinataire, pour que l'user ne le voit pas : sécu ++
-	$_SESSION['id_destinataire_for_message'] = getIdGestionnaire($_GET['id_bien_immobilier']);
+	$_SESSION['id_destinataire_for_message'] = $_GET['id_destinataire'] ;
 	$_SESSION['id_bien_immobilier_for_message'] = $_GET['id_bien_immobilier'];
 
 	$cpt_message;
@@ -72,7 +75,7 @@
 				<div class="col-md-9">
 					
 					<div class="titlepage bg-blue">
-						<h2>Contact direct <?php echo $cpt_message?> </h2>
+						<h2>Contact direct <?php echo $cpt_message?></h2>
 					</div>
 					<?php echo $html_conversation?>
 				</div>
@@ -90,7 +93,6 @@
 <script type="text/javascript">
 
 <?php echo raccourciSendMessageJquery();?>
-
 var open_menu = 0;
 $( "#connect").click(function() {
 	$('#connect-form').slideToggle('fast');
