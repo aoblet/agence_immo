@@ -66,7 +66,7 @@
 				}
 				else{
 					//insertion nouvelle adresse dans la bd puis update sur la personne								
-					$id_insert = addAdresse($ville,$numero_rue,$rue,$code_postal,$code_postal);
+					$id_insert = addAdresse($ville,$numero_rue,$rue,$code_postal);
 					$stmt=myPDO::getSingletonPDO()->query("UPDATE personne SET id_adresse=$id_insert WHERE id_personne={$_SESSION['id_personne']}");
 					$stmt->closeCursor();
 				}

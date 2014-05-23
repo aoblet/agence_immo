@@ -75,7 +75,7 @@
 		
 
 
-					<div class="form-add bg-white margin30">
+					<div class="form-add bg-white margin30" style='min-height:1880px'>
 						<form action='traitement/ajoutBienTraitement.php' method='POST' name='form_ajout_bien'>
 							<h4>Les informations primaires sont obligatoires.</h4>
 							<div class="form-champ">
@@ -166,7 +166,7 @@
 							</div>
 
 							<div class="form-champ">
-								<label>Jardin (surface en m&sup2;)</label>
+								<label>Jardin si maison(surface en m&sup2;)</label>
 								<input style="max-width:120px;" name='superficie_jardin' type="number" value="0"/>
 							</div>
 
@@ -196,7 +196,7 @@
 								<h4 style="font-style:italic;padding-bottom:0px;">Si appartement :</h4>
 								
 								<div class="form-champ" style="margin-top:0px;">
-									<label>Nombre d'étages (immeuble)</label>
+									<label>Nombre d'étages</label>
 									<input type="number" name="nb_etage" style='max-width:400px' value="0"/>
 								</div>
 

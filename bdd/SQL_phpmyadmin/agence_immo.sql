@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Jeu 22 Mai 2014 à 17:34
+-- Généré le: Ven 23 Mai 2014 à 12:02
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `adresse` (
   `id_departement` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_adresse`),
   KEY `FK_Adresse_id_departement` (`id_departement`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
 
 --
 -- Contenu de la table `adresse`
@@ -60,7 +60,10 @@ INSERT INTO `adresse` (`id_adresse`, `code_postal`, `ville`, `rue`, `numero_rue`
 (14, '75000', 'vincennes', 'rue de la joconde', 20, 4),
 (15, '94300', 'vincennes', 'rue de la soif', 3, 3),
 (16, '94300', 'Paris', 'rue de la soif', 15, 4),
-(17, '06200', 'vincennes', 'rue de la soif', 20, 15);
+(17, '06200', 'vincennes', 'rue de la soif', 20, 15),
+(18, '94300', 'vincennes', 'rue du php', 20, 93),
+(19, '75015', 'Paris', 'rue de la baie', 20, 74),
+(20, '94300', 'vincennes', 'rue de la baie', 20, 93);
 
 -- --------------------------------------------------------
 
@@ -108,7 +111,9 @@ CREATE TABLE IF NOT EXISTS `appartement` (
 INSERT INTO `appartement` (`etage`, `ascenseur`, `numero_appartement`, `id_bien_immobilier`) VALUES
 (3, 1, 2, 2),
 (1, 0, 6, 6),
-(1, NULL, NULL, 35);
+(1, NULL, NULL, 35),
+(1, NULL, NULL, 38),
+(3, 1, 3, 40);
 
 -- --------------------------------------------------------
 
@@ -144,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `bien_immobilier` (
   KEY `FK_Bien_immobilier_id_adresse` (`id_adresse`),
   KEY `FK_Bien_immobilier_id_gaz` (`id_gaz`),
   KEY `FK_Bien_immobilier_id_consommation_energetique` (`id_consommation_energetique`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=41 ;
 
 --
 -- Contenu de la table `bien_immobilier`
@@ -163,7 +168,10 @@ INSERT INTO `bien_immobilier` (`id_bien_immobilier`, `prix`, `superficie`, `nb_p
 (34, 2555555555, 120000, 5, '#test1', 1, NULL, NULL, NULL, 12, NULL, 1, NULL, 14, NULL, NULL, '2014-05-22 17:21:22'),
 (35, 2555555555, 2147483647, 65423, '#test 2', 1, NULL, NULL, 11, 12, NULL, NULL, 3, 15, 3, 3, '2014-05-22 17:27:47'),
 (36, 100000, 1000, 2, '#test3', 1, NULL, NULL, NULL, 12, 1, NULL, 3, 16, 4, NULL, '2014-05-22 17:30:59'),
-(37, 2, 5, 3, '#test alex', 1, NULL, NULL, 11, 8, NULL, NULL, NULL, 17, 1, 2, '2014-05-22 17:32:56');
+(37, 2, 5, 3, '#test alex', 1, NULL, NULL, 11, 8, NULL, NULL, NULL, 17, 1, 2, '2014-05-22 17:32:56'),
+(38, 500, 35, 2, 'Appartement très bien!', 1, NULL, NULL, 11, 12, NULL, NULL, 4, 18, 5, 6, '2014-05-23 01:58:01'),
+(39, 300, 15, 1, 'test avec ascenseur et etage et numero appartement et parking', 1, NULL, NULL, NULL, 12, NULL, 1, 1, 19, 7, 7, '2014-05-23 12:01:41'),
+(40, 600, 23, 3, 'test parking on et etage numero appart', 1, NULL, 10, NULL, 12, NULL, 1, 2, 20, 7, 7, '2014-05-23 02:09:50');
 
 -- --------------------------------------------------------
 
@@ -391,7 +399,7 @@ CREATE TABLE IF NOT EXISTS `historique` (
   `date_historique` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_historique`),
   KEY `FK_Historique_id_bien_immobilier` (`id_bien_immobilier`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
 -- Contenu de la table `historique`
@@ -410,7 +418,13 @@ INSERT INTO `historique` (`id_historique`, `nom_action`, `prix_action`, `descrip
 (10, 'achat luminaire', 160, 'luminaires pour la cuisine', 2, '2014-05-01 21:51:18'),
 (11, 'achat mobilier', 6000, 'mobilier pour la cuisine', 1, '2014-05-01 21:51:18'),
 (12, 'loyer mai', 1500, 'loyer mai', 1, '2014-05-21 14:10:33'),
-(13, 'loyer aout', 2000, 'loyer aout', 1, '2014-05-21 15:48:25');
+(13, 'loyer aout', 2000, 'loyer aout', 1, '2014-05-21 15:48:25'),
+(14, 'paiement test #1', 2, 'paiement test #1', 36, '0000-00-00 00:00:00'),
+(15, '10', 2, '10', 36, '0000-00-00 00:00:00'),
+(16, 'loyer du locataire mai', 250, 'loyer du locataire mai', 1, '0000-00-00 00:00:00'),
+(17, '25', 25, '25', 1, '2014-05-17 19:41:57'),
+(18, '30', 30, '30', 1, '2014-05-17 19:47:16'),
+(19, 'test histo dépense', 5, 'test histo dépense', 6, '2014-05-22 21:09:05');
 
 -- --------------------------------------------------------
 
@@ -436,8 +450,7 @@ INSERT INTO `historique_depense` (`id_historique`, `id_personne_impute`) VALUES
 (4, NULL),
 (8, NULL),
 (9, NULL),
-(10, NULL),
-(11, 10);
+(10, NULL);
 
 -- --------------------------------------------------------
 
@@ -460,8 +473,14 @@ INSERT INTO `historique_entree` (`id_historique`, `id_paiement`) VALUES
 (5, NULL),
 (6, NULL),
 (7, NULL),
+(14, NULL),
+(15, NULL),
+(16, NULL),
+(17, NULL),
+(19, NULL),
 (12, 1),
-(13, 1);
+(13, 1),
+(18, 7);
 
 -- --------------------------------------------------------
 
@@ -535,7 +554,8 @@ INSERT INTO `maison` (`superficie_jardin`, `id_bien_immobilier`) VALUES
 (60, 3),
 (40, 7),
 (4, 34),
-(1, 37);
+(1, 37),
+(0, 39);
 
 -- --------------------------------------------------------
 
@@ -555,7 +575,7 @@ CREATE TABLE IF NOT EXISTS `message` (
   KEY `FK_Message_id_auteur` (`id_auteur`),
   KEY `FK_Message_id_destinataire` (`id_destinataire`),
   KEY `FK_Message_id_bien_immobilier` (`id_bien_immobilier`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=47 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=53 ;
 
 --
 -- Contenu de la table `message`
@@ -593,7 +613,13 @@ INSERT INTO `message` (`id_message`, `date_message`, `contenu_message`, `traite`
 (43, '2014-05-22 01:52:34', ';)', 1, 11, 8, 1),
 (44, '2014-05-22 01:57:43', 'é', 1, 8, 10, 1),
 (45, '2014-05-22 01:58:36', 'Effectivement.. Bien joué!', 1, 10, 8, 1),
-(46, '2014-05-22 02:18:42', 'ééééèèèèàâ ~é', 0, 8, 10, 1);
+(46, '2014-05-22 02:18:42', 'ééééèèèèàâ ~é', 1, 8, 10, 1),
+(47, '2014-05-22 19:48:50', 'Test de la méssagerie...', 1, 11, 8, 1),
+(48, '2014-05-23 02:12:50', 'Bonjour votre bien est en ligne depuis aujourd''hui.\r\nCordialement.\r\nVotre gestionnaire.', 1, 12, 11, 35),
+(49, '2014-05-23 02:13:34', 'Parfait! Merci beaucoup. Cordialement.', 1, 11, 12, 35),
+(50, '2014-05-23 02:15:30', 'Vous êtes à présent locataire. Bienvenue parmi nous.', 1, 12, 10, 40),
+(51, '2014-05-23 02:21:23', ''' OR 1=1 OR ''', 1, 10, 12, 40),
+(52, '2014-05-23 02:21:38', '&lt;script&gt; alert('''')&lt;/script&gt;', 1, 10, 12, 40);
 
 -- --------------------------------------------------------
 
@@ -611,7 +637,7 @@ CREATE TABLE IF NOT EXISTS `paiement` (
   PRIMARY KEY (`id_paiement`),
   KEY `FK_Paiement_id_personne` (`id_personne_payeur`),
   KEY `FK_Paiement_id_historique` (`id_historique`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `paiement`
@@ -619,7 +645,11 @@ CREATE TABLE IF NOT EXISTS `paiement` (
 
 INSERT INTO `paiement` (`id_paiement`, `date_paiement`, `montant_paiement`, `motif_paiement`, `id_personne_payeur`, `id_historique`) VALUES
 (1, NULL, 1500, 'loyer mai', 10, 12),
-(2, NULL, 2000, 'loyer aout', 12, 13);
+(2, NULL, 2000, 'loyer aout', 12, 13),
+(4, '0000-00-00 00:00:00', 2, '10', NULL, 15),
+(5, '0000-00-00 00:00:00', 250, 'loyer du locataire mai', 10, 16),
+(6, '2014-05-17 19:41:57', 25, '25', 10, 17),
+(7, '2014-05-17 19:47:16', 30, '30', 10, 18);
 
 -- --------------------------------------------------------
 

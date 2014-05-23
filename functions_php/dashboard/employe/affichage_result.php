@@ -20,7 +20,7 @@
 		$link_ajout_bien = getPathRoot().'user/dashboard/employe/ajoutBien.php';
 		$link_ajout_historique = getPathRoot().'user/dashboard/employe/ajoutHistorique.php?id_bien_immobilier='.trim($id_bien_immobilier);
 		$link_ajout_paiement = getPathRoot().'user/dashboard/employe/ajoutPaiement.php?id_bien_immobilier='.trim($id_bien_immobilier);
-		$link_modif_annonce= getPathRoot().'user/dashboard/employe/modifierAnnonce.php?id_bien_immobilier='.trim($id_bien_immobilier);
+		$link_modif_annonce= getPathRoot().'user/dashboard/employe/modifBien.php?id_bien_immobilier='.trim($id_bien_immobilier);
 
 		return <<<HTML
 		<div class="col-md-3">
@@ -59,20 +59,25 @@ HTML;
 		return affichage_visu_employe($id_bien_immobilier,$id_employe);
 	}
 
-	/* ajout bien utils*/
-	function getSelectTypeChauffageEmploye($id_select){
+	/* ajout et modif bien utils*/
+	function getSelectTypeChauffageEmploye($id_select,$id_selected=NULL){
 		$stmt = myPDO::getSingletonPDO()->query("SELECT id_type_chauffage, nom_type_chauffage FROM type_chauffage");
 
 		$type_chauffage_opt = "<option value=''> Type chauffage ...</option>";
 		while($ligne=$stmt->fetch()){
-			$type_chauffage_opt.="<option value='{$ligne['id_type_chauffage']}'>{$ligne['nom_type_chauffage']}</option>";
+
+			$selected='';
+			if(!empty($id_selected) && $id_selected == $ligne['id_type_chauffage'])
+				$selected= "selected";
+
+			$type_chauffage_opt.="<option value='{$ligne['id_type_chauffage']}' $selected>{$ligne['nom_type_chauffage']}</option>";
 		}
 		$stmt->closeCursor();
 
 		return "<select name='$id_select' class='add-bien-tech-select'>\n".$type_chauffage_opt.'</select>';
 	}
 
-	function getSelectConsosEnergetiqueEmploye($id_select){
+	function getSelectConsosEnergetiqueEmploye($id_select,$id_selected=NULL){
 		$stmt = myPDO::getSingletonPDO()->query("SELECT * FROM consommation_energetique_classe");
 
 		$type_energetique_opt = "<option value=''> Electrique ...</option>";
@@ -81,14 +86,18 @@ HTML;
 			$indice_energie		= $ligne['nom_consommation_energetique'];
 			$max_energie_kilo	= $ligne['conso_kilowatt_an_mcarre_maxi'];
 
-			$type_energetique_opt.="<option value='$id_energie'>$indice_energie - $max_energie_kilo Kw/m&sup2;/an </option>";
+			$selected='';
+			if(!empty($id_selected) && $id_selected == $id_energie)
+				$selected= "selected";
+
+			$type_energetique_opt.="<option value='$id_energie' $selected>$indice_energie - $max_energie_kilo Kw/m&sup2;/an </option>";
 		}
 		$stmt->closeCursor();
 
 		return "<select name='$id_select' style='margin-right:15px' class='add-bien-tech-select'>\n".$type_energetique_opt.'</select>';
 	}
 
-	function getSelectConsosGazEmploye($id_select){
+	function getSelectConsosGazEmploye($id_select, $id_selected=NULL){
 		$stmt = myPDO::getSingletonPDO()->query("SELECT * FROM gaz_a_effet_de_serre_classe");
 
 		$type_gaz_opt = "<option value=''> Gaz à effet de serre ...</option>";
@@ -97,14 +106,18 @@ HTML;
 			$indice_gaz		= $ligne['nom_gaz'];
 			$max_gaz_kilo	= $ligne['emission_kilo_co2_an_mcarre_maxi'];
 
-			$type_gaz_opt.="<option value='$id_gaz'>$indice_gaz - $max_gaz_kilo Kg_co2/m&sup2;/an </option>";
+			$selected='';
+			if(!empty($id_selected) && $id_selected == $id_gaz)
+				$selected= "selected";
+
+			$type_gaz_opt.="<option value='$id_gaz' $selected>$indice_gaz - $max_gaz_kilo Kg_co2/m&sup2;/an </option>";
 		}
 		$stmt->closeCursor();
 
 		return "<select name='$id_select' class='add-bien-tech-select'>\n".$type_gaz_opt.'</select>';
 	}
 
-	function getSelectProprietaireEmploye($id_select){
+	function getSelectProprietaireEmploye($id_select, $id_selected =NULL){
 		$stmt = myPDO::getSingletonPDO()->query("	SELECT personne.id_personne,personne.prenom_personne,personne.nom_personne 
 													FROM personne, proprietaire WHERE personne.id_personne = proprietaire.id_personne 
 												 	UNION 
@@ -117,14 +130,18 @@ HTML;
 			$prenom_proprietaire	= $ligne['prenom_personne'];
 			$nom_proprietaire		= $ligne['nom_personne'];
 
-			$proprietaire_opt.="<option value='$id_proprietaire'>$prenom_proprietaire - $nom_proprietaire</option>";
+			$selected='';
+			if(!empty($id_selected) && $id_selected == $id_proprietaire)
+				$selected= "selected";
+
+			$proprietaire_opt.="<option value='$id_proprietaire' $selected>$prenom_proprietaire - $nom_proprietaire</option>";
 		}
 		$stmt->closeCursor();
 
 		return "<select name='$id_select' class='add-bien-tech-select'>\n".$proprietaire_opt.'</select>';
 	}
 
-	function getSelectDepartementsEmploye($id_select){
+	function getSelectDepartementsEmploye($id_select, $id_selected=NULL){
 		$stmt = myPDO::getSingletonPDO()->query("SELECT * FROM departement");
 
 		$dep_opt = "<option value=''> Departement ...</option>";
@@ -133,21 +150,50 @@ HTML;
 			$code_postal	= $ligne['code_departement'];
 			$nom_dep		= $ligne['nom_departement'];
 
-			$dep_opt.="<option value='$id_dep'>$code_postal - $nom_dep</option>";
+			$selected='';
+			if(!empty($id_selected) && $id_selected == $id_dep)
+				$selected= "selected";
+
+			$dep_opt.="<option value='$id_dep' $selected >$code_postal - $nom_dep</option>";
 		}
 		$stmt->closeCursor();
 
 		return "<select name='$id_select' class='add-bien-select'>\n".$dep_opt.'</select>';
 	}
 
-	function getSelectTypeBienEmploye($id_radio,$array_type_bien){
+	function getSelectTypeBienEmploye($id_radio,$array_type_bien,$id_selected=NULL){
 		$option_type_bien="";
 		foreach ($array_type_bien as $value) {
 			$id_type = $value.'_id';
 			$value_radio = strtolower($value);
 			$value_html = ucfirst($value);
-			$option_type_bien.="<input type='radio' id='$id_type' name='$id_radio' value='$value_radio' /> 
+
+			$checked='';
+			if(!empty($id_selected) && $id_selected == $value)
+				$checked = 'checked';
+
+			$option_type_bien.="<input type='radio' id='$id_type' name='$id_radio' $checked value='$value_radio' /> 
 								<span ><label for='$id_type' style='line-height:0px;font-weight:normal;margin-top:12px'>$value_html</label></span>";
 		}
 		return $option_type_bien;
+	}
+
+	function getSelectLocatairesEmploye($id_select,$id_selected=NULL){
+		$stmt = myPDO::getSingletonPDO()->query("SELECT * FROM personne, locataire WHERE personne.id_personne = locataire.id_personne");
+
+		$locataires_opt = "<option value=''> Locataires ...</option>";
+		while($ligne=$stmt->fetch()){
+			$nom 			= $ligne['nom_personne'];
+			$prenom			= $ligne['prenom_personne'];
+			$id_personne	= $ligne['id_personne'];
+
+			$selected='';
+			if(!empty($id_selected) && $id_selected == $id_personne)
+				$selected= "selected";
+
+			$locataires_opt.="<option value='$id_personne' $selected>$prenom - $nom</option>";
+		}
+		$stmt->closeCursor();
+
+		return "<select name='$id_select' style='margin-right:15px' class='add-bien-tech-select'>\n".$locataires_opt.'</select>';
 	}

@@ -8,7 +8,7 @@
 
 	function getLegitimite($session, $id_bien_immobilier){
 
-		if(!isset($session['id_personne']) || !is_numeric($session['id_personne']))
+		if(!isset($session['id_personne']) || !is_numeric($session['id_personne']) || !is_numeric($id_bien_immobilier))
 			return false;
 		$id_personne = $session['id_personne'];
 

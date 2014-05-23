@@ -28,7 +28,8 @@
 							"code_departement"=>NULL,
 							"nom_departement"=>NULL,
 							"nom_region"=>NULL,
-							"ville_chef"=>NULL);
+							"ville_chef"=>NULL,
+							"id_departement"=>NULL);
 
 		if($id_bien_immobilier != NULL){
 			$query="SELECT adr.id_adresse AS id_adresse, 	
@@ -39,7 +40,8 @@
 					dep.code_departement AS code_departement,
 					dep.nom_departement AS nom_departement,
 					reg.nom_region AS nom_region,
-					reg.ville_chef AS ville_chef
+					reg.ville_chef AS ville_chef,
+					adr.id_departement AS id_departement
 
 			FROM adresse adr, departement dep, region reg 
 			WHERE 		id_adresse = (SELECT id_adresse FROM bien_immobilier WHERE id_bien_immobilier = $id_bien_immobilier)
