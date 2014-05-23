@@ -1,5 +1,6 @@
 <?php
 	require_once(dirname(__FILE__).'/isExist.php');
+	require_once(dirname(__FILE__).'/../settings/connexion.php');
 
 	function addAdresse($ville,$numero_rue,$rue,$code_postal,$code_postal){
 		$query_insert = "INSERT INTO adresse (ville,numero_rue,rue,code_postal,id_departement)
