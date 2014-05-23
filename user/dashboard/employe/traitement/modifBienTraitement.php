@@ -176,3 +176,4 @@
 
 
 	header('Location: ../modifBien.php'.$end_url_redirect.$end_url_id_bien);
+
