@@ -128,7 +128,7 @@
 			$etage='NULL'; $ascenseur='NULL'; $numero_appartement='NULL';
 
 			if(!empty($_POST['etage'])){
-				if(is_numeric($_POST['etage']))
+				if(is_numeric($_POST['etage']) && $_POST['etage'] >=0)
 					$etage = $_POST['etage'];
 				else
 					$end_url_redirect='?statut_reponse=ok&message_reponse='.urlencode(utf8_encode("L'ajout s'est bien passé! Mais l'étage a été ignoré: Mauvaise donnée"));
@@ -136,14 +136,14 @@
 
 			if(isset($_POST['ascenseur'])){
 				if(is_numeric($_POST['ascenseur']) && ($_POST['ascenseur'] == 1 || $_POST['ascenseur'] == 0))
-					$etage = $_POST['ascenseur'];
+					$ascenseur = $_POST['ascenseur'];
 				else
 					$end_url_redirect='?statut_reponse=ok&message_reponse='.urlencode(utf8_encode("L'ajout s'est bien passé! Mais l'ascenseur a été ignoré: Mauvaise donnée"));
 			}
 
 			if(!empty($_POST['numero_appartement'])){
 				if(is_numeric($_POST['numero_appartement']) && $_POST['numero_appartement'] > 0)
-					$etage = $_POST['ascenseur'];
+					$numero_appartement = $_POST['numero_appartement'];
 				else{
 					$end_url_redirect='?statut_reponse=ok&message_reponse=';
 					$end_url_redirect.=urlencode(utf8_encode("L'ajout s'est bien passé! Mais le numero d'appartement a été ignoré: Mauvaise donnée"));

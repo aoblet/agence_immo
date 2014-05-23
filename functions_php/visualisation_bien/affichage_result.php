@@ -144,7 +144,7 @@ JAVASCRIPT;
 		$surface 		= empty($res['superficie']) 	? '' : "<p><i class='fa fa-expand'></i><span>Surface :</span> {$res['superficie']} m&sup2;</p>";
 		$jardin 		= empty($res['jardin']) 		? '' : "<p><i class='fa fa-picture-o'></i><span>Jardin :</span> {$res['jardin']} m&sup2;</p>";
 		$nb_pieces 		= empty($res['nb_pieces'])		? '' : "<p><i class='fa fa-th-large'></i><span>Nb pièces :</span> {$res['nb_pieces']}</p>";
-		$parking 		= !empty($res['parking']) && $res['parking']==1	? "<p><i class='fa fa-road'></i><span>Stationnement :</span> Non</p>" :"<p><i class='fa fa-road'></i><span>Stationnement :</span> Oui</p>";
+		$parking 		= !empty($res['parking']) && $res['parking']==1	? "<p><i class='fa fa-road'></i><span>Stationnement :</span> Oui</p>" :"<p><i class='fa fa-road'></i><span>Stationnement :</span> Non</p>";
 		$nb_etages 		= empty($res['nb_etages'])		? '' : "<p><i class='fa fa-ellipsis-v'></i><span>Nb étages :</span> {$res['nb_etages']}</p>"; 
 		$numero_etage 	= empty($res['numero_etage'])	? '' : "<p><i class='fa fa-arrows-v'></i><span>Num étages :</span> {$res['numero_etage']} e</p>";
 		$chauffage 		= empty($res['infos_chauffage']['nom_type_chauffage'])	? '' : "<p><i class='fa fa-fire'></i><span>Chauffage :</span> {$res['infos_chauffage']['nom_type_chauffage']} </p>";

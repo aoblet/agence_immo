@@ -75,7 +75,7 @@
 				<div class="col-md-9">
 					
 					<div class="titlepage bg-blue">
-						<h2>Contact direct <?php echo $cpt_message?></h2>
+						<h2>Contact direct <?php echo $cpt_message?> </h2>
 					</div>
 					<?php echo $html_conversation?>
 				</div>

@@ -156,11 +156,11 @@
 								<label>Parking ?</label>
 
 								<div class="form-add-radio">
-								<input type="radio" id="garage" name="parking" value="1" /> 
-								<span for="garage">Oui</span>
+								<input type="radio" id="garage_oui" name="parking" value="1" /> 
+								<span for="garage_oui">Oui</span>
 
-								<input type="radio" id="garage" name="parking" value="0" /> 
-								<span for="garage">Non</span>
+								<input type="radio" id="garage_non" name="parking" value="0" /> 
+								<span for="garage_non">Non</span>
 								</div>
 
 							</div>
@@ -203,7 +203,7 @@
 								<div class="form-champ">
 									<label>Étage et numéro d'appartement</label>
 									<input type="number" class="form-add-nom" name="etage" value="" placeholder="étage"/>
-									<input type="number" class="form-add-prenom" name="numero_etage" value="" placeholder="numéro"/>
+									<input type="number" class="form-add-prenom" name="numero_appartement" value="" placeholder="numéro"/>
 								</div>
 
 								<div class="form-champ">
